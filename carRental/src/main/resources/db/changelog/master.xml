@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <property name="now" value="now()" dbms="postgresql"/>
+    <property name="autoIncrement" value="true"/>
+
+    <property name="uuidType" value="uuid" dbms="postgresql"/>
+
+    <property name="double" value="NUMERIC(10,2)" dbms="postgresql"/>
+
+
+<!--    <include file="db/changelog/0.0.0.1/dateTimeStamp_Example_entity_EntityName.xml" relativeToChangelogFile="false"/>-->
+
+</databaseChangeLog>
