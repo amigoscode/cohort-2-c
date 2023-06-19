@@ -3,8 +3,7 @@ name: Java CI with Maven
 
 on:
   push:
-    branches:
-      - ci
+    branches: ["main", "ci"]
   pull_request:
     branches: [ "main" ]
 env:
@@ -17,7 +16,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Set up JDK ${{env.
+      - name: Set up JDK ${{env.JAVA_VERSION}}
         uses: actions/setup-java@v3
         with:
           java-version: ${{env.JAVA_VERSION}}
