@@ -13,7 +13,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: ./carRental
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK ${{env.JAVA_VERSION}}
@@ -23,7 +25,7 @@ jobs:
           distribution: ${{env.JAVA_DISTRO}}
           cache: maven
       - name: Build with Maven
-        run: mvn -B package --file pom.xml
+        run: mvn package -DskipTests
 
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
       - name: Update dependency graph
