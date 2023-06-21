@@ -12,19 +12,19 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/lookup-codes")
-public class LookupCodeResource {
+public class LookupCodeController {
 
     private final LookupCodeService lookupCodeService;
 
     @GetMapping("/by-key/{key}")
     public ResponseEntity<List<LookupCode>>getAllByKey(@PathVariable String key){
 
-        return ResponseEntity.ok(lookupCodeService.getAllByKey(key));
+        return ResponseEntity.ok(lookupCodeService.getAllLookupCodesByKey(key));
     }
 
     @GetMapping("/by-key-and-code/{key}/{code}")
     public ResponseEntity<LookupCode>getByKeyAndCode(@PathVariable String key ,@PathVariable Integer code){
-        return ResponseEntity.ok(lookupCodeService.getByKeyAndCode(key,code));
+        return ResponseEntity.ok(lookupCodeService.getLookupCodeByKeyAndCode(key,code));
     }
 
 }
