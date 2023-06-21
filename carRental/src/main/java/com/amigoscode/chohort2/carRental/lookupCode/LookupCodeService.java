@@ -12,15 +12,15 @@ public class LookupCodeService {
     private final LookupCodeRepository lookupCodeRepository;
 
 
-    public List<LookupCode> getAllByKey(String key) {
+    public List<LookupCode> getAllLookupCodesByKey(String key) {
         return lookupCodeRepository.findAllByKey(key);
     }
 
-    public List<LookupCode> findAll() {
+    public List<LookupCode> findAllLookupCodes() {
         return lookupCodeRepository.findAll();
     }
 
-    public LookupCode getByKeyAndCode(String key, Integer code) {
+    public LookupCode getLookupCodeByKeyAndCode(String key, Integer code) {
         return lookupCodeRepository
                 .findByKeyAndCode(key, code)
                 .orElse(LookupCode.getDefault());
