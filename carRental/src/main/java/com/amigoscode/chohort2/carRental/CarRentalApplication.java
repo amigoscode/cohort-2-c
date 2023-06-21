@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class CarRentalApplication {
 
 	public static void main(String[] args) {
-		System.out.println("Hello");
+
 		SpringApplication.run(CarRentalApplication.class, args);
 	}
 
