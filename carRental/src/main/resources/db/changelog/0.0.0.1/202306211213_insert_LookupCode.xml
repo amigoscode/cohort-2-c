@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+
+    <changeSet id="202306211626-lookupCode-user-type-1" author="Esmaeeil">
+        <insert tableName="lookup_code">
+            <column name="lookup_key" value="user_type"/>
+            <column name="code" value="1"/>
+            <column name="name" value="admin"/>
+        </insert>
+
+        <insert tableName="lookup_code">
+            <column name="lookup_key" value="user_type"/>
+            <column name="code" value="2"/>
+            <column name="name" value="car provider"/>
+        </insert>
+
+        <insert tableName="lookup_code">
+            <column name="lookup_key" value="user_type"/>
+            <column name="code" value="3"/>
+            <column name="name" value="client"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="202306211626-lookupCode-user-status-1" author="Esmaeeil">
+        <insert tableName="lookup_code">
+            <column name="lookup_key" value="user_status"/>
+            <column name="code" value="1"/>
+            <column name="name" value="active"/>
+        </insert>
+
+        <insert tableName="lookup_code">
+            <column name="lookup_key" value="user_status"/>
+            <column name="code" value="2"/>
+            <column name="name" value="inactive"/>
+        </insert>
+
+        <insert tableName="lookup_code">
+            <column name="lookup_key" value="user_status"/>
+            <column name="code" value="3"/>
+            <column name="name" value="blocked"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

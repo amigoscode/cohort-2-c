@@ -13,5 +13,8 @@
 
 
 <!--    <include file="db/changelog/0.0.0.1/dateTimeStamp_Example_entity_EntityName.xml" relativeToChangelogFile="false"/>-->
+    <include file="db/changelog/0.0.0.1/000000000000_initial.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/0.0.0.1/202306211212._added_entity_LookupCode.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/0.0.0.1/202306211213_insert_LookupCode.xml" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>
