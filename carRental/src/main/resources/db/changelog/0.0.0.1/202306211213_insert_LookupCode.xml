@@ -68,7 +68,7 @@
         </insert>
 
         <insert tableName="lookup_code">
-            <column name="lookup_key" value="car_category"/>
+            <column name="lookup_key" value="car_booking_status"/>
             <column name="code" value="2"/>
             <column name="name" value="in-use"/>
         </insert>

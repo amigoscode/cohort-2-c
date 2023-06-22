@@ -15,6 +15,7 @@ import org.hibernate.annotations.JoinColumnsOrFormulas;
 import org.hibernate.annotations.JoinFormula;
 import org.hibernate.annotations.Where;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
@@ -59,7 +60,7 @@ public class Car extends AbstractAuditingEntity {
     private BrandModel brandModel;
 
     @Column (name = "production_year", nullable = false)
-    private Date productionYear;
+    private LocalDate productionYear;
 
     @Column (name = "max_speed", nullable = false)
     private Integer maxSpeed;

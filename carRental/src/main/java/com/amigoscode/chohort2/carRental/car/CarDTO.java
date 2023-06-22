@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Setter
@@ -22,9 +23,13 @@ public class CarDTO {
 
     private Integer brandCode;
 
+    private BrandDTO brand;
+
     private Integer brandModelCode;
 
-    private Date productionYear;
+    private BrandModelDTO brandModel;
+
+    private LocalDate productionYear;
 
     private Integer maxSpeed;
 
