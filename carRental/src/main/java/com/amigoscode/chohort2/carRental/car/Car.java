@@ -1,6 +1,8 @@
 package com.amigoscode.chohort2.carRental.car;
 
 import com.amigoscode.chohort2.carRental.abstracts.AbstractAuditingEntity;
+import com.amigoscode.chohort2.carRental.brand.Brand;
+import com.amigoscode.chohort2.carRental.brandModel.BrandModel;
 import com.amigoscode.chohort2.carRental.carProvider.CarProvider;
 import com.amigoscode.chohort2.carRental.lookupCode.LookupCode;
 import com.amigoscode.chohort2.carRental.lookupCode.LookupCodes;

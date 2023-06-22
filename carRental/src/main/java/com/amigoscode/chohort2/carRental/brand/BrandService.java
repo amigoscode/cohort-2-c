@@ -8,4 +8,5 @@ import lombok.RequiredArgsConstructor;
 public class BrandService {
 
     private final BrandRepository brandRepository;
+
 }

@@ -15,7 +15,7 @@
             <column name="code" type="varchar">
                 <constraints nullable="false"/>
             </column>
-            <column name="name" type="varchar">
+            <column name="name" type="int">
                 <constraints nullable="false"/>
             </column>
         </createTable>
