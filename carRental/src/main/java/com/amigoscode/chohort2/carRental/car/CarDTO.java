@@ -1,5 +1,7 @@
 package com.amigoscode.chohort2.carRental.car;
 
+import com.amigoscode.chohort2.carRental.brand.BrandDTO;
+import com.amigoscode.chohort2.carRental.brandModel.BrandModelDTO;
 import com.amigoscode.chohort2.carRental.carProvider.CarProviderDTO;
 import lombok.Getter;
 import lombok.Setter;
