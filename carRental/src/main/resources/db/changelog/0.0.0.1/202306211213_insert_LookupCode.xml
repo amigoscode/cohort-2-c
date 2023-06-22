@@ -45,4 +45,34 @@
         </insert>
     </changeSet>
 
+    <changeSet id="202306212330-lookupCode-car_category-1" author="DmitriKonnov">
+        <insert tableName="lookup_code">
+            <column name="lookup_key" value="car_category"/>
+            <column name="code" value="1"/>
+            <column name="name" value="luxury"/>
+        </insert>
+
+        <insert tableName="lookup_code">
+            <column name="lookup_key" value="car_category"/>
+            <column name="code" value="2"/>
+            <column name="name" value="economy"/>
+        </insert>
+
+    </changeSet>
+
+    <changeSet id="202306212330-lookupCode-car_booking-status-1" author="DmitriKonnov">
+        <insert tableName="lookup_code">
+            <column name="lookup_key" value="car_booking_status"/>
+            <column name="code" value="1"/>
+            <column name="name" value="available"/>
+        </insert>
+
+        <insert tableName="lookup_code">
+            <column name="lookup_key" value="car_booking_status"/>
+            <column name="code" value="2"/>
+            <column name="name" value="in-use"/>
+        </insert>
+
+    </changeSet>
+
 </databaseChangeLog>
