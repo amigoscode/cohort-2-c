@@ -12,14 +12,15 @@
     <property name="double" value="NUMERIC(10,2)" dbms="postgresql"/>
 
 
-                                    <!--Entities-->
+    <!--Entities-->
     <include file="db/changelog/0.0.0.1/000000000000_initial.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/0.0.0.1/202306211212._added_entity_LookupCode.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/0.0.0.1/202306211213_insert_LookupCode.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/0.0.0.1/202306221751_added_entity_UserAddress.xml" relativeToChangelogFile="false"/>
 
 
-
-
-            <!--PK mapping or constraints-->
+    <!--PK mapping or constraints-->
+    <include file="db/changelog/0.0.0.1/202306221800_added_constraints_UserAddress.xml"
+             relativeToChangelogFile="false"/>
 
 </databaseChangeLog>
