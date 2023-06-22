@@ -29,8 +29,6 @@ import java.util.UUID;
 @Where(clause = "is_deleted = false")
 public class Car extends AbstractAuditingEntity {
 
-    //TODO: Create Brand and BrandModel Entities;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
