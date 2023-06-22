@@ -16,7 +16,10 @@
     <include file="db/changelog/0.0.0.1/000000000000_initial.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/0.0.0.1/202306211212._added_entity_LookupCode.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/0.0.0.1/202306211213_insert_LookupCode.xml" relativeToChangelogFile="false"/>
-
+    <include file="db/changelog/0.0.0.1/202306212035_added_entity_Car.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/0.0.0.1/202306212059_added_entity_brand.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/0.0.0.1/202306212060_added_entity_brand_model.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/0.0.0.1/202306212135_added_entity_Car_Provider.xml" relativeToChangelogFile="false"/>
 
 
 

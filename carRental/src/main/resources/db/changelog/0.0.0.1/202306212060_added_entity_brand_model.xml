@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <property name="autoIncrement" value="true"/>
+
+    <changeSet id="202306212060-1" author="DmitriKonnov">
+        <createTable tableName="brand_model">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="brand_id" type="bigint"></column>
+            <column name="code" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202306212114-1-unique-constraints" author="DmitriKonnov">
+        <addUniqueConstraint tableName="brand_model"
+                             columnNames="code"
+                             constraintName="ux_brand_model__code"/>
+        <addUniqueConstraint tableName="brand_model"
+                             columnNames="name"
+                             constraintName="ux_brand_model__name"/>
+    </changeSet>
+    <changeSet id="202306212118-1-addForeignKeyConstraint" author="DmitriKonnov">
+        <addForeignKeyConstraint baseTableName="brand_model"
+                                 baseColumnNames="brand_id"
+                                 constraintName="fk_brand_model__brand_id"
+                                 referencedTableName="id"
+                                 referencedColumnNames="brand"/>
+    </changeSet>
+
+
+</databaseChangeLog>
