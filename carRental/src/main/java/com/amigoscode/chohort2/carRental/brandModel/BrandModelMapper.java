@@ -7,5 +7,5 @@ import com.amigoscode.chohort2.carRental.brand.BrandMapper;
 import org.mapstruct.factory.Mappers;
 
 public interface BrandModelMapper extends EntityMapper<Brand, BrandDTO> {
-    BrandModelMapper INSTANT = Mappers.getMapper(BrandModelMapper.class);
+    BrandModelMapper INSTANCE = Mappers.getMapper(BrandModelMapper.class);
 }
