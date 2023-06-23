@@ -8,5 +8,5 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(uses ={UserMapper.class})
 public interface DriverLicenseMapper extends EntityMapper<DriverLicense,DriverLicenseDTO> {
-DriverLicenseMapper INSTANT = Mappers.getMapper(DriverLicenseMapper.class);
+DriverLicenseMapper INSTANCE = Mappers.getMapper(DriverLicenseMapper.class);
 }
