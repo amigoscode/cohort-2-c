@@ -36,7 +36,6 @@ public class CarProvider extends AbstractAuditingEntity {
     @Column (name = "cr_number", nullable = false, unique = true)
     private String crNumber;
 
-    @OneToMany
-    @JoinColumn (name = "car_provider_id")
+    @OneToMany(mappedBy = "carProvider")
     private List<Car> cars = new ArrayList<>();
 }
