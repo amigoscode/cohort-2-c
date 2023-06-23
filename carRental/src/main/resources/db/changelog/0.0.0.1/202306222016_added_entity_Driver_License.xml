@@ -24,22 +24,16 @@
             <column name="issued_at" type="date">
                 <constraints nullable="false"/>
             </column>
-            <column name="expiry_date" type="date">
+            <column name="expired_date" type="date">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
 
-    <changeSet id="202306222034-1-addForeignKeyConstraint" author="ThaysVieira">
-        <addForeignKeyConstraint baseTableName="driver_license"
-                                 baseColumnNames="user_id"
-                                 constraintName="fk_user_id"
-                                 referencedTableName="cr_user"
-                                 referencedColumnNames="id"/>
-    </changeSet>
+
 
     <changeSet id="202306222032-1--driver-license-audit" author="ThaysVieira">
-        <addColumn tableName="driver-license">
+        <addColumn tableName="driver_license">
             <column name="created_by" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
