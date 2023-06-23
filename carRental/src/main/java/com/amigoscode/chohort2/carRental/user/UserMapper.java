@@ -7,6 +7,6 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(uses = {LookupCodeMapper.class})
 public interface UserMapper extends EntityMapper<User, UserDTO> {
-    UserMapper INSTANT = Mappers.getMapper(UserMapper.class);
+    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
 }

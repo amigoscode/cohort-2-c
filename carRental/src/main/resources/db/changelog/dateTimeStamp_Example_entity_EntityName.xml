@@ -45,6 +45,33 @@
             </column>
         </addColumn>
     </changeSet>
+   <changeSet id="202306121728-1-audit" author="Esmaeeil">
+     <createSequence sequenceName="brand_code_seq" incrementBy="1000" startValue="0" cacheSize="1" cycle="false"/>
+
+       <createTable tableName="brand">
+           <column name="id" type="bigint"/>
+           <column name="code" type="int"  defaultValueSequenceNext="brand_code_seq">
+
+           </column>
+       </createTable>
+
+    </changeSet>
+
+   <changeSet id="202306121728-1-audit" author="Esmaeeil">
+
+
+       <createTable tableName="brand_model">
+           <column name="code" type="int" />
+           <column name="brand_id" type="bigint" />
+
+       </createTable>
+
+       <insert tableName="brand_model">
+           <column name="brand_id" valueComputed="(select id from brand where code = 1000)" />
+           <column name="code" value="1001"/>
+       </insert>
+
+    </changeSet>
 
 
 
