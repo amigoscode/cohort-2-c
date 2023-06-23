@@ -32,5 +32,5 @@ public class Brand {
     private String name;
 
     @OneToMany (mappedBy = "brand")
-    private Set<BrandModel>brandModels = new HashSet<>();
+    private List<BrandModel>brandModels = new HashSet<>();
 }
