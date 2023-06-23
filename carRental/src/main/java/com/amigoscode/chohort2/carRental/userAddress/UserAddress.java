@@ -5,11 +5,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Setter
 @Getter
 @Accessors(chain = true)
+@Where(clause = "is_deleted = false")
 public class UserAddress extends AbstractAddress {
 
     @Id
