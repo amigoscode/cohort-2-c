@@ -20,6 +20,21 @@ public interface LookupCodes {
 
     }
 
+    interface CarCategory {
+        String KEY = "car_category";
+
+        Integer luxury = 1;
+
+        Integer economy = 2;
+    }
+
+    interface CarBookingStatus {
+
+        String KEY = "car_booking_status";
+
+        Integer available = 1;
+        Integer inUse = 2;
+    }
 
 
 }
