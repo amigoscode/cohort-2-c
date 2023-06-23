@@ -52,25 +52,6 @@
             </createTable>
     </changeSet>
 
-    <changeSet id="202306212126-1-addForeignKeyConstraint" author="DmitriKonnov">
-        <addForeignKeyConstraint baseTableName="car"
-                                 baseColumnNames="brand_code"
-                                 constraintName="fk_car__brand_code_id"
-                                 referencedTableName="brand"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="car"
-                                 baseColumnNames="brand_model_code"
-                                 constraintName="fk_car__brand_model_code_id"
-                                 referencedTableName="brand_model"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="car"
-                                 baseColumnNames="car_provider_id"
-                                 constraintName="fk_car__car_provider_id"
-                                 referencedTableName="car_provider"
-                                 referencedColumnNames="id"/>
-    </changeSet>
-
-
     <changeSet id="202306212158-1--car-audit" author="DmitriKonnov">
         <addColumn tableName="car">
             <column name="created_by" type="varchar(50)">

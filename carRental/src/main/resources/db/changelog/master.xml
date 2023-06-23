@@ -12,7 +12,7 @@
     <property name="double" value="NUMERIC(10,2)" dbms="postgresql"/>
 
 
-                                    <!--Entities-->
+    <!--Entities-->
     <include file="db/changelog/0.0.0.1/000000000000_initial.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/0.0.0.1/202306211212._added_entity_LookupCode.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/0.0.0.1/202306211213_insert_LookupCode.xml" relativeToChangelogFile="false"/>
@@ -20,9 +20,11 @@
     <include file="db/changelog/0.0.0.1/202306212059_added_entity_brand.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/0.0.0.1/202306212060_added_entity_brand_model.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/0.0.0.1/202306212135_added_entity_Car_Provider.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/0.0.0.1/202306221751_added_entity_UserAddress.xml" relativeToChangelogFile="false"/>
 
-
-
-            <!--PK mapping or constraints-->
-
+    <!--FK mapping or constraints-->
+    <include file="db/changelog/0.0.0.1/202306221800_added_constraints_UserAddress.xml"
+             relativeToChangelogFile="false"/>
+    <include file="db/changelog/0.0.0.1/202306231445_added_fk_car_car_provider.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/0.0.0.1/202306231451_added_sequence_brand.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
