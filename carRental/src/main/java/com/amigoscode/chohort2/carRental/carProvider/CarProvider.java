@@ -11,7 +11,9 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.Where;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,5 +38,5 @@ public class CarProvider extends AbstractAuditingEntity {
 
     @OneToMany
     @JoinColumn (name = "car_provider_id")
-    private Set<Car> cars = new HashSet<>();
+    private List<Car> cars = new ArrayList<>();
 }

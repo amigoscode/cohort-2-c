@@ -9,7 +9,9 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.Where;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,7 +24,7 @@ import java.util.Set;
 public class Brand {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "code", nullable = false, unique = true)
@@ -31,6 +33,6 @@ public class Brand {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @OneToMany (mappedBy = "brand")
-    private Set<BrandModel>brandModels = new HashSet<>();
+    @OneToMany(mappedBy = "brand")
+    private List<BrandModel> brandModels = new ArrayList<>();
 }
