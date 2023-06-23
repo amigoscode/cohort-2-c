@@ -5,31 +5,39 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
     <property name="autoIncrement" value="true"/>
+
     <property name="now" value="now()" dbms="postgresql"/>
 
-    <changeSet id="202306212135-1" author="DmitriKonnov">
-        <createTable tableName="car_provider">
+    <changeSet id="202306221751-1" author="Esmaeeil">
+        <createTable tableName="user_address">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar">
+
+            <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="cr_number" type="varchar">
+
+            <column name="city_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
+
+            <column name="location" type="varchar(200)">
+
+            </column>
+
+            <column name="postal_code" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+
+
+
         </createTable>
     </changeSet>
 
-    <changeSet id="202306212135-1-uniqueConstraints" author="DmitriKonnov">
-        <addUniqueConstraint tableName="car_provider"
-                             columnNames="name"/>
-        <addUniqueConstraint tableName="car_provider"
-                             columnNames="cr_number"/>
-    </changeSet>
-
-    <changeSet id="202306212135-1--car-provider-audit" author="DmitriKonnov">
-        <addColumn tableName="car_provider">
+    <!--    keep audit columns always separated-->
+    <changeSet id="202306221751-1-user_address-audit" author="Esmaeeil">
+        <addColumn tableName="user_address">
             <column name="created_by" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
@@ -46,5 +54,6 @@
 
         </addColumn>
     </changeSet>
+
 
 </databaseChangeLog>

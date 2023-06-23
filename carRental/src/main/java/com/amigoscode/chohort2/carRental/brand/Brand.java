@@ -7,10 +7,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.Where;
 
-import java.util.HashSet;
-import java.util.Set;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Table(name = "brand")
@@ -22,17 +23,15 @@ import java.util.Set;
 public class Brand {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "code", nullable = false, unique = true)
-    @GeneratedValue (strategy = GenerationType.SEQUENCE)
-    private String code;
+    private Integer code;
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @OneToMany
-    @JoinColumn (name = "brand_id")
-    private Set<BrandModel>brandModels = new HashSet<>();
+    @OneToMany(mappedBy = "brand")
+    private List<BrandModel> brandModels = new ArrayList<>();
 }

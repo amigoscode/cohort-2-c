@@ -7,7 +7,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Setter
@@ -18,6 +20,6 @@ public class BrandDTO {
     private Long id;
     private Integer code;
     private String name;
-    private Set<BrandModelDTO> brandModels = new HashSet<>();
+    private List<BrandModelDTO> brandModels = new ArrayList<>();
 
 }
