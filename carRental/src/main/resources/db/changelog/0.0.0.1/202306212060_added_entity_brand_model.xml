@@ -13,22 +13,14 @@
             </column>
             <column name="brand_id" type="bigint"></column>
             <column name="code" type="varchar">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_brand_model__code"/>
             </column>
-            <column name="name" type="int">
-                <constraints nullable="false"/>
+            <column name="name" type="varchar">
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_brand_model__name"/>
             </column>
         </createTable>
     </changeSet>
 
-    <changeSet id="202306212114-1-unique-constraints" author="DmitriKonnov">
-        <addUniqueConstraint tableName="brand_model"
-                             columnNames="code"
-                             constraintName="ux_brand_model__code"/>
-        <addUniqueConstraint tableName="brand_model"
-                             columnNames="name"
-                             constraintName="ux_brand_model__name"/>
-    </changeSet>
     <changeSet id="202306212118-1-addForeignKeyConstraint" author="DmitriKonnov">
         <addForeignKeyConstraint baseTableName="brand_model"
                                  baseColumnNames="brand_id"

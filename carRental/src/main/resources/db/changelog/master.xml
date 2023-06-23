@@ -25,5 +25,6 @@
     <!--PK mapping or constraints-->
     <include file="db/changelog/0.0.0.1/202306221800_added_constraints_UserAddress.xml"
              relativeToChangelogFile="false"/>
-
+    <include file="db/changelog/0.0.0.1/202306231445_added_fk_car_car_provider.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/0.0.0.1/202306231451_added_sequence_brand.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

@@ -32,7 +32,6 @@ public class Brand {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @OneToMany
-    @JoinColumn (name = "brand_id")
+    @OneToMany (mappedBy = "brand")
     private Set<BrandModel>brandModels = new HashSet<>();
 }
