@@ -24,7 +24,7 @@ import java.util.Set;
 public class Brand {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "code", nullable = false, unique = true)
@@ -33,6 +33,6 @@ public class Brand {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "brand")
-    private List<BrandModel> brandModels = new ArrayList<>();
+    @OneToMany (mappedBy = "brand")
+    private List<BrandModel>brandModels = new HashSet<>();
 }
