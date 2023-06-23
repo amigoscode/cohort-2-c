@@ -9,10 +9,25 @@ services:
       POSTGRES_DB: postgres
       PGDATA: /data/postgres
       POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256 --auth-local=scram-sha-256"
+    ports:
+      - "5433:5432"
+    networks:
+      - car-db-network
+    restart: unless-stopped
+
+  const-car-db:
+    container_name: const-car-db
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: postgres
+      PGDATA: /data/postgres
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256 --auth-local=scram-sha-256"
     volumes:
       - postgres_data:/data/postgres
     ports:
-      - "5433:5432"
+      - "5434:5432"
     networks:
       - car-db-network
     restart: unless-stopped

@@ -22,7 +22,7 @@ public class BrandModel {
     private Long id;
 
     @Column (name = "brand_id", nullable = false)
-    private Integer brandId;
+    private Long brandId;
 
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name = "brand_id", updatable = false,insertable = false)

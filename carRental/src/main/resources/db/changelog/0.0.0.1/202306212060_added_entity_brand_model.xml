@@ -12,7 +12,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="brand_id" type="bigint"></column>
-            <column name="code" type="varchar">
+            <column name="code" type="int">
                 <constraints nullable="false" unique="true" uniqueConstraintName="ux_brand_model__code"/>
             </column>
             <column name="name" type="varchar">

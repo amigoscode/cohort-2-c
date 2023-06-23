@@ -29,7 +29,7 @@
     </changeSet>
 
     <changeSet id="202306212135-1--car-provider-audit" author="DmitriKonnov">
-        <addColumn tableName="car-provider">
+        <addColumn tableName="car_provider">
             <column name="created_by" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
