@@ -28,7 +28,7 @@ public class DriverLicense extends AbstractAuditingEntity {
     @Column (name = "user_id", nullable = false)
     private Long userId;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "user_id", updatable = false,insertable = false)
     private User user;
 
@@ -36,10 +36,10 @@ public class DriverLicense extends AbstractAuditingEntity {
     private String driverLicenseNumber;
 
     @Column (name = "issued_in", nullable = false)
-    private int issued_in;
+    private Integer issuedIn;
 
     @Column (name = "issued_at", nullable = false)
-    private LocalDate issued_at;
+    private LocalDate issuedAt;
 
     @Column (name = "expired_date", nullable = false)
     private LocalDate expiredDate;

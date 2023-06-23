@@ -16,13 +16,13 @@ public class DriverLicenseDTO {
 
     private Long userId;
 
-    private UserDTO userDTO;
+    private UserDTO user;
 
-    private int driverLicenseNumber;
+    private String driverLicenseNumber;
 
-    private int issued_in;
+    private Integer issuedIn;
 
-    private LocalDate issued_at;
+    private LocalDate issuedAt;
 
     private LocalDate expiredDate;
 
