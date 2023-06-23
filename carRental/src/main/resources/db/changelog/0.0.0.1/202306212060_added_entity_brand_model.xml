@@ -21,13 +21,4 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="202306212118-1-addForeignKeyConstraint" author="DmitriKonnov">
-        <addForeignKeyConstraint baseTableName="brand_model"
-                                 baseColumnNames="brand_id"
-                                 constraintName="fk_brand_model__brand_id"
-                                 referencedTableName="id"
-                                 referencedColumnNames="brand"/>
-    </changeSet>
-
-
 </databaseChangeLog>

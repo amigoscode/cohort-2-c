@@ -34,8 +34,6 @@ public class CarProvider extends AbstractAuditingEntity {
     @Column (name = "cr_number", nullable = false, unique = true)
     private String crNumber;
 
-    //TODO: orphanRemoval and cascading!
-
     @OneToMany
     @JoinColumn (name = "car_provider_id")
     private Set<Car> cars = new HashSet<>();
