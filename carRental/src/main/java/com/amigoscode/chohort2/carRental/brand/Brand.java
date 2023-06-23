@@ -26,8 +26,7 @@ public class Brand {
     private Long id;
 
     @Column(name = "code", nullable = false, unique = true)
-    @GeneratedValue (strategy = GenerationType.SEQUENCE)
-    private String code;
+    private Integer code;
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;
