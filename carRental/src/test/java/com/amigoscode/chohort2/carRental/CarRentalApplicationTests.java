@@ -4,10 +4,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CarRentalApplicationTests {
+class CarRentalApplicationTests extends AbstractTestContainer {
 
 	@Test
 	void contextLoads() {
+		System.out.println("application spin up");
 	}
 
 }
