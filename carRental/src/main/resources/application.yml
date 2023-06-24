@@ -1,6 +1,6 @@
 spring:
   application:
-    name: @name@
+    name: @project.name@
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
