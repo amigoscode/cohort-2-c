@@ -9,5 +9,5 @@ import org.mapstruct.factory.Mappers;
 
 public interface BrandMapper extends EntityMapper<Brand, BrandDTO> {
 
-    BrandMapper INSTANT = Mappers.getMapper(BrandMapper.class);
+    BrandMapper INSTACE = Mappers.getMapper(BrandMapper.class);
 }

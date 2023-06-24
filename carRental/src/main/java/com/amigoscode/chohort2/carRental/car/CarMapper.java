@@ -7,5 +7,5 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(uses = {LookupCodeMapper.class})
 public interface CarMapper extends EntityMapper <Car, CarDTO> {
-    CarMapper INSTANT = Mappers.getMapper(CarMapper.class);
+    CarMapper INSTANCE = Mappers.getMapper(CarMapper.class);
 }
