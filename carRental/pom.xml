@@ -14,6 +14,7 @@
 	<name>carRental</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
+		<app.name>carRental</app.name>
 		<java.version>17</java.version>
 		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
 		<org.projectlombok.version>1.18.26</org.projectlombok.version>
