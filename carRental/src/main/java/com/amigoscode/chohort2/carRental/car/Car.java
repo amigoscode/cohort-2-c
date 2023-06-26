@@ -69,7 +69,7 @@ public class Car extends AbstractAuditingEntity {
     private Integer horsePower;
 
     @Column (name = "rgb_code", nullable = false)
-    private String rgb_code;
+    private String rgbCode;
 
     @Column (name = "description", nullable = false)
     private String description;
@@ -92,7 +92,7 @@ public class Car extends AbstractAuditingEntity {
             @JoinColumnOrFormula(column = @JoinColumn(name = "booking_status_code", referencedColumnName = "code", insertable = false, updatable = false))
     })
     @OneToOne
-    private LookupCode status;
+    private LookupCode bookingStatus;
 
     @Column (name = "price", nullable = false)
     private Float price;
@@ -101,6 +101,6 @@ public class Car extends AbstractAuditingEntity {
     private String imgUrl;
 
     @Column (name = "is_visible", nullable = false)
-    boolean isVisible;
+    Boolean isVisible;
 
 }

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: Car-Rental
+    name: '@app.name@'
   jpa:
     hibernate:
       ddl-auto: validate
