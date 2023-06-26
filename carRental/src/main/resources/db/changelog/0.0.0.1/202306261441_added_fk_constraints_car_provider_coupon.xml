@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <property name="autoIncrement" value="true"/>
+
+    <changeSet id="202306261441_added_fk_constraints_car_provider_coupon-1" author="DmitriKonnov">
+        <addForeignKeyConstraint baseTableName="car_provider_coupon"
+                                 baseColumnNames="car_provider_id"
+                                 constraintName="fk_car_provider_coupon__car_provider_id"
+                                 referencedTableName="car_provider"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

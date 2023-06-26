@@ -21,7 +21,7 @@ public class CarDTO {
 
     private Long carProviderId;
 
-    private CarProviderDTO carProviderDTO;
+    private CarProviderDTO carProvider;
 
     private UUID registrationNumber;
 

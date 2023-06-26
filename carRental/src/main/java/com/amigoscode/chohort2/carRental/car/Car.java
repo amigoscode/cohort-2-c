@@ -101,6 +101,6 @@ public class Car extends AbstractAuditingEntity {
     private String imgUrl;
 
     @Column (name = "is_visible", nullable = false)
-    boolean isVisible;
+    Boolean isVisible;
 
 }
