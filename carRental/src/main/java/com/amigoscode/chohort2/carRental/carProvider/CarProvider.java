@@ -13,9 +13,7 @@ import lombok.experimental.Accessors;
 import org.hibernate.annotations.Where;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "car_provider")
@@ -42,4 +40,5 @@ public class CarProvider extends AbstractAuditingEntity {
 
     @OneToMany (mappedBy = "carProvider")
     private List<CarProviderCoupon> carProviderCoupons = new ArrayList<>();
+
 }
