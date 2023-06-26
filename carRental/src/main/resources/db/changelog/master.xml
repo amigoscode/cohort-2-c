@@ -21,7 +21,7 @@
     <include file="db/changelog/0.0.0.1/202306212135_added_entity_Car_Provider.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/0.0.0.1/202306221751_added_entity_UserAddress.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/0.0.0.1/202306222016_added_entity_Driver_License.xml" relativeToChangelogFile="false"/>
-
+    <include file="db/changelog/0.0.0.1/202306240441_added_entity_Car_Provider_User.xml" relativeToChangelogFile="false"/>
 
     <!--FK mapping or constraints-->
     <include file="db/changelog/0.0.0.1/202306221800_added_constraints_UserAddress.xml"
@@ -29,7 +29,7 @@
     <include file="db/changelog/0.0.0.1/202306231445_added_fk_car_car_provider.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/0.0.0.1/202306231451_added_sequence_brand.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/0.0.0.1/202306231530_added_fk_constraints_driver_license.xml" relativeToChangelogFile="false"/>
-
+    <include file="db/changelog/0.0.0.1/202306240449_added_fk_constraints_car_provider_user.xml" relativeToChangelogFile="false"/>
 
 
     <!--  database inserts  -->
