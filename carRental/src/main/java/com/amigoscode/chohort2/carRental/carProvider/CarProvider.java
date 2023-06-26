@@ -3,6 +3,7 @@ package com.amigoscode.chohort2.carRental.carProvider;
 
 import com.amigoscode.chohort2.carRental.abstracts.AbstractAuditingEntity;
 import com.amigoscode.chohort2.carRental.car.Car;
+import com.amigoscode.chohort2.carRental.carProviderCoupon.CarProviderCoupon;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,4 +39,7 @@ public class CarProvider extends AbstractAuditingEntity {
 
     @OneToMany(mappedBy = "carProvider")
     private List<Car> cars = new ArrayList<>();
+
+    @OneToMany (mappedBy = "carProvider")
+    private List<CarProviderCoupon> carProviderCoupons = new ArrayList<>();
 }
