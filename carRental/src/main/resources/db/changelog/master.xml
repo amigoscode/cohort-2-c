@@ -34,6 +34,7 @@
     <include file="db/changelog/0.0.0.1/202306240449_added_fk_constraints_car_provider_user.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/0.0.0.1/202306261441_added_fk_constraints_car_provider_coupon.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/0.0.0.1/202306271718_added_fk_constraints_city__country_id.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/0.0.0.1/202306271755_added_fk_constraints_user_address__city_id.xml" relativeToChangelogFile="false"/>
 
 
     <!--  database inserts  -->
