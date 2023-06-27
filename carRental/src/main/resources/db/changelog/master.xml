@@ -23,6 +23,8 @@
     <include file="db/changelog/0.0.0.1/202306222016_added_entity_Driver_License.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/0.0.0.1/202306240441_added_entity_Car_Provider_User.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/0.0.0.1/202306261435_added_entity_Car_Provider_Coupon.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/0.0.0.1/202306271523_added_entity_Country.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/0.0.0.1/202306271544_added_entity_City.xml.xml" relativeToChangelogFile="false"/>
     <!--FK mapping or constraints-->
     <include file="db/changelog/0.0.0.1/202306221800_added_constraints_UserAddress.xml"
              relativeToChangelogFile="false"/>
