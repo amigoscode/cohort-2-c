@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Getter
 @Accessors(chain = true)
-public class AbstractAddress extends AbstractAuditingEntity {
+public abstract class AbstractAddress extends AbstractAuditingEntity {
 
 
 
