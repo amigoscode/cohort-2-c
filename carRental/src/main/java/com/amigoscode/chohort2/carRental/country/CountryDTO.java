@@ -1,10 +1,13 @@
 package com.amigoscode.chohort2.carRental.country;
 
+import com.amigoscode.chohort2.carRental.city.CityDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -21,6 +24,8 @@ public class CountryDTO {
 
 
     private String callingCode;
+
+    private List<CityDTO> cities;
 
 
 }
