@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <property name="autoIncrement" value="true"/>
+
+    <changeSet id="202306271813_added_fk_constraints_car_provider_address-1" author="ThaysVieira">
+        <addForeignKeyConstraint baseTableName="car_provider_address"
+                                 baseColumnNames="car_provider_id"
+                                 constraintName="fk_car_provider_address__car_provider_id"
+                                 referencedTableName="car_provider"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="202306271813_added_fk_constraints_car_provider_address-2" author="ThaysVieira">
+        <addForeignKeyConstraint baseTableName="car_provider_address"
+                                 baseColumnNames="city_id"
+                                 constraintName="fk_car_provider_address__city_id"
+                                 referencedTableName="city"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>
