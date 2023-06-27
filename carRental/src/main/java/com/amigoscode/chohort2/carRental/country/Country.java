@@ -30,6 +30,7 @@ public class Country {
     private String callingCode;
 
 
+
     @OneToMany(mappedBy = "country",fetch = FetchType.LAZY)
     private List<City> cities = new ArrayList<>();
 
