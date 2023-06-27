@@ -31,7 +31,6 @@
             </column>
 
 
-
         </createTable>
     </changeSet>
 
@@ -50,7 +49,7 @@
 
             <column name="last_modified_date" type="timestamp"/>
 
-            <column name="is_deleted" type="boolean" defaultValueBoolean="false" />
+            <column name="is_deleted" type="boolean" defaultValueBoolean="false"/>
 
         </addColumn>
     </changeSet>
