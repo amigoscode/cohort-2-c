@@ -13,7 +13,6 @@ import java.io.Serializable;
 public class CarProviderAddressDTO implements Serializable {
     private Long id;
     private Long carProviderId;
-    private CarProviderAddressDTO carProviderAddress;
     private Long cityId;
     private CityDTO cityDTO;
     private String location;
