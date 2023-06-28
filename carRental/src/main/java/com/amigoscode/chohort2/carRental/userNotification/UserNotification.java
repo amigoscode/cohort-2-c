@@ -12,9 +12,6 @@ import lombok.experimental.Accessors;
 import org.hibernate.annotations.JoinColumnOrFormula;
 import org.hibernate.annotations.JoinColumnsOrFormulas;
 import org.hibernate.annotations.JoinFormula;
-import org.hibernate.annotations.Where;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
