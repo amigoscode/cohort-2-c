@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <property name="autoIncrement" value="true"/>
+    <property name="now" value="now()" dbms="postgresql"/>
+
+    <changeSet id="202306281348-added-user-notification-1" author="DmitriKonnov">
+            <createTable tableName="user_notification">
+                <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                    <constraints primaryKey="true" nullable="false"/>
+                </column>
+                <column name="user_id" type="bigint">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="message" type="varchar">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="medium_code" type="int">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="is_sent" type="boolean">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="sent_date" type="timestamp"></column>
+
+            </createTable>
+    </changeSet>
+
+</databaseChangeLog>
