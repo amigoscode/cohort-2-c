@@ -252,3 +252,4 @@ terraform.rc
 terragrunt-debug.tfvars.json
 
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij+iml,maven,terraform,terragrunt,git,react,angular
+/infrastructure/organization/aws-organization/.terraform.lock.hcl
