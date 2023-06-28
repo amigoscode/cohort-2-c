@@ -42,6 +42,12 @@ public interface LookupCodes {
         Integer email = 2;
         Integer sms = 3;
     }
+     interface UserBookingStatus {
+        String KEY = "user_booking_status";
+        Integer inUse  = 1;
+        Integer returned  = 2;
+
+    }
 
 
 }

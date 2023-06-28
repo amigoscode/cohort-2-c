@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <property name="autoIncrement" value="true"/>
+
+    <changeSet id="202306271718_added_fk_constraints_car_booking-1" author="esmaeeil">
+        <addForeignKeyConstraint baseTableName="car_booking"
+                                 baseColumnNames="user_id"
+                                 constraintName="fk_car_booking__user_id"
+                                 referencedTableName="cr_user"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="car_booking"
+                                 baseColumnNames="car_user_id"
+                                 constraintName="fk_car_booking__car_user_id"
+                                 referencedTableName="car_user"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+
+</databaseChangeLog>
