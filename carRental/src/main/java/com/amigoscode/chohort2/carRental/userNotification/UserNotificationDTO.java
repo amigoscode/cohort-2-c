@@ -23,6 +23,6 @@ public class UserNotificationDTO implements Serializable {
     private String message;
     private Integer mediumCode;
     private LookupCodeDTO medium;
-    private Boolean isSent = true;
+    private Boolean isSent;
     private LocalDateTime sentDate;
 }
