@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <property name="autoIncrement" value="true"/>
+    <property name="now" value="now()" dbms="postgresql"/>
+
+    <changeSet id="202306281333-1" author="esmaeeil">
+            <createTable tableName="car_user">
+                <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                    <constraints primaryKey="true" nullable="false"/>
+                </column>
+                <column name="car_id" type="bigint">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="registration_number" type="UUID">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="brand_code" type="int">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="brand_model_code" type="int">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="production_year" type="date">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="max_speed" type="int">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="horse_power" type="int">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="rgb_code" type="varchar">
+
+                </column>
+                <column name="description" type="varchar">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="category_code" type="int">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="booking_status_code" type="int">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="price" type="float">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="img_url" type="varchar">
+                    <constraints nullable="false"/>
+                </column>
+            </createTable>
+    </changeSet>
+
+
+
+
+</databaseChangeLog>

@@ -6,6 +6,6 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface LookupCodeMapper  extends EntityMapper<LookupCode,LookupCodeDTO> {
-    LookupCodeMapper INSTANT = Mappers.getMapper(LookupCodeMapper.class);
+    LookupCodeMapper INSTANCE = Mappers.getMapper(LookupCodeMapper.class);
 
 }

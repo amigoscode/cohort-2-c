@@ -1,13 +1,13 @@
-package com.amigoscode.chohort2.carRental.user;
+package com.amigoscode.chohort2.carRental.carUser;
 
 import com.amigoscode.chohort2.carRental.annotation.TransactionalService;
 import lombok.RequiredArgsConstructor;
 
 @TransactionalService
 @RequiredArgsConstructor
-public class UserService {
+public class CarUserService {
 
-    private final UserRepository userRepository;
-//try 1
+    private final CarUserRepository userRepository;
+
 
 }
