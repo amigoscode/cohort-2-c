@@ -8,3 +8,5 @@ dnp:
 	docker network prune
 mcp:
 	mvn clean package
+untrack-iml:
+	git rm --cache *.iml

@@ -142,7 +142,7 @@ fabric.properties
 ### Intellij+iml Patch ###
 # Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-249601023
 
-*.iml
+**/*.iml
 modules.xml
 .idea/misc.xml
 *.ipr
@@ -252,3 +252,4 @@ terraform.rc
 terragrunt-debug.tfvars.json
 
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij+iml,maven,terraform,terragrunt,git,react,angular
+/infrastructure/organization/aws-organization/.terraform.lock.hcl
