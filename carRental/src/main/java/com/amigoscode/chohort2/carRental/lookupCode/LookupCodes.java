@@ -12,7 +12,7 @@ public interface LookupCodes {
     }
 
     interface UserStatus {
-         String KEY = "user_status";
+        String KEY = "user_status";
         Integer active = 1;
         Integer inactive = 2;
         Integer blocked = 3;
@@ -34,6 +34,13 @@ public interface LookupCodes {
 
         Integer available = 1;
         Integer inUse = 2;
+    }
+
+    interface MediumCode {
+        String KEY = "medium_code";
+        Integer portal = 1;
+        Integer email = 2;
+        Integer sms = 3;
     }
 
 
