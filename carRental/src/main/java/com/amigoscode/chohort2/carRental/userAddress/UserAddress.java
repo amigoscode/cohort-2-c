@@ -19,9 +19,6 @@ public class UserAddress extends AbstractAddress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "city_id", nullable = false)
-    private Long cityId;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "city_id",insertable = false,updatable = false)
     private City city;
