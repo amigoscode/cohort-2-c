@@ -14,7 +14,7 @@ public class CarProviderAddressDTO implements Serializable {
     private Long id;
     private Long carProviderId;
     private Long cityId;
-    private CityDTO cityDTO;
+    private CityDTO city;
     private String location;
     private String postalCode;
 }
