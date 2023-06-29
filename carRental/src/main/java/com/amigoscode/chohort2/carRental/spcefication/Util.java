@@ -40,11 +40,13 @@ class Util {
                                   SingularAttribute<? super T, F> attributeName, F input) {
         if (input != null) {
 
-            if (input instanceof Double asNumber) {
-                Expression<Double> trunc = cb.function("trunc", Double.class, root.get(attributeName));
+            if (input instanceof Number) {
+                Expression<Number> trunc = cb.function("trunc", Number.class, root.get(attributeName));
 
                 return cb.equal(trunc, input);
             }
+
+
 
             return cb.equal(root.get(attributeName), input);
         }
