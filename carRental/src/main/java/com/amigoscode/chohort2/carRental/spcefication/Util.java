@@ -42,10 +42,8 @@ class Util {
 
             if (input instanceof Number) {
                 Expression<Number> trunc = cb.function("trunc", Number.class, root.get(attributeName));
-
                 return cb.equal(trunc, input);
             }
-
 
             return cb.equal(root.get(attributeName), input);
         }
