@@ -47,7 +47,6 @@ class Util {
             }
 
 
-
             return cb.equal(root.get(attributeName), input);
         }
         return null;
