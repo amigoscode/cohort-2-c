@@ -50,4 +50,9 @@
 
         </addColumn>
     </changeSet>
+
+    <changeSet id="202306291722-driver_license-modify-issued_in" author="martin">
+        <modifyDataType tableName="driver_license" columnName="issued_in" newDataType="bigint"/>
+    </changeSet>
+
 </databaseChangeLog>

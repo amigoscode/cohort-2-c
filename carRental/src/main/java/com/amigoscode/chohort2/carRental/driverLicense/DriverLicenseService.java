@@ -7,4 +7,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DriverLicenseService {
     private final DriverLicenseRepository driverLicenseRepository;
+
+    public void save(DriverLicense driverLicense) {
+        driverLicenseRepository.save(driverLicense);
+    }
 }
