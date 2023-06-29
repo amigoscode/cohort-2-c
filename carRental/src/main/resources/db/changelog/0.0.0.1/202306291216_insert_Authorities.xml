@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+
+    <changeSet id="202306291216-insert-authorities-1" author="Esmaeeil">
+        <insert tableName="authority">
+            <column name="name" value="ROLE_ADMIN"/>
+            <column name="full_name" value="Admin"/>
+        </insert>
+
+        <insert tableName="authority">
+            <column name="name" value="ROLE_CAR_PROVIDER"/>
+            <column name="full_name" value="Car Provider"/>
+        </insert>
+
+
+        <insert tableName="authority">
+            <column name="name" value="ROLE_CLIENT"/>
+            <column name="full_name" value="Client"/>
+        </insert>
+
+
+    </changeSet>
+
+</databaseChangeLog>

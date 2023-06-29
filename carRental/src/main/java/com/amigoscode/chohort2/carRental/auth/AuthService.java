@@ -1,6 +1,7 @@
 package com.amigoscode.chohort2.carRental.auth;
 
 
+import com.amigoscode.chohort2.carRental.annotation.TransactionalService;
 import com.amigoscode.chohort2.carRental.constants.ErrorConstants;
 import com.amigoscode.chohort2.carRental.exception.ApiRequestException;
 import com.amigoscode.chohort2.carRental.security.jwt.JWTUtil;
@@ -10,17 +11,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
-@Service
+@TransactionalService
 @RequiredArgsConstructor
-
 public class AuthService {
     private static final Logger log = LoggerFactory.getLogger(AuthService.class);
     private final AuthenticationManager authenticationManager;
