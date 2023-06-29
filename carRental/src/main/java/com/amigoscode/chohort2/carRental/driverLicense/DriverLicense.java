@@ -36,7 +36,7 @@ public class DriverLicense extends AbstractAuditingEntity {
     private String driverLicenseNumber;
 
     @Column (name = "issued_in", nullable = false)
-    private Integer issuedIn;
+    private Long issuedIn;
 
     @Column (name = "issued_at", nullable = false)
     private LocalDate issuedAt;
