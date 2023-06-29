@@ -14,6 +14,8 @@ public class ErrorConstants {
     public static final String FORBIDDEN = String
             .format("%s%s", BASE_ERROR_KEY, "forbidden");
 
+    public static final String LOGIN = String
+            .format("%s%s", BASE_ERROR_KEY, "login");
 
 
 
