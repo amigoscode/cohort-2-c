@@ -34,3 +34,10 @@ logging:
       amigoscode:
         chohort2:
           carRental: debug
+
+
+cors:
+  allowed-origins: "*"
+  allowed-methods: "*"
+  allowed-headers: "*"
+  exposed-headers: "*"
