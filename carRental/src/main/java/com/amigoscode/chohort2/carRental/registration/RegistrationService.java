@@ -68,8 +68,9 @@ public class RegistrationService {
         carProviderService.saveCarProvider(carProvider);
 
         CarProviderUser carProviderUser = new CarProviderUser()
-                .setId(user.getId())
-                .setCarProviderId(carProvider.getId());
+                .setUserId(user.getId())
+                .setCarProviderId(carProvider.getId())
+                .setCompanyAdmin(true);
         carProviderUserService.saveCarProviderUser(carProviderUser);
 
     }

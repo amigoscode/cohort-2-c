@@ -30,7 +30,7 @@ public class RegistrationController {
     }
 
     @PostMapping("car-providers")
-    public ResponseEntity<Void> clientRegistration(@RequestBody @Valid CarProviderRegistrationVM carProviderRegistrationVM) {
+    public ResponseEntity<Void> carProviderRegistration(@RequestBody @Valid CarProviderRegistrationVM carProviderRegistrationVM) {
 
         log.info("car provider user registration info {}", carProviderRegistrationVM);
 

@@ -19,6 +19,9 @@
             <column name="company_admin" type="boolean"></column>
         </createTable>
     </changeSet>
+    <changeSet id="202306240442-add-constraints-userId-not-null-1" author="ThaysVieira">
+        <addNotNullConstraint tableName="car_provider_user" columnName="user_id"/>
+    </changeSet>
 
 
     <changeSet id="202306240445-added-audit-car-provider-user-1" author="DmitriKonnov">
