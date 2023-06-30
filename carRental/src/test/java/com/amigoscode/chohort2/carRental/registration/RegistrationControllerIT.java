@@ -3,6 +3,7 @@ package com.amigoscode.chohort2.carRental.registration;
 import com.amigoscode.chohort2.carRental.AbstractTestContainer;
 import com.amigoscode.chohort2.carRental.driverLicense.VM.DriverLicenseVM;
 import com.amigoscode.chohort2.carRental.registration.VM.ClientRegistrationVM;
+import com.amigoscode.chohort2.carRental.registration.VM.UserRegistrationVM;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,9 +27,9 @@ class RegistrationControllerIT extends AbstractTestContainer {
 
 
     @Test
-    void given_when_then() {
+    void givenClientRegistration_whenSave_thenCreateNewUser() {
         // given precondition or setup
-        ClientRegistrationVM clientRegistrationVM = new ClientRegistrationVM()
+        ClientRegistrationVM clientRegistrationVM = (ClientRegistrationVM) new ClientRegistrationVM()
                 .setUsername("esmaeeil")
                 .setFirstName("esmaeeil")
                 .setLastName("enani")

@@ -7,6 +7,7 @@ import com.amigoscode.chohort2.carRental.authority.AuthorityService;
 import com.amigoscode.chohort2.carRental.driverLicense.DriverLicenseService;
 import com.amigoscode.chohort2.carRental.driverLicense.VM.DriverLicenseVM;
 import com.amigoscode.chohort2.carRental.registration.VM.ClientRegistrationVM;
+import com.amigoscode.chohort2.carRental.registration.VM.UserRegistrationVM;
 import com.amigoscode.chohort2.carRental.user.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -47,7 +48,7 @@ class RegistrationServiceTest extends AbstractTestContainer {
 
 
         // given precondition or setup
-        ClientRegistrationVM clientRegistrationVM = new ClientRegistrationVM()
+        ClientRegistrationVM clientRegistrationVM = (ClientRegistrationVM) new ClientRegistrationVM()
                 .setUsername("esmaeeil")
                 .setFirstName("esmaeeil")
                 .setLastName("enani")

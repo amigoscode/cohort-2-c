@@ -11,26 +11,26 @@ import java.io.Serializable;
 @Setter
 @Getter
 @Accessors(chain = true)
-public abstract class UserRegistrationVM implements Serializable {
+public  class UserRegistrationVM implements Serializable {
 
     @NotEmpty
-    private String username;
+    protected String username;
 
     @NotEmpty
-    private String firstName;
+    protected String firstName;
 
     @NotEmpty
-    private String lastName;
+    protected String lastName;
 
     @NotEmpty
-    private String email;
+    protected String email;
 
     @NotEmpty
-    private String nin;
+    protected String nin;
 
     @NotEmpty
     @ToString.Exclude
-    private String password;
+    protected String password;
 
 
     public static User vmToEntity(UserRegistrationVM userRegistrationVM){

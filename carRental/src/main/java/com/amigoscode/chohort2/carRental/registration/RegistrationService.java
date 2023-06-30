@@ -84,8 +84,8 @@ public class RegistrationService {
                 .setStatusCode(LookupCodes.UserStatus.active)
                 .addAuthority(authority);
 
-        return userService.save(user);
-
+         userService.save(user);
+        return user;
     }
 
 
