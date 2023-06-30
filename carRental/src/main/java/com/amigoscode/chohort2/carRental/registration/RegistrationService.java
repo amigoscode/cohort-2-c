@@ -10,6 +10,7 @@ import com.amigoscode.chohort2.carRental.driverLicense.DriverLicense;
 import com.amigoscode.chohort2.carRental.driverLicense.DriverLicenseService;
 import com.amigoscode.chohort2.carRental.driverLicense.VM.DriverLicenseVM;
 import com.amigoscode.chohort2.carRental.lookupCode.LookupCodes;
+import com.amigoscode.chohort2.carRental.registration.VM.CarProviderRegistrationVM;
 import com.amigoscode.chohort2.carRental.registration.VM.ClientRegistrationVM;
 import com.amigoscode.chohort2.carRental.user.User;
 import com.amigoscode.chohort2.carRental.user.UserService;
@@ -59,6 +60,18 @@ public class RegistrationService {
         driverLicenseService.save(driverLicense);
 
 
+    }
+    public void carProviderRegistration(CarProviderRegistrationVM carProviderRegistrationVM) {
+        Authority authority = authorityService.findByName(AuthorityConstants.CAR_PROVIDER);
+
+        User user = CarProviderRegistrationVM.vmToEntity(carProviderRegistrationVM);
+        user
+                .setPassword(passwordEncoder.encode(carProviderRegistrationVM.getPassword()))
+                .setTypeCode(LookupCodes.UserType.carProvider)
+                .setStatusCode(LookupCodes.UserStatus.active)
+                .addAuthority(authority);
+
+        userService.save(user);
     }
 
 

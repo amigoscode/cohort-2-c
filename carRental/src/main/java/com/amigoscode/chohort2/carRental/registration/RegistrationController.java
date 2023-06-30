@@ -1,5 +1,6 @@
 package com.amigoscode.chohort2.carRental.registration;
 
+import com.amigoscode.chohort2.carRental.registration.VM.CarProviderRegistrationVM;
 import com.amigoscode.chohort2.carRental.registration.VM.ClientRegistrationVM;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,16 @@ public class RegistrationController {
         log.info("user registration info {}", clientRegistrationVM);
 
         registrationService.clientRegistration(clientRegistrationVM);
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping("clients")
+    public ResponseEntity<Void> clientRegistration(@RequestBody @Valid CarProviderRegistrationVM carProviderRegistrationVM) {
+
+        log.info("car provider user registration info {}", carProviderRegistrationVM);
+
+        registrationService.carProviderRegistration(carProviderRegistrationVM);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
