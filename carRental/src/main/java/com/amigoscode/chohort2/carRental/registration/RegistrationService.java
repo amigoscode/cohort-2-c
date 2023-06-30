@@ -4,7 +4,9 @@ import com.amigoscode.chohort2.carRental.annotation.TransactionalService;
 import com.amigoscode.chohort2.carRental.authority.Authority;
 import com.amigoscode.chohort2.carRental.authority.AuthorityConstants;
 import com.amigoscode.chohort2.carRental.authority.AuthorityService;
+import com.amigoscode.chohort2.carRental.carProvider.CarProvider;
 import com.amigoscode.chohort2.carRental.carProvider.CarProviderService;
+import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUser;
 import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUserService;
 import com.amigoscode.chohort2.carRental.constants.ErrorConstants;
 import com.amigoscode.chohort2.carRental.driverLicense.DriverLicense;
@@ -60,12 +62,15 @@ public class RegistrationService {
     public void carProviderRegistration(CarProviderRegistrationVM carProviderRegistrationVM) {
         User user = createUser(carProviderRegistrationVM, AuthorityConstants.CAR_PROVIDER, LookupCodes.UserType.carProvider);
 
+        CarProvider carProvider = new CarProvider()
+                .setName(carProviderRegistrationVM.getCarProviderVM().getName())
+                .setCrNumber(carProviderRegistrationVM.getCarProviderVM().getCrNumber());
+        carProviderService.saveCarProvider(carProvider);
 
-        //TODO: create a car provider entity
-
-
-        //TODO: create a car provider user entity
-
+        CarProviderUser carProviderUser = new CarProviderUser()
+                .setId(user.getId())
+                .setCarProviderId(carProvider.getId());
+        carProviderUserService.saveCarProviderUser(carProviderUser);
 
     }
 
@@ -80,7 +85,6 @@ public class RegistrationService {
                 .addAuthority(authority);
 
         return userService.save(user);
-
 
     }
 
