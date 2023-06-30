@@ -6,6 +6,7 @@ import com.amigoscode.chohort2.carRental.user.User;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -14,6 +15,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Accessors(chain = true)
 public class ClientRegistrationVM implements Serializable {
 
 
