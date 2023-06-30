@@ -80,5 +80,15 @@ public class User extends AbstractAuditingEntity {
     private Set<Authority> authorities = new HashSet<>();
 
 
+    public User addAuthority(Authority authority){
+        if (this.authorities == null) {
+            this.authorities = new HashSet<>();
+        }
+
+        this.authorities.add(authority);
+
+        return this;
+    }
+
 
 }

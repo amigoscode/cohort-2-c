@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public class SecurityUtils {
+public final class SecurityUtils {
 
     private SecurityUtils() {
 

@@ -6,9 +6,11 @@ import java.util.function.Supplier;
 
 public abstract class Validator {
 
-    public static void invalidateIfTure(Supplier<Boolean> supplier, String errorKey) {
-        invalidateIfTure(supplier, errorKey, null);
+    public static void invalidateIfTure(Supplier<Boolean> supplier, String message) {
+        invalidateIfTure(supplier, null,message);
     }
+
+
 
 
 
