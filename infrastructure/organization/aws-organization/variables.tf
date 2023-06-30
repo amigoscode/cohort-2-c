@@ -11,14 +11,18 @@ variable "master_iam_admin_alias" {
   type = string
 }
 variable "organization_name" {
-  type = string
+  type    = string
+  default = "rental-cars"
 }
 variable "master_aws_profile" {
-  type      = string
-  sensitive = true
+  type        = string
+  sensitive   = true
+  description = "AWS Access Credentials"
 }
 variable "master_account_default_region" {
-  type = string
+  type        = string
+  default     = "us-east-2"
+  description = "default region of master account"
 }
 variable "default_tag_created_by" {
   type    = string
@@ -40,13 +44,15 @@ variable "base_email" {
 }
 
 variable "level_1_ous" {
-  type    = map(string)
-  default = { "f" = "foundational", "a" = "additional" }
+  type        = map(string)
+  default     = { "f" = "foundational", "a" = "additional" }
+  description = "level 1 of aws organizational units"
 }
 
 variable "level_2_ous" {
-  type    = map(string)
-  default = { "s" = "security", "a" = "infrastructure" }
+  type        = map(string)
+  default     = { "s" = "security", "a" = "infrastructure" }
+  description = "level 2 of aws organizational units"
 }
 
 variable "accounts" {
@@ -68,4 +74,5 @@ variable "accounts" {
       s3_bucket_prefix           = "sandbox"
     }
   }
+  description = "aws accounts deployed from master account"
 }

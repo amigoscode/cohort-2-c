@@ -1,6 +1,8 @@
-#######
+#######################################################################################################################
+# https://github.com/infrablocks/terraform-aws-organization/blob/main/variables.tf
 #
-#######
+# added: enabled_policy_types, role_name, close_on_deletion
+#######################################################################################################################
 variable "feature_set" {
   type        = string
   default     = "ALL"

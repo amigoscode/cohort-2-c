@@ -1,3 +1,7 @@
+######################################################################################################################
+# https://github.com/infrablocks/terraform-aws-organization/blob/main/organizational_units.tf
+#
+#######################################################################################################################
 locals {
   level_1_ou_arguments = [
     for ou in var.organization.units :

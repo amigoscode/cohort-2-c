@@ -1,3 +1,9 @@
+#######################################################################################################################
+# https://github.com/infrablocks/terraform-aws-organization/blob/main/accounts.tf
+#
+# added role_name and close_on_deletion
+#######################################################################################################################
+
 locals {
   level_root_account_arguments = [
     for level_root_account in var.organization.accounts :
