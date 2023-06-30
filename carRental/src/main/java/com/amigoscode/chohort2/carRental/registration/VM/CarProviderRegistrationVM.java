@@ -1,48 +1,24 @@
 package com.amigoscode.chohort2.carRental.registration.VM;
 
 
-import com.amigoscode.chohort2.carRental.driverLicense.VM.DriverLicenseVM;
-import com.amigoscode.chohort2.carRental.user.User;
-import jakarta.validation.constraints.NotEmpty;
+import com.amigoscode.chohort2.carRental.carProvider.VM.CarProviderVM;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.io.Serializable;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class CarProviderRegistrationVM implements Serializable {
+public class CarProviderRegistrationVM extends UserRegistrationVM {
 
 
-    @NotEmpty
-    private String username;
 
-    @NotEmpty
-    private String firstName;
-
-    @NotEmpty
-    private String lastName;
-
-    @NotEmpty
-    private String email;
-
-    @NotEmpty
-    private String nin;
-
-    @NotEmpty
+    @NotNull
     @ToString.Exclude
-    private String password;
+    private CarProviderVM carProviderVM;
 
 
-    public static User vmToEntity(CarProviderRegistrationVM carProviderRegistrationVM){
-        return new User()
-                .setUsername(carProviderRegistrationVM.username)
-                .setFirstName(carProviderRegistrationVM.firstName)
-                .setLastName(carProviderRegistrationVM.lastName)
-                .setEmail(carProviderRegistrationVM.email)
-                .setNin(carProviderRegistrationVM.nin);
-    }
+
 }

@@ -5,6 +5,7 @@ import com.amigoscode.chohort2.carRental.authority.Authority;
 import com.amigoscode.chohort2.carRental.authority.AuthorityConstants;
 import com.amigoscode.chohort2.carRental.authority.AuthorityService;
 import com.amigoscode.chohort2.carRental.carProvider.CarProviderService;
+import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUserService;
 import com.amigoscode.chohort2.carRental.constants.ErrorConstants;
 import com.amigoscode.chohort2.carRental.driverLicense.DriverLicense;
 import com.amigoscode.chohort2.carRental.driverLicense.DriverLicenseService;
@@ -12,6 +13,7 @@ import com.amigoscode.chohort2.carRental.driverLicense.VM.DriverLicenseVM;
 import com.amigoscode.chohort2.carRental.lookupCode.LookupCodes;
 import com.amigoscode.chohort2.carRental.registration.VM.CarProviderRegistrationVM;
 import com.amigoscode.chohort2.carRental.registration.VM.ClientRegistrationVM;
+import com.amigoscode.chohort2.carRental.registration.VM.UserRegistrationVM;
 import com.amigoscode.chohort2.carRental.user.User;
 import com.amigoscode.chohort2.carRental.user.UserService;
 import com.amigoscode.chohort2.carRental.validation.Validator;
@@ -32,25 +34,18 @@ public class RegistrationService {
 
     private final DriverLicenseService driverLicenseService;
 
+    private final CarProviderUserService carProviderUserService;
+
     private final PasswordEncoder passwordEncoder;
 
 
     public void clientRegistration(ClientRegistrationVM clientRegistrationVM) {
-        Authority authority = authorityService.findByName(AuthorityConstants.CLIENT);
-
-        User user = ClientRegistrationVM.vmToEntity(clientRegistrationVM);
-        user
-                .setPassword(passwordEncoder.encode(clientRegistrationVM.getPassword()))
-                .setTypeCode(LookupCodes.UserType.client)
-                .setStatusCode(LookupCodes.UserStatus.active)
-                .addAuthority(authority);
-
-        userService.save(user);
+        User user = createUser(clientRegistrationVM, AuthorityConstants.CLIENT, LookupCodes.UserType.client);
 
         DriverLicense driverLicense = DriverLicenseVM.vmToEntity(clientRegistrationVM.getDriverLicense());
 
 
-        Validator.invalidateIfTure(()-> driverLicense.getExpiredDate().isBefore(LocalDate.now()),
+        Validator.invalidateIfTure(() -> driverLicense.getExpiredDate().isBefore(LocalDate.now()),
                 ErrorConstants.NOT_VALID_LICENSE,
                 "the driver license is not valid");
 
@@ -61,17 +56,32 @@ public class RegistrationService {
 
 
     }
-    public void carProviderRegistration(CarProviderRegistrationVM carProviderRegistrationVM) {
-        Authority authority = authorityService.findByName(AuthorityConstants.CAR_PROVIDER);
 
-        User user = CarProviderRegistrationVM.vmToEntity(carProviderRegistrationVM);
+    public void carProviderRegistration(CarProviderRegistrationVM carProviderRegistrationVM) {
+        User user = createUser(carProviderRegistrationVM, AuthorityConstants.CAR_PROVIDER, LookupCodes.UserType.carProvider);
+
+
+        //TODO: create a car provider entity
+
+
+        //TODO: create a car provider user entity
+
+
+    }
+
+    private User createUser(UserRegistrationVM userRegistrationVM, String authorityName, Integer typeCode) {
+        Authority authority = authorityService.findByName(authorityName);
+
+        User user = UserRegistrationVM.vmToEntity(userRegistrationVM);
         user
-                .setPassword(passwordEncoder.encode(carProviderRegistrationVM.getPassword()))
-                .setTypeCode(LookupCodes.UserType.carProvider)
+                .setPassword(passwordEncoder.encode(userRegistrationVM.getPassword()))
+                .setTypeCode(typeCode)
                 .setStatusCode(LookupCodes.UserStatus.active)
                 .addAuthority(authority);
 
-        userService.save(user);
+        return userService.save(user);
+
+
     }
 
 

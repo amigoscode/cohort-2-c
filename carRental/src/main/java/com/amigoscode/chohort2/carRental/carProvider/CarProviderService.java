@@ -8,4 +8,8 @@ import lombok.RequiredArgsConstructor;
 public class CarProviderService {
 
     private final CarProviderRepository carProviderRepository;
+
+    public CarProvider saveCarProvider(CarProvider carProvider) {
+       return carProviderRepository.save(carProvider);
+    }
 }
