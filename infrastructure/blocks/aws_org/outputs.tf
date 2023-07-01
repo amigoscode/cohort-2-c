@@ -1,5 +1,5 @@
 output "organization_arn" {
-  value = aws_organizations_organization.organization.arn
+  value = startswith(var.existing_organization_arn, "arn") ? var.existing_organization_arn : aws_organizations_organization.organization[0].arn
 }
 
 output "organizational_units" {

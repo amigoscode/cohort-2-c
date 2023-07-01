@@ -1,6 +1,10 @@
+data "aws_organizations_organization" "org" {
+}
+
 module "aws_org" {
   source = "../../blocks/aws_org"
-
+  existing_master_account_roots_id = data.aws_organizations_organization.org.roots[0].id
+  existing_organization_arn = data.aws_organizations_organization.org.arn
   feature_set = "ALL"
   enabled_policy_types = [
     "SERVICE_CONTROL_POLICY"
@@ -12,18 +16,8 @@ module "aws_org" {
   for_each = var.accounts
 
   organization = {
-    #    accounts = [
-    #      {
-    #        name                              = var.master_iam_admin_alias
-    #        key                               = var.organization_name
-    #        email                             = "${var.base_email}admin@gmail.com"
-    #        allow_iam_users_access_to_billing = false
-    #        close_on_deletion                 = false
-    #        role_name                         = "OrganizationAccountAccessRole"
-    #
-    #      }
-    #    ]
     units = [
+
       {
         name = var.level_1_ous["f"],
         key  = "${var.organization_name}-${var.level_1_ous["f"]}"
@@ -37,14 +31,6 @@ module "aws_org" {
             name = var.level_2_ous["i"],
             key  = "${var.organization_name}-${var.level_1_ous["f"]}-${var.level_2_ous["i"]}"
             units = [
-              {
-                name = "PRDD",
-                key  = "${var.organization_name}-${var.level_1_ous["f"]}-${var.level_2_ous["i"]}-PROD"
-              },
-              {
-                name = "STAGING",
-                key  = "${var.organization_name}-${var.level_1_ous["f"]}-${var.level_2_ous["i"]}-STAGING"
-              },
               {
                 name = each.value.name,
                 key  = "${var.organization_name}-${var.level_1_ous["f"]}-${var.level_2_ous["i"]}-${each.value.name}"
@@ -79,7 +65,7 @@ module "aws_org" {
             units = [
               {
                 name = each.value.name,
-                key  = "${var.organization_name}-${var.level_1_ous["a"]}-${var.level_2_ous["i"]}-${each.value.name}"
+                key  = "${var.organization_name}-${var.level_1_ous["a"]}-${var.level_2_ous["i"]}-POLICY-STAGING"
               }
             ]
           }

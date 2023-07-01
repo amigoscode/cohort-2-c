@@ -8,7 +8,7 @@ locals {
   level_root_account_arguments = [
     for level_root_account in var.organization.accounts :
     {
-      parent : aws_organizations_organization.organization.roots[0],
+      parent : startswith(var.existing_master_account_roots_id, "r-") ? var.existing_master_account_roots_id : aws_organizations_organization.organization[0].roots[0].id,
       key : level_root_account.key,
       name : level_root_account.name,
       email : level_root_account.email,

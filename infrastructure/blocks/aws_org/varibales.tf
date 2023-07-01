@@ -23,6 +23,16 @@ variable "enabled_policy_types" {
   description = "A list of enabled organizations policy types"
 }
 
+variable "existing_master_account_roots_id" {
+  type     = string
+  default  = ""
+  nullable = true
+}
+variable "existing_organization_arn" {
+  type     = string
+  default  = ""
+  nullable = true
+}
 #############
 # This insane nesting down below showcases the limitations of terraform as no tree or graph structure is present.
 # A better implementations of aws_organizations in hashicorp/aws official provider could deliver an improvement.
