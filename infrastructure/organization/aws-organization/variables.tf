@@ -43,6 +43,11 @@ variable "base_email" {
   default     = "some-email"
 }
 
+variable "sso_portal" {
+  type        = string
+  description = "Single Sing On URL"
+}
+
 variable "level_1_ous" {
   type        = map(string)
   default     = { "f" = "foundational", "a" = "additional" }
@@ -184,4 +189,16 @@ variable "sso_permissions" {
   description = "list of permission set properties for Identity Center (successor to SSO)"
   nullable    = false
 
+}
+
+variable "team_members" {
+  type = map(object({
+    display_name = string
+    user_name    = string
+    emails       = list(string)
+  }))
+  #  validation {
+  #    condition     = can(regex("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", var.team_members.emails[0]))
+  #    error_message = "invalid email"
+  #  }
 }
