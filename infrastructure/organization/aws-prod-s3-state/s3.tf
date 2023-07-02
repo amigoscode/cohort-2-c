@@ -16,6 +16,10 @@ terraform {
 provider "aws" {
   profile = var.master_aws_profile
   region  = var.master_account_default_region
+  #####################################################################################################################
+  # Down below we're assuming a cross account organization role "OrganizationAccountAccessRole" which was created whilst
+  # setting up the AWS Organization. This gives the admin an opportunity to create resources by using his/her identity.
+  #####################################################################################################################
   assume_role {
     role_arn     = "arn:aws:iam::${var.target_account_id}:role/${var.cross_account_role_name}"
     session_name = "terraform"
