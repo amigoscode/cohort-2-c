@@ -1,6 +1,7 @@
 ######################################################################################################################
 # https://github.com/infrablocks/terraform-aws-organization/blob/main/organizational_units.tf
 #
+# excluded organization creation from the module
 #######################################################################################################################
 locals {
   level_1_ou_arguments = [
@@ -77,7 +78,7 @@ locals {
 resource "aws_organizations_organizational_unit" "level_1_ous" {
   for_each  = { for record in local.level_1_ou_arguments : record.key => record }
   name      = each.value.name
-  parent_id = startswith(var.existing_master_account_roots_id, "r-") ? var.existing_master_account_roots_id : aws_organizations_organization.organization[0].roots[0].id
+  parent_id = var.root_id
 }
 
 resource "aws_organizations_organizational_unit" "level_2_ous" {

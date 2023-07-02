@@ -51,8 +51,31 @@ variable "level_1_ous" {
 
 variable "level_2_ous" {
   type        = map(string)
-  default     = { "s" = "security", "a" = "infrastructure" }
+  default     = { "s" = "security", "a" = "infrastructure", "sb" = "sandboxes" }
   description = "level 2 of aws organizational units"
+}
+
+variable "feature_set" {
+  type        = string
+  default     = "ALL"
+  nullable    = false
+  description = "The feature set of the organization. One of 'ALL' or 'CONSOLIDATED_BILLING'."
+}
+
+variable "aws_service_access_principals" {
+  type = list(string)
+  default = [
+    "cloudtrail.amazonaws.com",
+    "config.amazonaws.com"
+  ]
+  nullable    = false
+  description = "A list of AWS service principal names for which you want to enable integration with your organization."
+}
+variable "enabled_policy_types" {
+  type        = list(string)
+  default     = ["SERVICE_CONTROL_POLICY"]
+  nullable    = false
+  description = "A list of enabled organizations policy types"
 }
 
 variable "accounts" {
@@ -67,12 +90,12 @@ variable "accounts" {
   default = {
     SANDBOX = {
       name                       = "SANDBOX",
-      email_suffix               = "sandbox@gmail.com",
-      close_on_deletion          = true,
+      email_suffix               = "commonsandbox@gmail.com",
+      close_on_deletion          = false,
       iam_user_access_to_billing = true,
       role_name                  = "OrganizationAccountAccessRole",
       s3_bucket_prefix           = "sandbox"
-    },
+    }
     PROD = {
       name                       = "PROD",
       email_suffix               = "prod@gmail.com",
@@ -88,7 +111,16 @@ variable "accounts" {
       iam_user_access_to_billing = true,
       role_name                  = "OrganizationAccountAccessRole",
       s3_bucket_prefix           = "staging"
+    },
+    DEV = {
+      name                       = "DEV",
+      email_suffix               = "dev@gmail.com",
+      close_on_deletion          = false,
+      iam_user_access_to_billing = true,
+      role_name                  = "OrganizationAccountAccessRole",
+      s3_bucket_prefix           = "staging"
     }
+
   }
   description = "aws accounts deployed from master account"
 }
