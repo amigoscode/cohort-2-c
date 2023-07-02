@@ -14,11 +14,9 @@ terraform {
   ####################################################################################################################
   cloud {
     organization = "car-rental"
-    ##################################################################################################################
-    # Workspaces are provided by Terraform Cloud, which can make it easy to manage states for different environments.
-    ##################################################################################################################
+
     workspaces {
-      name = "car-rental-organization-master"
+      name = "rental-car-master-account"
     }
   }
   required_version = ">= 0.13.1"
