@@ -13,7 +13,6 @@ data "aws_ssoadmin_instances" "sso" {}
 resource "aws_identitystore_group" "id_groups" {
   for_each          = toset(local.groups)
   display_name      = each.key
-  description       = "Example description"
   identity_store_id = local.identity_store_id
 }
 
@@ -30,11 +29,10 @@ resource "aws_ssoadmin_account_assignment" "account_assignment" {
   for_each           = local.account_group_assignments
   instance_arn       = local.sso_instance_arn
   permission_set_arn = aws_ssoadmin_permission_set.permission_sets[each.value.permission_set_name].arn
-  #  principal_id       = data.aws_identitystore_group.id_group[each.value.group].id
-  principal_id   = aws_identitystore_group.id_groups[each.value.group].id
-  target_id      = each.value.account
-  principal_type = "GROUP"
-  target_type    = "AWS_ACCOUNT"
+  principal_id       = aws_identitystore_group.id_groups[each.value.group].group_id
+  target_id          = each.value.account
+  principal_type     = "GROUP"
+  target_type        = "AWS_ACCOUNT"
 }
 
 resource "aws_ssoadmin_customer_managed_policy_attachment" "managed_policy_attachment" {
@@ -69,10 +67,9 @@ locals {
   #####################################################################################################################
   account_groups = flatten([
     for permission in var.sso_permissions : [
-      // TODO: call aws_org to get accounts' ids by accounts name
       for account_group in setproduct(permission.aws_accounts, permission.sso_groups) : {
         permission_set_name = permission.name
-        account             = account_group[0]
+        account             = local.account_ids[account_group[0]].id
         group               = account_group[1]
       }
     ]
@@ -84,4 +81,14 @@ locals {
   }
 
   groups = distinct([for account_group in local.account_groups : account_group.group])
+}
+
+locals {
+  account_ids = {
+    for i in module.aws_org_ous.accounts :
+    i.name => {
+      id   = i.id
+      name = i.name
+    }
+  }
 }
