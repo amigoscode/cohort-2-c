@@ -13,7 +13,7 @@ data "aws_identitystore_group" "id_group" {
 
 resource "aws_ssoadmin_permission_set" "permission_sets" {
   for_each = {
-    for record in var.sso_permissions : record.name => record
+    for permission in var.sso_permissions : permission.name => permission
   }
   #  for_each = var.sso_permissions
   instance_arn     = tolist(data.aws_ssoadmin_instances.sso.arns)[0]
@@ -55,9 +55,12 @@ locals {
 
   sso_instance_arn  = tolist(data.aws_ssoadmin_instances.sso.arns)[0]
   identity_store_id = tolist(data.aws_ssoadmin_instances.sso.identity_store_ids)[0]
-
+  #####################################################################################################################
+  # setproduct() function creates a Cartesian product of all accounts' ids and groups
+  #####################################################################################################################
   account_groups = flatten([
     for permission in var.sso_permissions : [
+           // TODO: call aws_org to get accounts' ids by accounts name
       for account_group in setproduct(permission.aws_accounts, permission.sso_groups) : {
         permission_set_name = permission.name
         account             = account_group[0]
