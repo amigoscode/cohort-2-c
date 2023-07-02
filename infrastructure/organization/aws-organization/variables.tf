@@ -151,7 +151,7 @@ variable "sso_permissions" {
       description      = "Grants full access permissions to AWS services and actions required to set up and configure AWS database services."
       session_duration = "PT4H"
       managed_policies = ["arn:aws:iam::aws:policy/job-function/DatabaseAdministrator"]
-      aws_accounts     = ["513502890629","570472524121", "459941051205","757899528294"]
+      aws_accounts     = ["513502890629", "570472524121", "459941051205", "757899528294"]
       sso_groups       = ["DatabaseAdministratorGroup"]
     },
     {
@@ -159,7 +159,7 @@ variable "sso_permissions" {
       description      = "Provides full access to AWS services and resources, but does not allow management of Users and groups."
       session_duration = "PT4H"
       managed_policies = ["arn:aws:iam::aws:policy/PowerUserAccess"]
-      aws_accounts     = ["513502890629","570472524121", "459941051205","757899528294"]
+      aws_accounts     = ["513502890629", "570472524121", "459941051205", "757899528294"]
       sso_groups       = ["PowerUserGroup"]
     },
     {
@@ -167,7 +167,7 @@ variable "sso_permissions" {
       description      = "Grants permissions for billing and cost management. This includes viewing account usage and viewing and modifying budgets and payment methods."
       session_duration = "PT4H"
       managed_policies = ["arn:aws:iam::aws:policy/job-function/Billing"]
-      aws_accounts     = ["513502890629","570472524121", "459941051205","757899528294"]
+      aws_accounts     = ["513502890629", "570472524121", "459941051205", "757899528294"]
       sso_groups       = ["BillingGroup"]
     },
     {
@@ -175,7 +175,7 @@ variable "sso_permissions" {
       description      = "This policy grants permissions to view resources and basic metadata across all AWS services."
       session_duration = "PT4H"
       managed_policies = ["arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"]
-      aws_accounts     = ["513502890629","570472524121", "459941051205","757899528294"]
+      aws_accounts     = ["513502890629", "570472524121", "459941051205", "757899528294"]
       sso_groups       = ["ViewOnlyGroup"]
 
     }

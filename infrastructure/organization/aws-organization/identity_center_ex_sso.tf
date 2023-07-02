@@ -1,21 +1,26 @@
+#######################################################################################################################
+#
+#
+# Just a recap for creating AWS IAM Identity Center (Successor to SSO) with terraform:
+# 1) Even having "sso.amazonaws.com" as principal don't prevent you from enabling IAM Identity Center in master account
+# manually.
+# 2) Enable IAM Identity Center in THE SAME REGION as DEFAULT REGION variable. Otherwise you'll get error " reading
+# SSO Instances: AccessDeniedException  User: arn:aws:iam::MASTER_ACCOUNT_ID:user/MASTER_ACCOUNT_ALIAS is not authorized
+# to perform: sso:ListInstances "
+#######################################################################################################################
 data "aws_ssoadmin_instances" "sso" {}
-data "aws_identitystore_group" "id_group" {
-  for_each          = toset(local.groups)
-  identity_store_id = local.identity_store_id
 
-  alternate_identifier {
-    unique_attribute {
-      attribute_path  = "DisplayName"
-      attribute_value = each.key
-    }
-  }
+resource "aws_identitystore_group" "id_groups" {
+  for_each          = toset(local.groups)
+  display_name      = each.key
+  description       = "Example description"
+  identity_store_id = local.identity_store_id
 }
 
 resource "aws_ssoadmin_permission_set" "permission_sets" {
   for_each = {
     for permission in var.sso_permissions : permission.name => permission
   }
-  #  for_each = var.sso_permissions
   instance_arn     = tolist(data.aws_ssoadmin_instances.sso.arns)[0]
   name             = each.value.name
   description      = each.value.description
@@ -25,16 +30,20 @@ resource "aws_ssoadmin_account_assignment" "account_assignment" {
   for_each           = local.account_group_assignments
   instance_arn       = local.sso_instance_arn
   permission_set_arn = aws_ssoadmin_permission_set.permission_sets[each.value.permission_set_name].arn
-  principal_id       = data.aws_identitystore_group.id_group[each.value.group].id
-  target_id          = each.value.account
-  principal_type     = "GROUP"
-  target_type        = "AWS_ACCOUNT"
+  #  principal_id       = data.aws_identitystore_group.id_group[each.value.group].id
+  principal_id   = aws_identitystore_group.id_groups[each.value.group].id
+  target_id      = each.value.account
+  principal_type = "GROUP"
+  target_type    = "AWS_ACCOUNT"
 }
 
 resource "aws_ssoadmin_customer_managed_policy_attachment" "managed_policy_attachment" {
-  for_each           = local.managed_policy_arns
-  instance_arn       = local.sso_instance_arn
-  managed_policy_arn = each.value.policy_arn
+  for_each     = local.managed_policy_arns
+  instance_arn = local.sso_instance_arn
+  customer_managed_policy_reference {
+    name = each.value.policy_arn
+    path = "/"
+  }
   permission_set_arn = aws_ssoadmin_permission_set.permission_sets[each.value.permission_set_name].arn
 }
 
@@ -60,7 +69,7 @@ locals {
   #####################################################################################################################
   account_groups = flatten([
     for permission in var.sso_permissions : [
-           // TODO: call aws_org to get accounts' ids by accounts name
+      // TODO: call aws_org to get accounts' ids by accounts name
       for account_group in setproduct(permission.aws_accounts, permission.sso_groups) : {
         permission_set_name = permission.name
         account             = account_group[0]
