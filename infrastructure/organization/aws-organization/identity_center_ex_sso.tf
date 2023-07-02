@@ -92,6 +92,7 @@ locals {
   #####################################################################################################################
   account_groups = flatten([
     for permission in var.sso_permissions : [
+           // TODO: call aws_org to get accounts' ids by accounts name
       for account_group in setproduct(permission.aws_accounts, permission.sso_groups) : {
         permission_set_name = permission.name
         account             = local.account_ids[account_group[0]].id
