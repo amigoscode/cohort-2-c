@@ -96,7 +96,7 @@ variable "accounts" {
       iam_user_access_to_billing = true,
       role_name                  = "OrganizationAccountAccessRole",
       s3_bucket_prefix           = "sandbox"
-    },
+    }
     PROD = {
       name                       = "PROD",
       email_suffix               = "prod@gmail.com",
@@ -121,6 +121,7 @@ variable "accounts" {
       role_name                  = "OrganizationAccountAccessRole",
       s3_bucket_prefix           = "staging"
     }
+
   }
   description = "aws accounts deployed from master account"
 }
