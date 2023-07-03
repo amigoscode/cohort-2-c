@@ -96,3 +96,6 @@ module "aws_org_ous" {
     ]
   }
 }
+output "all_accounts_details" {
+  value = module.aws_org_ous.accounts
+}
