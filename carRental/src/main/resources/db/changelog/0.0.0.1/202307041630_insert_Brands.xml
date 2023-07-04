@@ -7,15 +7,15 @@
 
     <changeSet id="20230704-insert-brand-1" author="Dmtri Konnov">
         <insert tableName="brand">
-            <column name="code" value="1000"/>
+            <column name="code" valueComputed="(SELECT nextval('seq__brand'))"/>
             <column name="name" value="MERCEDES-BENZ"/>
         </insert>
         <insert tableName="brand">
-            <column name="code" value="2000"/>
+            <column name="code" valueComputed="(SELECT nextval('seq__brand'))"/>
             <column name="name" value="BMW"/>
         </insert>
         <insert tableName="brand">
-            <column name="code" value="3000"/>
+            <column name="code" valueComputed="(SELECT nextval('seq__brand'))"/>
             <column name="name" value="FERRARI"/>
         </insert>
     </changeSet>
