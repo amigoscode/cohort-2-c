@@ -31,7 +31,8 @@ public class ErrorConstants {
 
     public static final String CAR_NOT_FOUND = String
             .format("%s%s", BASE_NOT_FOUND_KEY, "car");
-
+    public static final String CAR_PROVIDER_USER = String
+            .format("%s%s", BASE_NOT_FOUND_KEY, "car provider user");
 
 
 
