@@ -14,6 +14,8 @@ import java.util.UUID;
 @Accessors(chain = true)
 public class CarVM {
 
+    private static final long serialVersionUID = -1798070786993154676L;
+
     @NotEmpty
     private UUID registrationNumber;
 
