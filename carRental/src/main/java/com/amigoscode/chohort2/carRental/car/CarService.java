@@ -31,7 +31,7 @@ public class CarService {
 
         Validator.invalidateIfFalse(()->car.getCarProviderId().equals(getCurrentCarProviderId()),
                 ErrorConstants.CAR_PROVIDER_USER,
-                "car doesn't belong to the user");
+                "car doesn't belong to the provider");
         carRepository.deleteById(id);
     }
     public CarDTO findById(Long id) {
