@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+
+    <changeSet id="20230704-insert-brand-1" author="Dmtri Konnov">
+        <insert tableName="brand">
+            <column name="code" value="1000"/>
+            <column name="name" value="MERCEDES-BENZ"/>
+        </insert>
+        <insert tableName="brand">
+            <column name="code" value="2000"/>
+            <column name="name" value="BMW"/>
+        </insert>
+        <insert tableName="brand">
+            <column name="code" value="3000"/>
+            <column name="name" value="FERRARI"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
