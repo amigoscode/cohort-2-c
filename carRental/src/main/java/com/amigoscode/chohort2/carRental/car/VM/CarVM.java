@@ -1,7 +1,6 @@
 package com.amigoscode.chohort2.carRental.car.VM;
 
 import com.amigoscode.chohort2.carRental.car.Car;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +9,6 @@ import lombok.experimental.Accessors;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Setter
 @Getter

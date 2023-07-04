@@ -5,8 +5,6 @@ import com.amigoscode.chohort2.carRental.constants.ErrorConstants;
 import com.amigoscode.chohort2.carRental.exception.ApiRequestException;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-
 @TransactionalService
 @RequiredArgsConstructor
 public class CarProviderUserService {
