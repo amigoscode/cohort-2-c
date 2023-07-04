@@ -26,34 +26,38 @@ public class CarService {
 
         return carMapper.toDto(createCar(carVM));
     }
-    public void delete(Long id) {
-        Car car = carRepository.findById(id).orElseThrow(()->new ApiRequestException(ErrorConstants.CAR_NOT_FOUND));
 
-        Validator.invalidateIfFalse(()->car.getCarProviderId().equals(getCurrentCarProviderId()),
+    public void delete(Long id) {
+        Car car = carRepository.findById(id).orElseThrow(() -> new ApiRequestException(ErrorConstants.CAR_NOT_FOUND));
+
+        Validator.invalidateIfFalse(() -> car.getCarProviderId().equals(getCurrentCarProviderId()),
                 ErrorConstants.CAR_PROVIDER_USER,
                 "car doesn't belong to the provider");
         carRepository.deleteById(id);
     }
-    public CarDTO findById(Long id) {
-        return carRepository.findById(id).map(carMapper::toDto).orElseThrow(()-> new ApiRequestException(ErrorConstants.CAR_NOT_FOUND));
+
+    public CarDTO getCarById(Long id) {
+        return carRepository.findById(id)
+                .map(carMapper::toDto)
+                .orElseThrow(() -> new ApiRequestException(ErrorConstants.CAR_NOT_FOUND));
     }
 
-    public List<CarDTO> getAll(){
-
-        return getAllByProviderId(getCurrentCarProviderId());
-    }
     public List<CarDTO> getAllByProviderId(Long providerId) {
-        return carRepository.getCarsByCarProviderId(providerId).stream().map(carMapper::toDto).collect(Collectors.toList());
+        return carRepository.findCarsByCarProviderId(providerId).stream()
+                .map(carMapper::toDto)
+                .collect(Collectors.toList());
     }
 
-    private Car createCar (CarVM carVM) {
+    private Car createCar(CarVM carVM) {
         Long id = getCurrentCarProviderId();
-        return carRepository.save(CarVM.vmToEntity(carVM).setCarProviderId(id));
+        Car car = CarVM.vmToEntity(carVM);
+        car.setCarProviderId(id);
+        return carRepository.save(car);
     }
 
-    private Long getCurrentCarProviderId () {
-            Long id = userService.getLoggedInUser().getId();
-            return carProviderUserService.findCarProviderUserByUserId(id).getCarProviderId();
-        }
+    private Long getCurrentCarProviderId() {
+        Long id = userService.getLoggedInUser().getId();
+        return carProviderUserService.findCarProviderUserByUserId(id).getCarProviderId();
+    }
 
 }

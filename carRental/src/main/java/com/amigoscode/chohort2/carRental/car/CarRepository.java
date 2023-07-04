@@ -7,7 +7,5 @@ import java.util.List;
 
 @Repository
 public interface CarRepository extends CRJpaRepository <Car,Long> {
-    List<Car> getCarsByCarProviderId(Long id);
-
-
+    List<Car> findCarsByCarProviderId(Long id);
 }

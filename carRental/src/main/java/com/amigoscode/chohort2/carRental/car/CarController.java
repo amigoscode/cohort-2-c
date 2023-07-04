@@ -4,8 +4,6 @@ import com.amigoscode.chohort2.carRental.authority.AuthorityConstants;
 import com.amigoscode.chohort2.carRental.car.VM.CarVM;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -33,11 +31,7 @@ public class CarController {
         }
         @GetMapping("/{id}")
         public ResponseEntity<CarDTO>getCarById (@PathVariable Long id) {
-            return ResponseEntity.ok(carService.findById(id));
-        }
-        @GetMapping()
-        public ResponseEntity<List<CarDTO>> getAll () {
-        return ResponseEntity.ok(carService.getAll());
+            return ResponseEntity.ok(carService.getCarById(id));
         }
         @GetMapping("/{providerId}")
         public ResponseEntity<List<CarDTO>> getAllByProvider(@PathVariable Long providerId){

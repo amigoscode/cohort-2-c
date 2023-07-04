@@ -6,18 +6,19 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Setter
 @Getter
 @Accessors(chain = true)
-public class CarVM {
+public class CarVM implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -1798070786993154676L;
-
-    @NotEmpty
-    private UUID registrationNumber;
 
     @NotEmpty
     private Integer brandCode;
@@ -44,20 +45,14 @@ public class CarVM {
     private Integer categoryCode;
 
     @NotEmpty
-    private Integer bookingStatusCode;
-
-    @NotEmpty
     private Float price;
 
     @NotEmpty
     private String imgUrl;
 
-    @NotEmpty
-    Boolean isVisible;
 
     public static Car vmToEntity(CarVM carVM){
         return new Car()
-                .setRegistrationNumber(carVM.registrationNumber)
                 .setBrandCode(carVM.brandCode)
                 .setBrandModelCode(carVM.brandModelCode)
                 .setProductionYear(carVM.productionYear)
@@ -66,9 +61,7 @@ public class CarVM {
                 .setRgbCode(carVM.rgbCode)
                 .setDescription(carVM.description)
                 .setCategoryCode(carVM.categoryCode)
-                .setBookingStatusCode(carVM.bookingStatusCode)
                 .setPrice(carVM.price)
-                .setImgUrl(carVM.imgUrl)
-                .setIsVisible(carVM.isVisible);
+                .setImgUrl(carVM.imgUrl);
     }
 }
