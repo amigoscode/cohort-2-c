@@ -21,7 +21,7 @@ public abstract class Validator {
     }
 
     public static void invalidateIfFalse(Supplier<Boolean> supplier, String errorKey, String message, Object... args) {
-        if (supplier.get()) {
+        if (!supplier.get()) {
             throw new ApiRequestException(message, errorKey)
                     .messageArgs(args);
         }
@@ -34,7 +34,7 @@ public abstract class Validator {
     }
 
     public static void invalidateIfFalse(Supplier<Boolean> supplier, ApiRequestException e) {
-        if (supplier.get()) {
+        if (!supplier.get()) {
             throw e;
         }
     }
