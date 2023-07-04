@@ -53,6 +53,6 @@
     <include file="db/changelog/0.0.0.1/202306211213_insert_LookupCode.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/0.0.0.1/202306291216_insert_Authorities.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/0.0.0.1/202307041630_insert_Brands.xml" relativeToChangelogFile="false"/>
-<!--    <include file="db/changelog/0.0.0.1/202307041635_insert_BrandModels.xml" relativeToChangelogFile="false"/>-->
+    <include file="db/changelog/0.0.0.1/202307041635_insert_BrandModels.xml" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>
