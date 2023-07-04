@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface CarProviderUserRepository extends CRJpaRepository<CarProviderUser,Long> {
-    Optional<CarProviderUser> findCarProviderUserByUserId(Long id);
+    Optional<CarProviderUser> findByUserId(@Param("user_id") Long userId);
 }
