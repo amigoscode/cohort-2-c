@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("api/v1/cars")
 @RequiredArgsConstructor
 public class CarController {
-        private final Logger log = LoggerFactory.getLogger(CarController.class);
+
         private final CarService carService;
 
         @PostMapping
@@ -34,6 +34,10 @@ public class CarController {
         @GetMapping("/{id}")
         public ResponseEntity<CarDTO>getCarById (@PathVariable Long id) {
             return ResponseEntity.ok(carService.findById(id));
+        }
+        @GetMapping()
+        public ResponseEntity<List<CarDTO>> getAll () {
+        return ResponseEntity.ok(carService.getAll());
         }
         @GetMapping("/{providerId}")
         public ResponseEntity<List<CarDTO>> getAllByProvider(@PathVariable Long providerId){

@@ -37,6 +37,11 @@ public class CarService {
     public CarDTO findById(Long id) {
         return carRepository.findById(id).map(carMapper::toDto).orElseThrow(()-> new ApiRequestException(ErrorConstants.CAR_NOT_FOUND));
     }
+
+    public List<CarDTO> getAll(){
+
+        return getAllByProviderId(getCurrentCarProviderId());
+    }
     public List<CarDTO> getAllByProviderId(Long providerId) {
         return carRepository.getCarsByCarProviderId(providerId).stream().map(carMapper::toDto).collect(Collectors.toList());
     }
