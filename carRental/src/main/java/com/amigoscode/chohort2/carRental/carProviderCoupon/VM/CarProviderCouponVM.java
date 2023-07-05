@@ -6,12 +6,15 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Setter
 @Getter
 @Accessors(chain = true)
-public class CarProviderCouponVM {
+public class CarProviderCouponVM implements Serializable {
+
+    private static final long serialVersionUID = 9178661439383356177L;
     @NotEmpty
     private String couponCode;
     @NotEmpty
