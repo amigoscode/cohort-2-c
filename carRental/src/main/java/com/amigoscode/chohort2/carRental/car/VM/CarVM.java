@@ -15,9 +15,6 @@ import java.time.LocalDate;
 @Accessors(chain = true)
 public class CarVM implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = -1798070786993154676L;
-
     @NotEmpty
     private Integer brandCode;
 

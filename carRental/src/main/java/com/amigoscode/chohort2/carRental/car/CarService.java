@@ -52,6 +52,8 @@ public class CarService {
         Long id = getCurrentCarProviderId();
         Car car = CarVM.vmToEntity(carVM);
         car.setCarProviderId(id);
+        car.setIsVisible(true);
+        car.setBookingStatusCode(1);
         return carRepository.save(car);
     }
 
