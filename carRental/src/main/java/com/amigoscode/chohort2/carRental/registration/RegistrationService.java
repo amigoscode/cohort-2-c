@@ -47,7 +47,7 @@ public class RegistrationService {
         DriverLicense driverLicense = DriverLicenseVM.vmToEntity(clientRegistrationVM.getDriverLicense());
 
 
-        Validator.invalidateIfTure(() -> driverLicense.getExpiredDate().isBefore(LocalDate.now()),
+        Validator.invalidateIfTrue(() -> driverLicense.getExpiredDate().isBefore(LocalDate.now()),
                 ErrorConstants.NOT_VALID_LICENSE,
                 "the driver license is not valid");
 
