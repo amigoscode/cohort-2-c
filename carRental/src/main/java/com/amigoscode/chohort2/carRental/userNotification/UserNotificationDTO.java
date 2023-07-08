@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 public class UserNotificationDTO implements Serializable {
     private Long id;
     private Long userId;
-    private UserDTO user;
+//    private UserDTO user;
     private String message;
     private Integer mediumCode;
     private LookupCodeDTO medium;
