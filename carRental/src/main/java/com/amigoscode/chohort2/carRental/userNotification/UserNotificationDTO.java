@@ -2,8 +2,10 @@ package com.amigoscode.chohort2.carRental.userNotification;
 
 import com.amigoscode.chohort2.carRental.lookupCode.LookupCodeDTO;
 import com.amigoscode.chohort2.carRental.user.UserDTO;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -16,6 +18,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Accessors(chain = true)
+@ToString
+@EqualsAndHashCode
 public class UserNotificationDTO implements Serializable {
     private Long id;
     private Long userId;

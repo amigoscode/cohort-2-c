@@ -1,8 +1,10 @@
 package com.amigoscode.chohort2.carRental.carProviderCoupon;
 
 import com.amigoscode.chohort2.carRental.carProvider.CarProviderDTO;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -14,6 +16,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Accessors(chain = true)
+@ToString
+@EqualsAndHashCode
 public class CarProviderCouponDTO implements Serializable {
     private Long id;
     private Long carProviderId;

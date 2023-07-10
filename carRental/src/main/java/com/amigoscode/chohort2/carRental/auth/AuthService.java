@@ -31,7 +31,7 @@ public class AuthService {
 
 
     public String login(String username, String password) {
-        log.info("user try to login username:{}", username);
+        //log.info("user try to login username:{}", username);
 
         authenticate(username, password);
 
