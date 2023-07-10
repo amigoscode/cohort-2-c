@@ -1,5 +1,6 @@
 package com.amigoscode.chohort2.carRental.security;
 
+import com.amigoscode.chohort2.carRental.constants.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Hex;
 import org.springframework.http.HttpStatus;
@@ -73,7 +74,7 @@ public final class SecurityUtils {
     }
 
     public static String maskEmail(String email) {
-        return email.replaceAll("(?<=.{1}).(?=[^@]*?@)", "*");
+        return email.replaceAll(Constants.EMAIL_MASK_REGEX, "*");
     }
 
     /**
