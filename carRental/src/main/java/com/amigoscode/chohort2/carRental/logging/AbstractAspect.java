@@ -10,12 +10,4 @@ public class AbstractAspect {
     @Pointcut ("within(com.amigoscode.chohort2.carRental..*)")
     void inProjectPoint(){}
 
-    @FunctionalInterface
-    interface logBefore  {
-        return
-    }
-    void logBefore(){
-
-    }
-
 }
