@@ -24,7 +24,7 @@ public class CarProviderCouponService {
     private CarProviderCoupon findCarProviderUser(CarProviderCouponVM carProviderCouponVM) {
         User user = userService.getLoggedInUser();
         var carProviderUserOptional = carProviderUserRepository.findByUserId(user.getId());
-        if (carProviderUserOptional.get().getCarProviderId() != null)
+        if (carProviderUserOptional.get().getCarProviderId() == null)
             throw new ApiRequestException(ErrorConstants.USER_NOT_FOUND);
         else return new CarProviderCoupon()
                 .setCarProviderId(carProviderUserOptional.get().getCarProviderId())

@@ -19,7 +19,7 @@ public class CarProviderCouponController {
     private final CarProviderCouponService carProviderCouponService;
     @PostMapping("/coupons")
     @Secured({AuthorityConstants.CAR_PROVIDER})
-    public ResponseEntity<Void> saveCarProviderCoupon( @RequestBody CarProviderCouponVM carProviderCouponVM){
+    public ResponseEntity<CarProviderCoupon> saveCarProviderCoupon( @RequestBody CarProviderCouponVM carProviderCouponVM){
         log.info("car provider coupon info {}", carProviderCouponVM);
         carProviderCouponService.save(carProviderCouponVM);
         return ResponseEntity.status(HttpStatus.CREATED).build();
