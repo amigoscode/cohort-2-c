@@ -1,15 +1,20 @@
 package com.amigoscode.chohort2.carRental.auth;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.amigoscode.chohort2.carRental.security.SecurityUtils;
+import lombok.*;
+
+import java.io.Serializable;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginVM {
+@ToString
+public class LoginVM implements Serializable {
     private String username;
     private String password;
+    @ToString.Include
+    private String password(){
+        return SecurityUtils.obfuscateString(password);
+    }
 }

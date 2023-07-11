@@ -10,7 +10,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString (callSuper = true)
 public class CarProviderRegistrationVM extends UserRegistrationVM {
 
 

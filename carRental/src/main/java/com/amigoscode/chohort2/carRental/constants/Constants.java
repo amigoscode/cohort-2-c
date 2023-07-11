@@ -9,6 +9,8 @@ public final class Constants {
     public static final String USERNAME_REGEX = "^(?=.{3,50}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$";
     public static final String PASSWORD_REGEX = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$";
 
+    public static final String EMAIL_MASK_REGEX = "(?<=.{1}).(?=[^@]*?@)";
+
 
     private Constants() {
     }

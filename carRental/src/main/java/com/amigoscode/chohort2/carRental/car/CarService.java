@@ -5,6 +5,7 @@ import com.amigoscode.chohort2.carRental.car.VM.CarVM;
 import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUserService;
 import com.amigoscode.chohort2.carRental.constants.ErrorConstants;
 import com.amigoscode.chohort2.carRental.exception.ApiRequestException;
+import com.amigoscode.chohort2.carRental.lookupCode.LookupCodes;
 import com.amigoscode.chohort2.carRental.user.UserService;
 import com.amigoscode.chohort2.carRental.validation.Validator;
 import lombok.RequiredArgsConstructor;
@@ -17,14 +18,14 @@ import java.util.stream.Collectors;
 public class CarService {
 
     private final CarRepository carRepository;
-    private final static CarMapper carMapper = CarMapper.INSTANCE;
+
     private final CarProviderUserService carProviderUserService;
     private final UserService userService;
 
 
     public CarDTO addCar(CarVM carVM) {
 
-        return carMapper.toDto(createCar(carVM));
+        return CarMapper.INSTANCE.toDto(createCar(carVM));
     }
 
     public void delete(Long id) {
@@ -38,13 +39,13 @@ public class CarService {
 
     public CarDTO getCarById(Long id) {
         return carRepository.findById(id)
-                .map(carMapper::toDto)
+                .map(CarMapper.INSTANCE::toDto)
                 .orElseThrow(() -> new ApiRequestException(ErrorConstants.CAR_NOT_FOUND));
     }
 
     public List<CarDTO> getAllByProviderId(Long providerId) {
         return carRepository.findCarsByCarProviderId(providerId).stream()
-                .map(carMapper::toDto)
+                .map(CarMapper.INSTANCE::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -53,7 +54,7 @@ public class CarService {
         Car car = CarVM.vmToEntity(carVM);
         car.setCarProviderId(id);
         car.setIsVisible(true);
-        car.setBookingStatusCode(1);
+        car.setBookingStatusCode(LookupCodes.UserBookingStatus.inUse);
         return carRepository.save(car);
     }
 

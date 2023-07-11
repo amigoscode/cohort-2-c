@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(callSuper = true)
 @Accessors(chain = true)
 public class ClientRegistrationVM extends UserRegistrationVM {
 

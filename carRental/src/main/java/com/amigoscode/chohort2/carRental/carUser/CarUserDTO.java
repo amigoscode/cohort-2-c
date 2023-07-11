@@ -4,10 +4,7 @@ import com.amigoscode.chohort2.carRental.brand.Brand;
 import com.amigoscode.chohort2.carRental.brandModel.BrandModel;
 import com.amigoscode.chohort2.carRental.car.Car;
 import com.amigoscode.chohort2.carRental.lookupCode.LookupCode;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 
@@ -19,6 +16,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
+@ToString
+@EqualsAndHashCode
 public class CarUserDTO {
 
     private Long id;
