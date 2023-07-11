@@ -26,13 +26,12 @@ public class CarProviderCouponService {
         var carProviderUserOptional = carProviderUserRepository.findByUserId(user.getId());
         if (carProviderUserOptional.get().getCarProviderId() == null)
             throw new ApiRequestException(ErrorConstants.USER_NOT_FOUND);
-        final var carProviderCoupon = new CarProviderCoupon()
+        return new CarProviderCoupon()
                 .setCarProviderId(carProviderUserOptional.get().getCarProviderId())
                 .setCouponCode(carProviderCouponVM.getCouponCode())
                 .setStartDate(carProviderCouponVM.getStartDate())
                 .setEndDate(carProviderCouponVM.getEndDate())
                 .setNumOfUsePerUser(carProviderCouponVM.getNumOfUsePerUser())
                 .setIsAvailable(carProviderCouponVM.getIsAvailable());
-        return carProviderCoupon;
     }
     }
