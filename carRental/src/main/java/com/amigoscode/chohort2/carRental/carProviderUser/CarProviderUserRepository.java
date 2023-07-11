@@ -7,5 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface CarProviderUserRepository extends JpaRepository<CarProviderUser,Long> {
-    Optional<CarProviderUser> findByUserId(@Param("user_id") Long userId);
+    Optional<CarProviderUser> findByUserId(Long userId);
 }
