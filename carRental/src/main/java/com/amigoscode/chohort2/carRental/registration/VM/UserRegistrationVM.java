@@ -1,6 +1,7 @@
 package com.amigoscode.chohort2.carRental.registration.VM;
 
 
+import com.amigoscode.chohort2.carRental.security.SecurityUtils;
 import com.amigoscode.chohort2.carRental.user.User;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
@@ -11,6 +12,7 @@ import java.io.Serializable;
 @Setter
 @Getter
 @Accessors(chain = true)
+@ToString
 public  class UserRegistrationVM implements Serializable {
 
     @NotEmpty
@@ -29,8 +31,15 @@ public  class UserRegistrationVM implements Serializable {
     protected String nin;
 
     @NotEmpty
-    @ToString.Exclude
     protected String password;
+    @ToString.Include
+    private String password(){
+        return SecurityUtils.obfuscateString(password);
+    }
+    @ToString.Include
+    private String email(){
+        return SecurityUtils.maskEmail(email);
+    }
 
 
     public static User vmToEntity(UserRegistrationVM userRegistrationVM){

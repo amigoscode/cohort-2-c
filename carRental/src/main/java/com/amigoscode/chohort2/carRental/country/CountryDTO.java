@@ -1,10 +1,7 @@
 package com.amigoscode.chohort2.carRental.country;
 
 import com.amigoscode.chohort2.carRental.city.CityDTO;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.util.List;
@@ -14,6 +11,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
+@ToString
+@EqualsAndHashCode
 public class CountryDTO {
 
 
