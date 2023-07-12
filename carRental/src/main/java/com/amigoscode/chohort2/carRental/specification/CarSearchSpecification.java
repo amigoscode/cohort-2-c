@@ -24,16 +24,16 @@ public class CarSearchSpecification {
             List<Predicate> predicates = new ArrayList<>();
 
 
-            Join<CarProviderUser,CarProvider> providerUserJoin = cq.from(CarProviderUser.class).join(CarProviderUser_.carProvider);
+            Join<CarProviderUser, CarProvider> providerUserJoin = cq.from(CarProviderUser.class).join(CarProviderUser_.carProvider);
 
-            predicates.add(cb.equal(providerUserJoin.get(CarProviderUser_.userId.getName()),carSearchVM.getProviderId()));
+            if (carSearchVM.getProviderId() != null && carSearchVM.getProviderId() != 0) {
+                predicates.add(cb.equal(providerUserJoin.get(CarProviderUser_.userId.getName()), carSearchVM.getProviderId()));
+            }
 
-            predicates.add(Util.equal(root, cb,brandCode,carSearchVM.getBrandCode()));
-            predicates.add(Util.equal(root, cb,brandModelCode,carSearchVM.getBrandModelCode()));
-            predicates.add(Util.equal(root, cb,productionYear,carSearchVM.getProductionYear()));
-            predicates.add(Util.equal(root, cb,categoryCode,carSearchVM.getCategoryCode()));
-
-
+            predicates.add(Util.equal(root, cb, brandCode, carSearchVM.getBrandCode()));
+            predicates.add(Util.equal(root, cb, brandModelCode, carSearchVM.getBrandModelCode()));
+            predicates.add(Util.equal(root, cb, productionYear, carSearchVM.getProductionYear()));
+            predicates.add(Util.equal(root, cb, categoryCode, carSearchVM.getCategoryCode()));
 
 
             cq.orderBy(cb.desc(root.get(createdDate)));
