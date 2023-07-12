@@ -14,7 +14,7 @@ public class CarProviderUserService {
         return carProviderUserRepository.save(carProviderUser);
     }
     public CarProviderUser findCarProviderUserByUserId(Long id) {
-        return carProviderUserRepository.findCarProviderUserByUserId(id)
+        return carProviderUserRepository.findByUserId(id)
                 .orElseThrow(()-> new ApiRequestException(ErrorConstants.CAR_PROVIDER_USER));
     }
 }
