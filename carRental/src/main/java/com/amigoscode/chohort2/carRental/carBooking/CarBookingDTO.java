@@ -3,10 +3,7 @@ package com.amigoscode.chohort2.carRental.carBooking;
 import com.amigoscode.chohort2.carRental.lookupCode.LookupCode;
 import com.amigoscode.chohort2.carRental.lookupCode.LookupCodes;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.JoinColumnOrFormula;
 import org.hibernate.annotations.JoinColumnsOrFormulas;
@@ -19,6 +16,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
+@ToString
+@EqualsAndHashCode
 public class CarBookingDTO {
 
 

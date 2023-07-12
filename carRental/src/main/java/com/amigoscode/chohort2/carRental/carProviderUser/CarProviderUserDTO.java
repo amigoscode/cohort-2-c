@@ -3,9 +3,7 @@ package com.amigoscode.chohort2.carRental.carProviderUser;
 import com.amigoscode.chohort2.carRental.carProvider.CarProviderDTO;
 import com.amigoscode.chohort2.carRental.user.UserDTO;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -15,6 +13,8 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class CarProviderUserDTO implements Serializable {
     private Long id;
     private Long userId;

@@ -1,5 +1,6 @@
 package com.amigoscode.chohort2.carRental.car;
 
+import com.amigoscode.chohort2.carRental.AbstractTestContainer;
 import com.amigoscode.chohort2.carRental.car.VM.CarVM;
 import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUser;
 import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUserService;
@@ -25,9 +26,13 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.ArgumentMatchers.any;
 import static org.assertj.core.api.Assertions.assertThat;
+/**
+ * This unit test doesn't extend {@link com.amigoscode.chohort2.carRental.AbstractTestContainer} because all data sources
+ * are mocked;
+ * */
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-class CarServiceTest {
+class CarServiceTest{
 
     @Mock
     private CarRepository carRepository;
@@ -45,7 +50,6 @@ class CarServiceTest {
     private CarVM passedVM;
     private CarDTO expectedResult;
 
-    private final static CarMapper carMapper = CarMapper.INSTANCE;
     @BeforeEach
     void tearUp () {
         passedVM = new CarVM()
@@ -93,7 +97,7 @@ class CarServiceTest {
         given(userService.getLoggedInUser()).willReturn(user);
         given(user.getId()).willReturn(1L);
         given(carProviderUserService.findCarProviderUserByUserId(anyLong())).willReturn(carProviderUser);
-        given(carRepository.save(any(Car.class))).willReturn(carMapper.toEntity(expectedResult));
+        given(carRepository.save(any(Car.class))).willReturn(CarMapper.INSTANCE.toEntity(expectedResult));
         CarDTO actualResult = underTest.addCar(passedVM);
 
         assertThat(actualResult).isEqualTo(expectedResult);

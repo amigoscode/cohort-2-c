@@ -5,18 +5,20 @@ package com.amigoscode.chohort2.carRental.driverLicense.VM;
 import com.amigoscode.chohort2.carRental.driverLicense.DriverLicense;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Setter
 @Getter
 @ToString
 @Accessors(chain = true)
-public class DriverLicenseVM {
+public class DriverLicenseVM implements Serializable {
 
     @NotEmpty
     private String driverLicenseNumber;
