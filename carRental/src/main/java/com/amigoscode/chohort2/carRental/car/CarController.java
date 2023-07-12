@@ -45,7 +45,7 @@ public class CarController {
         }
 
         @PostMapping("/search")
-        public ResponseEntity<Page<CarDTO>> searchCars(CarSearchVM carSearchVM, @PageableDefault Pageable pageable){
+        public ResponseEntity<Page<CarDTO>> searchCars(@RequestBody CarSearchVM carSearchVM, @PageableDefault Pageable pageable){
             Specification<Car> carSpecification = CarSearchSpecification.carSearch(carSearchVM);
             return ResponseEntity.ok(carService.getSearchCars(carSpecification, pageable));
         }
