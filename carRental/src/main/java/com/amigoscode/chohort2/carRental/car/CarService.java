@@ -9,6 +9,9 @@ import com.amigoscode.chohort2.carRental.lookupCode.LookupCodes;
 import com.amigoscode.chohort2.carRental.user.UserService;
 import com.amigoscode.chohort2.carRental.validation.Validator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,7 +47,7 @@ public class CarService {
     }
 
     public List<CarDTO> getAllByProviderId(Long providerId) {
-        return carRepository.findCarsByCarProviderId(providerId).stream()
+        return carRepository.findByCarProviderId(getCurrentCarProviderId()).stream()
                 .map(CarMapper.INSTANCE::toDto)
                 .collect(Collectors.toList());
     }
@@ -63,4 +66,9 @@ public class CarService {
         return carProviderUserService.findCarProviderUserByUserId(id).getCarProviderId();
     }
 
+
+    public Page<CarDTO> getSearchCars(Specification<Car> carSearch, Pageable pageable) {
+        return carRepository.findAll(carSearch,pageable)
+                .map(CarMapper.INSTANCE::toDto);
+    }
 }

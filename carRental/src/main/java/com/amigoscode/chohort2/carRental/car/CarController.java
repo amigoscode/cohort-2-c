@@ -1,9 +1,15 @@
 package com.amigoscode.chohort2.carRental.car;
 
 import com.amigoscode.chohort2.carRental.authority.AuthorityConstants;
+import com.amigoscode.chohort2.carRental.car.VM.CarSearchVM;
 import com.amigoscode.chohort2.carRental.car.VM.CarVM;
+import com.amigoscode.chohort2.carRental.specification.CarSearchSpecification;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -36,5 +42,11 @@ public class CarController {
         @GetMapping("/{providerId}")
         public ResponseEntity<List<CarDTO>> getAllByProvider(@PathVariable Long providerId){
             return ResponseEntity.ok(carService.getAllByProviderId(providerId));
+        }
+
+        @PostMapping("/search")
+        public ResponseEntity<Page<CarDTO>> searchCars(CarSearchVM carSearchVM, @PageableDefault Pageable pageable){
+            Specification<Car> carSpecification = CarSearchSpecification.carSearch(carSearchVM);
+            return ResponseEntity.ok(carService.getSearchCars(carSpecification, pageable));
         }
 }
