@@ -7,7 +7,9 @@ import com.amigoscode.chohort2.carRental.security.SecurityUtils;
 import com.amigoscode.chohort2.carRental.user.UserService;
 import lombok.RequiredArgsConstructor;
 
+
 import java.util.Optional;
+
 
 @TransactionalService
 @RequiredArgsConstructor
@@ -17,7 +19,9 @@ public class CarProviderService {
     private final UserService userService;
 
     public CarProvider saveCarProvider(CarProvider carProvider) {
-       return carProviderRepository.save(carProvider);
+        return carProviderRepository.save(carProvider);
     }
+
+
 
 }
