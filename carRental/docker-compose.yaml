@@ -10,7 +10,7 @@ services:
       PGDATA: /data/postgres
       POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256 --auth-local=scram-sha-256"
     ports:
-      - "5433:5432"
+      - "5432:5432"
     networks:
       - car-db-network
     restart: unless-stopped
