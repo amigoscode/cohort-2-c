@@ -13,7 +13,6 @@ import lombok.experimental.Accessors;
 public abstract class AbstractAddress extends AbstractAuditingEntity {
 
 
-
     @Column(name = "city_id")
     protected Long cityId;
 
@@ -22,8 +21,5 @@ public abstract class AbstractAddress extends AbstractAuditingEntity {
 
     @Column(name = "postal_code")
     protected String postalCode;
-
-
-
 
 }

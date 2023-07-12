@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface CarProviderUserRepository extends JpaRepository<CarProviderUser,Long> {
+public interface CarProviderUserRepository extends CRJpaRepository<CarProviderUser,Long> {
     Optional<CarProviderUser> findByUserId(Long userId);
+
 }

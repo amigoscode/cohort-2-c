@@ -6,27 +6,37 @@ import java.util.function.Supplier;
 
 public abstract class Validator {
 
-    public static void invalidateIfTure(Supplier<Boolean> supplier, String message) {
-        invalidateIfTure(supplier, null,message);
+    public static void invalidateIfTrue(Supplier<Boolean> supplier, String message) {
+        invalidateIfTrue(supplier, null,message);
+    }
+    public static void invalidateIfFalse(Supplier<Boolean> supplier, String message) {
+        invalidateIfFalse(supplier, null,message);
     }
 
-
-
-
-
-    public static void invalidateIfTure(Supplier<Boolean> supplier, String errorKey, String message, Object... args) {
+    public static void invalidateIfTrue(Supplier<Boolean> supplier, String errorKey, String message, Object... args) {
         if (supplier.get()) {
             throw new ApiRequestException(message, errorKey)
                     .messageArgs(args);
         }
-
     }
 
-    public static void invalidateIfTure(Supplier<Boolean> supplier, ApiRequestException e) {
+    public static void invalidateIfFalse(Supplier<Boolean> supplier, String errorKey, String message, Object... args) {
+        if (!supplier.get()) {
+            throw new ApiRequestException(message, errorKey)
+                    .messageArgs(args);
+        }
+    }
+
+    public static void invalidateIfTrue(Supplier<Boolean> supplier, ApiRequestException e) {
         if (supplier.get()) {
             throw e;
         }
     }
 
+    public static void invalidateIfFalse(Supplier<Boolean> supplier, ApiRequestException e) {
+        if (!supplier.get()) {
+            throw e;
+        }
+    }
 
 }
