@@ -6,6 +6,10 @@ import static com.amigoscode.chohort2.carRental.car.Car_.*;
 
 import com.amigoscode.chohort2.carRental.car.Car;
 import com.amigoscode.chohort2.carRental.car.VM.CarSearchVM;
+import com.amigoscode.chohort2.carRental.carProvider.CarProvider;
+import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUser;
+import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUser_;
+import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -19,7 +23,10 @@ public class CarSearchSpecification {
         return ((root, cq, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            predicates.add(Util.equal(root, cb,carProviderId,carSearchVM.getProviderId()));
+
+            Join<CarProviderUser,CarProvider> providerUserJoin = cq.from(CarProviderUser.class).join(CarProviderUser_.carProvider);
+
+            predicates.add(cb.equal(providerUserJoin.get(CarProviderUser_.userId.getName()),carSearchVM.getProviderId()));
 
             predicates.add(Util.equal(root, cb,brandCode,carSearchVM.getBrandCode()));
             predicates.add(Util.equal(root, cb,brandModelCode,carSearchVM.getBrandModelCode()));
