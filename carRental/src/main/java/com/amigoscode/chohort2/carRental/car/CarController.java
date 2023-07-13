@@ -49,4 +49,9 @@ public class CarController {
             Specification<Car> carSpecification = CarSearchSpecification.carSearch(carSearchVM);
             return ResponseEntity.ok(carService.getSearchCars(carSpecification, pageable));
         }
+        @PutMapping
+        @Secured({AuthorityConstants.CAR_PROVIDER})
+        public ResponseEntity<CarDTO>updateCar (@RequestBody @Valid CarVM carVM){
+            return ResponseEntity.ok(carService.update(carVM));
+        }
 }
