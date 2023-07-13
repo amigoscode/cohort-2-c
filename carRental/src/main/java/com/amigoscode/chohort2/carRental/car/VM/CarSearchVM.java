@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class CarSearchVM implements Serializable {
 
 
-    private Long providerId;
+    private Long providerUserId;
 
     private Integer brandCode;
     private Integer brandModelCode;
