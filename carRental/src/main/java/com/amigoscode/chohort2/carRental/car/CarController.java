@@ -39,11 +39,6 @@ public class CarController {
         public ResponseEntity<CarDTO>getCarById (@PathVariable Long id) {
             return ResponseEntity.ok(carService.getCarById(id));
         }
-        @GetMapping("by-provider-user-id/{providerId}")
-        public ResponseEntity<List<CarDTO>> getAllByProvider(@PathVariable Long providerId){
-            return ResponseEntity.ok(carService.getAllByProviderId(providerId));
-        }
-
         @PostMapping("/search")
         public ResponseEntity<Page<CarDTO>> searchCars(@RequestBody CarSearchVM carSearchVM, @PageableDefault Pageable pageable){
             Specification<Car> carSpecification = CarSearchSpecification.carSearch(carSearchVM);
