@@ -39,7 +39,7 @@ public class CarController {
         public ResponseEntity<CarDTO>getCarById (@PathVariable Long id) {
             return ResponseEntity.ok(carService.getCarById(id));
         }
-        @GetMapping("/{providerId}")
+        @GetMapping("by-provider-user-id/{providerId}")
         public ResponseEntity<List<CarDTO>> getAllByProvider(@PathVariable Long providerId){
             return ResponseEntity.ok(carService.getAllByProviderId(providerId));
         }

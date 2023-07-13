@@ -27,7 +27,7 @@ public class CarSearchSpecification {
             Join<CarProviderUser, CarProvider> providerUserJoin = cq.from(CarProviderUser.class).join(CarProviderUser_.carProvider);
 
             if (carSearchVM.getProviderId() != null && carSearchVM.getProviderId() != 0) {
-                predicates.add(cb.equal(providerUserJoin.get(CarProviderUser_.userId.getName()), carSearchVM.getProviderId()));
+                predicates.add(cb.equal(providerUserJoin.getParent().get(CarProviderUser_.userId), carSearchVM.getProviderId()));
             }
 
             predicates.add(Util.equal(root, cb, brandCode, carSearchVM.getBrandCode()));

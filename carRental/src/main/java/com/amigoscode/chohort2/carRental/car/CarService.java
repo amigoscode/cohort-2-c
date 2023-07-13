@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @TransactionalService
@@ -57,7 +58,8 @@ public class CarService {
         Car car = CarVM.vmToEntity(carVM);
         car.setCarProviderId(id);
         car.setIsVisible(true);
-        car.setBookingStatusCode(LookupCodes.UserBookingStatus.inUse);
+        car.setBookingStatusCode(LookupCodes.CarBookingStatus.available);
+        car.setRegistrationNumber(UUID.randomUUID());
         return carRepository.save(car);
     }
 
