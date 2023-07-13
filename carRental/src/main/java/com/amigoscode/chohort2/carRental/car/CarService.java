@@ -30,6 +30,9 @@ public class CarService {
 
         return CarMapper.INSTANCE.toDto(createCar(carVM));
     }
+    public CarDTO update(CarVM carVM) {
+        return CarMapper.INSTANCE.toDto(updateCar(carVM));
+    }
 
     public void delete(Long id) {
         Car car = carRepository.findById(id).orElseThrow(() -> new ApiRequestException(ErrorConstants.CAR_NOT_FOUND));
@@ -55,6 +58,13 @@ public class CarService {
         car.setIsVisible(true);
         car.setBookingStatusCode(LookupCodes.CarBookingStatus.available);
         car.setRegistrationNumber(UUID.randomUUID());
+        return carRepository.save(car);
+    }
+
+    private Car updateCar(CarVM carVM){
+        Long id = getCurrentCarProviderId();
+        Car car = CarVM.vmToEntity(carVM);
+        car.setCarProviderId(id);
         return carRepository.save(car);
     }
 
