@@ -9,4 +9,6 @@ dnp:
 mcp:
 	mvn clean package
 untrack-iml:
-	git rm --cache *.iml
+	git rm -r --cache *.iml
+untrack-lock:
+	git rm -r --cache *.lock.hcl
