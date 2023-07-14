@@ -1,8 +1,9 @@
 package com.amigoscode.chohort2.carRental.car;
 
 import com.amigoscode.chohort2.carRental.authority.AuthorityConstants;
-import com.amigoscode.chohort2.carRental.car.VM.CarSearchVM;
+import com.amigoscode.chohort2.carRental.car.VM.CarSearchByProviderUserVM;
 import com.amigoscode.chohort2.carRental.car.VM.CarVM;
+import com.amigoscode.chohort2.carRental.car.VM.CarSearchVM;
 import com.amigoscode.chohort2.carRental.specification.CarSearchSpecification;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.io.Serializable;
 
 @RestController
 @RequestMapping("api/v1/cars")
@@ -40,10 +41,23 @@ public class CarController {
             return ResponseEntity.ok(carService.getCarById(id));
         }
         @PostMapping("/search")
-        public ResponseEntity<Page<CarDTO>> searchCars(@RequestBody CarSearchVM carSearchVM, @PageableDefault Pageable pageable){
-            Specification<Car> carSpecification = CarSearchSpecification.carSearch(carSearchVM);
+        public  ResponseEntity<Page<CarDTO>> searchCars(@RequestBody CarSearchVM vm, @PageableDefault Pageable pageable){
+            Specification<Car> carSpecification;
+            if (vm instanceof CarSearchByProviderUserVM vm1) carSpecification = CarSearchSpecification.carSearch(vm1);
+            else carSpecification = CarSearchSpecification.carSearch(vm);
+
+// Preview feature, only with java 21 available;
+//
+//            Specification<Car> carSpecification = CarSearchSpecification.carSearch(
+//                    switch (vm) {
+//                        case CarSearchByProviderUserVM vm1 -> vm1;
+//                        default -> vm;
+//                    }
+//            );
+
             return ResponseEntity.ok(carService.getSearchCars(carSpecification, pageable));
         }
+
         @PutMapping
         @Secured({AuthorityConstants.CAR_PROVIDER})
         public ResponseEntity<CarDTO>updateCar (@RequestBody @Valid CarVM carVM){

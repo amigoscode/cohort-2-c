@@ -49,5 +49,27 @@ public interface LookupCodes {
 
     }
 
+    interface SortingType {
+        int asc = 1;
+        int desc = 2;
+    }
+
+    interface CarSearchOrderByType {
+
+        int carProviderId = 1;
+        int registrationNumber = 2;
+        int brandCode = 3;
+        int brandModelCode = 4;
+        int productionYear = 5;
+        int maxSpeed = 6;
+        int horsePower = 7;
+        int rgbCode = 8;
+        int description = 9;
+        int price = 10;
+        int categoryCode = 11;
+
+
+    }
+
 
 }
