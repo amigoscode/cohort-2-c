@@ -31,5 +31,8 @@ public class BrandModel {
     @Column (name = "code", nullable = false)
     private Integer code;
 
+    @Column (name = "name", nullable = false)
+    private String name;
+
 
 }
