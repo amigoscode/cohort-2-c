@@ -50,7 +50,7 @@ public class CarController {
 
     @PutMapping
     @Secured({AuthorityConstants.CAR_PROVIDER})
-    public ResponseEntity<CarDTO> updateCar(@RequestBody @Valid CarVM carVM) {
-        return ResponseEntity.ok(carService.update(carVM));
+    public ResponseEntity<CarDTO> updateCar(@PathVariable Long carId, @RequestBody @Valid CarVM carVM) {
+        return ResponseEntity.ok(carService.update(carId, carVM));
     }
 }

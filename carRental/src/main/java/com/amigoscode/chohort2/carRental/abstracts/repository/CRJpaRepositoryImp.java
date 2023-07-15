@@ -27,4 +27,10 @@ public class CRJpaRepositoryImp<T extends AbstractAuditingEntity, ID extends Ser
         entityManager.refresh(entity);
         return entity;
     }
+
+    @Transactional
+    public T merge (T updatedEntity ) {
+        return entityManager.merge(updatedEntity);
+
+    }
 }
