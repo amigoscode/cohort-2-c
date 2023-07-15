@@ -1,7 +1,9 @@
 package com.amigoscode.chohort2.carRental.car.VM;
 
 import com.amigoscode.chohort2.carRental.car.Car;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -15,19 +17,20 @@ import java.time.LocalDate;
 @Accessors(chain = true)
 public class CarVM implements Serializable {
 
-    @NotEmpty
+    @NotNull
     private Integer brandCode;
 
-    @NotEmpty
+    @NotNull
     private Integer brandModelCode;
 
-    @NotEmpty
+    @NotNull
     private LocalDate productionYear;
 
-    @NotEmpty
+    @NotNull
+    @Min(220)
     private Integer maxSpeed;
 
-    @NotEmpty
+    @NotNull
     private Integer horsePower;
 
     @NotEmpty
@@ -36,10 +39,10 @@ public class CarVM implements Serializable {
     @NotEmpty
     private String description;
 
-    @NotEmpty
+    @NotNull
     private Integer categoryCode;
 
-    @NotEmpty
+    @NotNull
     private Float price;
 
     @NotEmpty

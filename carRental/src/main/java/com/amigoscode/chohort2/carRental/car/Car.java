@@ -49,14 +49,14 @@ public class Car extends AbstractAuditingEntity {
     private Integer brandCode;
 
     @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn (name = "brand_code", updatable = false,insertable = false)
+    @JoinColumn (name = "brand_code", updatable = false,insertable = false,referencedColumnName = "code")
     private Brand brand;
 
     @Column (name = "brand_model_code", nullable = false)
     private Integer brandModelCode;
 
     @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn (name = "brand_model_code", updatable = false,insertable = false)
+    @JoinColumn (name = "brand_model_code", updatable = false,insertable = false,referencedColumnName = "code")
     private BrandModel brandModel;
 
     @Column (name = "production_year", nullable = false)
