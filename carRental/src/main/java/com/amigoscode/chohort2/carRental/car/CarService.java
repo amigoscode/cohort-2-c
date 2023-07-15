@@ -39,6 +39,9 @@ public class CarService {
                 "car doesn't belong to the provider");
         carRepository.deleteById(id);
     }
+    public CarDTO update(CarVM carVM) {
+        return CarMapper.INSTANCE.toDto(updateCar(carVM));
+    }
 
     public CarDTO getCarById(Long id) {
         return carRepository.findById(id)
@@ -55,6 +58,13 @@ public class CarService {
         car.setIsVisible(true);
         car.setBookingStatusCode(LookupCodes.CarBookingStatus.available);
         car.setRegistrationNumber(UUID.randomUUID());
+        return carRepository.save(car);
+    }
+
+    private Car updateCar(CarVM carVM){
+        Long id = getCurrentCarProviderId();
+        Car car = CarVM.vmToEntity(carVM);
+        car.setCarProviderId(id);
         return carRepository.save(car);
     }
 

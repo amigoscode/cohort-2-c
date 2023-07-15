@@ -22,26 +22,35 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CarController {
 
-        private final CarService carService;
+    private final CarService carService;
 
-        @PostMapping
-        @Secured({AuthorityConstants.CAR_PROVIDER})
-        public ResponseEntity<CarDTO> addCar (@RequestBody @Valid CarVM carVM){
-            return ResponseEntity.ok(carService.addCar(carVM));
-        }
-        @DeleteMapping("/{id}")
-        @Secured({AuthorityConstants.CAR_PROVIDER})
-        public ResponseEntity<Void> deleteCarById (@PathVariable Long id) {
-            carService.delete(id);
-            return ResponseEntity.status(HttpStatus.OK).build();
-        }
-        @GetMapping("/{id}")
-        public ResponseEntity<CarDTO>getCarById (@PathVariable Long id) {
-            return ResponseEntity.ok(carService.getCarById(id));
-        }
-        @PostMapping("/search")
-        public ResponseEntity<Page<CarDTO>> searchCars(@RequestBody CarSearchVM carSearchVM, @PageableDefault Pageable pageable){
-            Specification<Car> carSpecification = CarSearchSpecification.carSearch(carSearchVM);
-            return ResponseEntity.ok(carService.getSearchCars(carSpecification, pageable));
-        }
+    @PostMapping
+    @Secured({AuthorityConstants.CAR_PROVIDER})
+    public ResponseEntity<CarDTO> addCar(@RequestBody @Valid CarVM carVM) {
+        return ResponseEntity.ok(carService.addCar(carVM));
+    }
+
+    @DeleteMapping("/{id}")
+    @Secured({AuthorityConstants.CAR_PROVIDER})
+    public ResponseEntity<Void> deleteCarById(@PathVariable Long id) {
+        carService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CarDTO> getCarById(@PathVariable Long id) {
+        return ResponseEntity.ok(carService.getCarById(id));
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<Page<CarDTO>> searchCars(@RequestBody CarSearchVM carSearchVM, @PageableDefault Pageable pageable) {
+        Specification<Car> carSpecification = CarSearchSpecification.carSearch(carSearchVM);
+        return ResponseEntity.ok(carService.getSearchCars(carSpecification, pageable));
+    }
+
+    @PutMapping
+    @Secured({AuthorityConstants.CAR_PROVIDER})
+    public ResponseEntity<CarDTO> updateCar(@RequestBody @Valid CarVM carVM) {
+        return ResponseEntity.ok(carService.update(carVM));
+    }
 }
