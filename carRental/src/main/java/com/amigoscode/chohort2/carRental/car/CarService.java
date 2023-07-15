@@ -9,9 +9,12 @@ import com.amigoscode.chohort2.carRental.lookupCode.LookupCodes;
 import com.amigoscode.chohort2.carRental.user.UserService;
 import com.amigoscode.chohort2.carRental.validation.Validator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.UUID;
+
 
 @TransactionalService
 @RequiredArgsConstructor
@@ -43,18 +46,15 @@ public class CarService {
                 .orElseThrow(() -> new ApiRequestException(ErrorConstants.CAR_NOT_FOUND));
     }
 
-    public List<CarDTO> getAllByProviderId(Long providerId) {
-        return carRepository.findCarsByCarProviderId(providerId).stream()
-                .map(CarMapper.INSTANCE::toDto)
-                .collect(Collectors.toList());
-    }
+
 
     private Car createCar(CarVM carVM) {
         Long id = getCurrentCarProviderId();
         Car car = CarVM.vmToEntity(carVM);
         car.setCarProviderId(id);
         car.setIsVisible(true);
-        car.setBookingStatusCode(LookupCodes.UserBookingStatus.inUse);
+        car.setBookingStatusCode(LookupCodes.CarBookingStatus.available);
+        car.setRegistrationNumber(UUID.randomUUID());
         return carRepository.save(car);
     }
 
@@ -63,4 +63,9 @@ public class CarService {
         return carProviderUserService.findCarProviderUserByUserId(id).getCarProviderId();
     }
 
+
+    public Page<CarDTO> getSearchCars(Specification<Car> carSearch, Pageable pageable) {
+        return carRepository.findAll(carSearch,pageable)
+                .map(CarMapper.INSTANCE::toDto);
+    }
 }

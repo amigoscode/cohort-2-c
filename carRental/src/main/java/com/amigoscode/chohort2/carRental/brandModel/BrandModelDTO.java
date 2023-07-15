@@ -19,5 +19,7 @@ public class BrandModelDTO {
 
     private Integer code;
 
+    private String name;
+
 
 }
