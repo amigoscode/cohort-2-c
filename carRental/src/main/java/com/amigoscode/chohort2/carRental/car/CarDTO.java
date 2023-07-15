@@ -1,6 +1,10 @@
 package com.amigoscode.chohort2.carRental.car;
 
 
+import com.amigoscode.chohort2.carRental.brand.Brand;
+import com.amigoscode.chohort2.carRental.brand.BrandDTO;
+import com.amigoscode.chohort2.carRental.brandModel.BrandModel;
+import com.amigoscode.chohort2.carRental.brandModel.BrandModelDTO;
 import com.amigoscode.chohort2.carRental.lookupCode.LookupCodeDTO;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,8 +31,10 @@ public class CarDTO {
 
     private Integer brandCode;
 
+    private BrandDTO brand;
 
     private Integer brandModelCode;
+    private BrandModelDTO brandModel;
 
 
     private LocalDate productionYear;

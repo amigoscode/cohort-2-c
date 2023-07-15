@@ -1,4 +1,4 @@
-package com.amigoscode.chohort2.carRental.spcefication;
+package com.amigoscode.chohort2.carRental.specification;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Expression;
