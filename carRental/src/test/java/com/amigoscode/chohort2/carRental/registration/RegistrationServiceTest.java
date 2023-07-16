@@ -1,13 +1,12 @@
 package com.amigoscode.chohort2.carRental.registration;
 
-import com.amigoscode.chohort2.carRental.AbstractTestContainer;
+
 import com.amigoscode.chohort2.carRental.authority.Authority;
 import com.amigoscode.chohort2.carRental.authority.AuthorityConstants;
 import com.amigoscode.chohort2.carRental.authority.AuthorityService;
 import com.amigoscode.chohort2.carRental.driverLicense.DriverLicenseService;
 import com.amigoscode.chohort2.carRental.driverLicense.VM.DriverLicenseVM;
 import com.amigoscode.chohort2.carRental.registration.VM.ClientRegistrationVM;
-import com.amigoscode.chohort2.carRental.registration.VM.UserRegistrationVM;
 import com.amigoscode.chohort2.carRental.user.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 
@@ -24,7 +22,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-class RegistrationServiceTest extends AbstractTestContainer {
+class RegistrationServiceTest{
 
     @Mock
     private UserService userService;

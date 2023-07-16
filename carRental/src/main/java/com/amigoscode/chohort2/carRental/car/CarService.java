@@ -68,7 +68,14 @@ public class CarService {
                 ErrorConstants.CAR_PROVIDER_USER,
                 "car doesn't belong to the provider");
         Car carUpToDate = CarVM.vmToEntity(carVM);
-        carUpToDate.setCarProviderId(providerId);
+
+        carUpToDate
+                .setId(car.getId())
+                .setCarProviderId(providerId)
+                .setRegistrationNumber(car.getRegistrationNumber())
+                .setBookingStatusCode(car.getBookingStatusCode())
+                .setIsVisible(car.getIsVisible());
+
         return carRepository.merge(carUpToDate);
     }
 
