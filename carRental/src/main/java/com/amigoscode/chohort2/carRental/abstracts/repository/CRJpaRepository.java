@@ -42,4 +42,6 @@ public interface CRJpaRepository<T extends AbstractAuditingEntity, ID extends Se
 
     T saveAndRefresh(T entity);
 
+    T merge (T entity);
+
 }

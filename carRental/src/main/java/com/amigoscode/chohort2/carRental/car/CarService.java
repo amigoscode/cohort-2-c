@@ -37,7 +37,11 @@ public class CarService {
         Validator.invalidateIfFalse(() -> car.getCarProviderId().equals(getCurrentCarProviderId()),
                 ErrorConstants.CAR_PROVIDER_USER,
                 "car doesn't belong to the provider");
-        carRepository.deleteById(id);
+        carRepository.delete(car);
+    }
+
+    public CarDTO update(Long carId, CarVM carVM) {
+        return CarMapper.INSTANCE.toDto(updateCar(carId, carVM));
     }
 
     public CarDTO getCarById(Long id) {
@@ -45,7 +49,6 @@ public class CarService {
                 .map(CarMapper.INSTANCE::toDto)
                 .orElseThrow(() -> new ApiRequestException(ErrorConstants.CAR_NOT_FOUND));
     }
-
 
 
     private Car createCar(CarVM carVM) {
@@ -58,6 +61,18 @@ public class CarService {
         return carRepository.save(car);
     }
 
+    private Car updateCar(Long carId, CarVM carVM) {
+        Long providerId = getCurrentCarProviderId();
+        Car car = carRepository.findById(carId).orElseThrow(() -> new ApiRequestException(ErrorConstants.CAR_NOT_FOUND));
+        Validator.invalidateIfFalse(() -> car.getCarProviderId().equals(providerId),
+                ErrorConstants.CAR_PROVIDER_USER,
+                "car doesn't belong to the provider");
+        Car carUpToDate = CarVM.vmToEntity(carVM);
+        carUpToDate.setCarProviderId(providerId);
+        return carRepository.merge(carUpToDate);
+    }
+
+
     private Long getCurrentCarProviderId() {
         Long id = userService.getLoggedInUser().getId();
         return carProviderUserService.findCarProviderUserByUserId(id).getCarProviderId();
@@ -65,7 +80,7 @@ public class CarService {
 
 
     public Page<CarDTO> getSearchCars(Specification<Car> carSearch, Pageable pageable) {
-        return carRepository.findAll(carSearch,pageable)
+        return carRepository.findAll(carSearch, pageable)
                 .map(CarMapper.INSTANCE::toDto);
     }
 }
