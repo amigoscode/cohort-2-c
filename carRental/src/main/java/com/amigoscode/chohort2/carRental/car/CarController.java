@@ -43,9 +43,9 @@ public class CarController {
 
     @PostMapping("/search")
     public ResponseEntity<Page<CarDTO>> searchCars(@RequestBody CarSearchVM carSearchVM, @PageableDefault Pageable pageable) {
-        Specification<Car> carSpecification;
-        if (carSearchVM instanceof CarSearchByProviderUserVM vm1) carSpecification = CarSearchSpecification.carSearch(vm1);
-        else carSpecification = CarSearchSpecification.carSearch(carSearchVM);
+        Specification<Car> carSpecification = carSearchVM instanceof CarSearchByProviderUserVM vm1
+                ? CarSearchSpecification.carSearch(vm1):  CarSearchSpecification.carSearch(carSearchVM) ;
+
         return ResponseEntity.ok(carService.getSearchCars(carSpecification, pageable));
     }
 
