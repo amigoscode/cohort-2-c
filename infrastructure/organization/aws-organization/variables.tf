@@ -117,22 +117,6 @@ variable "accounts" {
       iam_user_access_to_billing = true,
       role_name                  = "OrganizationAccountAccessRole",
       s3_bucket_prefix           = "staging"
-    }
-    PROD = {
-      name                       = "PROD",
-      email_suffix               = "prod@gmail.com",
-      close_on_deletion          = false,
-      iam_user_access_to_billing = true,
-      role_name                  = "OrganizationAccountAccessRole",
-      s3_bucket_prefix           = "prod"
-    },
-    STAGING = {
-      name                       = "STAGING",
-      email_suffix               = "staging@gmail.com",
-      close_on_deletion          = false,
-      iam_user_access_to_billing = true,
-      role_name                  = "OrganizationAccountAccessRole",
-      s3_bucket_prefix           = "staging"
     },
     DEV = {
       name                       = "DEV",
