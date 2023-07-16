@@ -5,14 +5,18 @@ import com.amigoscode.chohort2.carRental.car.VM.CarVM;
 import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUserService;
 import com.amigoscode.chohort2.carRental.constants.ErrorConstants;
 import com.amigoscode.chohort2.carRental.exception.ApiRequestException;
+import com.amigoscode.chohort2.carRental.image.Image;
 import com.amigoscode.chohort2.carRental.lookupCode.LookupCodes;
 import com.amigoscode.chohort2.carRental.user.UserService;
 import com.amigoscode.chohort2.carRental.validation.Validator;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.UUID;
 
 
@@ -89,5 +93,61 @@ public class CarService {
     public Page<CarDTO> getSearchCars(Specification<Car> carSearch, Pageable pageable) {
         return carRepository.findAll(carSearch, pageable)
                 .map(CarMapper.INSTANCE::toDto);
+    }
+
+    @Override
+    public void uploadImage(Long carId, MultipartFile file) {
+
+            Car car = getCarIfBelongsToCurrentProviderOrThrow(carId);
+            String carImageId = UUID.randomUUID().toString();
+            try {
+                s3Service.putObject(
+                        s3Buckets.getCar(),
+                        "images/%s/%s".formatted(carId, carImageId),
+                        file.getBytes()
+                );
+            } catch (IOException e) {
+
+                //TODO: change exception
+                throw new RuntimeException("failed to upload profile image", e);
+            }
+            car.setImgUrl(carImageId);
+            carRepository.save(car);
+        }
+
+    @Override
+    public byte[] getOriginalUresizedImage(Long carId) {
+        Car car = getCarIfBelongsToCurrentProviderOrThrow(carId);
+        return getCarImage(carId, car);
+    }
+
+    @Override
+    public byte[] getOriginalResizedImage(Long carId) {
+        Car car = carRepository.findById(carId).orElseThrow(() -> new ApiRequestException(ErrorConstants.CAR_NOT_FOUND));
+        byte[] unresizedImage = getCarImage(carId, car);
+
+        return;
+    }
+
+    private byte[] getCarImage(Long carId, Car car) {
+
+        if (StringUtils.isBlank(car.getImgUrl())) {
+            throw new ApiRequestException(ErrorConstants.IMAGE_NOT_FOUND, "no image exists" );
+        }
+
+        byte[] carImage = s3Service.getObject(
+                s3Buckets.getCar(),
+                "images/%s/%s".formatted(carId, car.getImgUrl())
+        );
+        return carImage;
+    }
+    public Car getCarIfBelongsToCurrentProviderOrThrow(Long id){
+        Car car = carRepository.findById(id).orElseThrow(() -> new ApiRequestException(ErrorConstants.CAR_NOT_FOUND));
+
+        Validator.invalidateIfFalse(() -> car.getCarProviderId().equals(getCurrentCarProviderId()),
+                ErrorConstants.CAR_PROVIDER_USER,
+                "car doesn't belong to the provider");
+
+        return car;
     }
 }
