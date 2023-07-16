@@ -41,3 +41,12 @@ cors:
   allowed-methods: "*"
   allowed-headers: "*"
   exposed-headers: "*"
+
+aws:
+  region: us-east-2
+  s3:
+    mock: true
+    buckets:
+      domain: rental-car
+    car:
+      resize-magnitude: 10

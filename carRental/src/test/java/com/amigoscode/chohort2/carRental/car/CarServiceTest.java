@@ -1,10 +1,11 @@
 package com.amigoscode.chohort2.carRental.car;
 
-import com.amigoscode.chohort2.carRental.AbstractTestContainer;
 import com.amigoscode.chohort2.carRental.car.VM.CarVM;
 import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUser;
 import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUserService;
 import com.amigoscode.chohort2.carRental.exception.ApiRequestException;
+import com.amigoscode.chohort2.carRental.external.s3.S3Buckets;
+import com.amigoscode.chohort2.carRental.external.s3.S3Service;
 import com.amigoscode.chohort2.carRental.lookupCode.LookupCodeDTO;
 import com.amigoscode.chohort2.carRental.user.User;
 import com.amigoscode.chohort2.carRental.user.UserService;
@@ -44,6 +45,10 @@ class CarServiceTest{
     private User user;
     @Mock
     CarProviderUser carProviderUser;
+    @Mock
+    private S3Buckets s3Buckets;
+    @Mock
+    private S3Service s3Service;
 
     @InjectMocks
     private CarService underTest;
