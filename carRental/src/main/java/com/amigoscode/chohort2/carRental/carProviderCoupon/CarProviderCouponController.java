@@ -1,6 +1,7 @@
 package com.amigoscode.chohort2.carRental.carProviderCoupon;
 
 import com.amigoscode.chohort2.carRental.authority.AuthorityConstants;
+import com.amigoscode.chohort2.carRental.carProviderCoupon.VM.CarProviderCouponAvailabilityVM;
 import com.amigoscode.chohort2.carRental.carProviderCoupon.VM.CarProviderCouponVM;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -23,5 +24,14 @@ public class CarProviderCouponController {
         CarProviderCouponDTO couponDTO = carProviderCouponService.save(carProviderCouponVM);
         return ResponseEntity.accepted().body(couponDTO);
     }
+
+    @PatchMapping("{couponId}")
+    @Secured({AuthorityConstants.CAR_PROVIDER})
+    public ResponseEntity<CarProviderCouponDTO> updateCarProviderCouponAvailability(@PathVariable("couponId") Long couponId,@RequestBody CarProviderCouponAvailabilityVM carProviderCouponAvailabilityVM){
+        log.info("car provider coupon info {}", carProviderCouponAvailabilityVM);
+        CarProviderCouponDTO availabilityCouponDTO = carProviderCouponService.updateCouponAvailability(couponId,carProviderCouponAvailabilityVM);
+        return ResponseEntity.accepted().body(availabilityCouponDTO);
+    }
+
 
 }
