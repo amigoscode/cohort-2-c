@@ -31,6 +31,7 @@ public abstract class ImageHandler<T, ID> {
     abstract protected S3Buckets getBuckets();
 
     abstract protected S3Service getS3Service();
+    abstract protected String getS3DomainName();
 
     @Transactional
     public void uploadImage(ID domainId, T domain, MultipartFile file) {
@@ -39,7 +40,7 @@ public abstract class ImageHandler<T, ID> {
         try {
             getS3Service().putObject(
                     getBuckets().getDomain(),
-                    "images/%s/%s".formatted(domainId, domainImageId),
+                    "images/%S/%s/%s".formatted(getS3DomainName(),domainId, domainImageId),
                     file.getBytes()
             );
         } catch (IOException e) {
@@ -88,7 +89,7 @@ public abstract class ImageHandler<T, ID> {
 
         return getS3Service().getObject(
                 getBuckets().getDomain(),
-                "images/%s/%s".formatted(domainId, getImgUrl(domain))
+                "images/%s/%s/%s".formatted(getS3DomainName(),domainId, getImgUrl(domain))
         );
     }
 

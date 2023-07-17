@@ -21,6 +21,8 @@ public class S3Service {
 
     @Value("${aws.s3.car.resize-magnitude}")
     private int carResizeMagnitude;
+    @Value("${aws.s3.car.domain}")
+    private String carDomain;
 
 
     public S3Service(S3Client s3) {
@@ -68,4 +70,11 @@ public class S3Service {
         this.carResizeMagnitude = carResizeMagnitude;
     }
 
+    public String getCarDomain() {
+        return carDomain;
+    }
+
+    public void setCarDomain(String carDomain) {
+        this.carDomain = carDomain;
+    }
 }

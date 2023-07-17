@@ -143,6 +143,8 @@ public class CarService extends ImageHandler<Car, Long> {
     protected S3Service getS3Service() {
         return s3Service;
     }
+    @Override
+    protected String getS3DomainName(){ return s3Service.getCarDomain(); }
 
 
 }

@@ -47,6 +47,7 @@ aws:
   s3:
     mock: true
     buckets:
-      domain: rental-car
+      domain: rental-cars
     car:
+      domain: cars
       resize-magnitude: 10
