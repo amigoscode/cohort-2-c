@@ -20,6 +20,7 @@ import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
 import java.util.Optional;
+import static org.assertj.core.api.Assertions.*;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -44,6 +45,11 @@ class RegistrationControllerIT extends AbstractTestContainer {
     private CarProviderUserRepository carProviderUserRepository;
 
 
+
+
+
+    @Autowired
+    private UserRepository userRepository;
 
 
     private static final String API_URL = "api/v1/registrations/";
@@ -81,6 +87,10 @@ class RegistrationControllerIT extends AbstractTestContainer {
 
 
         // then verify the output
+        assertThat(userRepository.findByUsernameWithAuthorities(clientRegistrationVM.getUsername()).isPresent())
+                .isTrue();
+
+
         assertThat(userRepository.findByUsernameWithAuthorities(clientRegistrationVM.getUsername()).isPresent())
                 .isTrue();
 
