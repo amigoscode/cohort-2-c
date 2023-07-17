@@ -117,8 +117,8 @@ public final class SecurityUtils {
                 log.error("Hashing failed!");
             }
         }
-        log.error("Obfuscation of data-type {} is not implemented. Hashing failed. Returned value: data.toString().",data.getClass().toString());
-        return data.toString();
+//        log.error("Obfuscation of data-type {} is not implemented. Hashing failed. Returned value: data.toString().",data.getClass().toString());
+        return "";
 
     }
 
