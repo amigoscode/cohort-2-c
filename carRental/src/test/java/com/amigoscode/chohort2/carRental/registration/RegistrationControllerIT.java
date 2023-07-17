@@ -3,17 +3,16 @@ package com.amigoscode.chohort2.carRental.registration;
 import com.amigoscode.chohort2.carRental.AbstractTestContainer;
 import com.amigoscode.chohort2.carRental.driverLicense.VM.DriverLicenseVM;
 import com.amigoscode.chohort2.carRental.registration.VM.ClientRegistrationVM;
-import com.amigoscode.chohort2.carRental.registration.VM.UserRegistrationVM;
+import com.amigoscode.chohort2.carRental.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
+import static org.assertj.core.api.Assertions.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class RegistrationControllerIT extends AbstractTestContainer {
 
     @Autowired
@@ -21,6 +20,11 @@ class RegistrationControllerIT extends AbstractTestContainer {
 
     @Autowired
     private RegistrationService registrationService;
+
+
+
+    @Autowired
+    private UserRepository userRepository;
 
 
     private static final String API_URL = "api/v1/registrations/";
@@ -49,7 +53,7 @@ class RegistrationControllerIT extends AbstractTestContainer {
         // when - action or the behaviour that we are going test
         webTestClient
                 .post()
-                .uri(API_URL+"clients")
+                .uri(API_URL + "clients")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(clientRegistrationVM), ClientRegistrationVM.class)
@@ -58,6 +62,10 @@ class RegistrationControllerIT extends AbstractTestContainer {
 
 
         // then verify the output
+        assertThat(userRepository.findByUsernameWithAuthorities(clientRegistrationVM.getUsername()).isPresent())
+                .isTrue();
+
+
 
     }
 }
