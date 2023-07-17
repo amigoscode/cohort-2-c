@@ -41,7 +41,7 @@ public class RegistrationService {
     private final PasswordEncoder passwordEncoder;
 
 
-    public void clientRegistration(ClientRegistrationVM clientRegistrationVM) {
+    public void registration(ClientRegistrationVM clientRegistrationVM) {
         User user = createUser(clientRegistrationVM, AuthorityConstants.CLIENT, LookupCodes.UserType.client);
 
         DriverLicense driverLicense = DriverLicenseVM.vmToEntity(clientRegistrationVM.getDriverLicense());
@@ -59,7 +59,7 @@ public class RegistrationService {
 
     }
 
-    public void carProviderRegistration(CarProviderRegistrationVM carProviderRegistrationVM) {
+    public void registration(CarProviderRegistrationVM carProviderRegistrationVM) {
         User user = createUser(carProviderRegistrationVM, AuthorityConstants.CAR_PROVIDER, LookupCodes.UserType.carProvider);
 
         CarProvider carProvider = new CarProvider()
