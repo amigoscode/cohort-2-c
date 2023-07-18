@@ -2,12 +2,10 @@ package com.amigoscode.chohort2.carRental.registration;
 
 import com.amigoscode.chohort2.carRental.AbstractTestContainer;
 import com.amigoscode.chohort2.carRental.authority.AuthorityConstants;
-import com.amigoscode.chohort2.carRental.carProvider.CarProvider;
 import com.amigoscode.chohort2.carRental.carProvider.CarProviderRepository;
 import com.amigoscode.chohort2.carRental.carProvider.VM.CarProviderVM;
 import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUser;
 import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUserRepository;
-import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUser_;
 import com.amigoscode.chohort2.carRental.driverLicense.DriverLicense;
 import com.amigoscode.chohort2.carRental.driverLicense.DriverLicenseRepository;
 import com.amigoscode.chohort2.carRental.driverLicense.VM.DriverLicenseVM;
