@@ -27,6 +27,9 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.ArgumentMatchers.any;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+
 /**
  * This unit test doesn't extend {@link com.amigoscode.chohort2.carRental.AbstractTestContainer} because all data sources
  * are mocked;
@@ -52,6 +55,8 @@ class CarServiceTest{
 
     @InjectMocks
     private CarService underTest;
+
+    @Mock
     private CarVM passedVM;
     private CarDTO expectedResult;
 
@@ -120,6 +125,7 @@ class CarServiceTest{
 
         String resultException = assertThrows(ApiRequestException.class, ()-> underTest.addCar(passedVM)).getErrorKey();
         assertThat(resultException).isEqualTo(expectedExceptionKey);
+        verifyNoInteractions(carRepository);
     }
 
     @Test

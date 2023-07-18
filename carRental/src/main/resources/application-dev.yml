@@ -43,7 +43,7 @@ cors:
   exposed-headers: "*"
 
 aws:
-  region: us-east-2
+  sso-profile: "SANDBOX-DMITRI-ADMIN"
   s3:
     mock: true
     buckets:

@@ -1,6 +1,8 @@
 package com.amigoscode.chohort2.carRental.external.s3;
 
 
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import java.io.IOException;
 
 @Service
+//@AllArgsConstructor(onConstructor_ = {@Autowired})
 public class S3Service {
 
     private final S3Client s3;

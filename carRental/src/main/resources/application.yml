@@ -41,3 +41,13 @@ cors:
   allowed-methods: "*"
   allowed-headers: "*"
   exposed-headers: "*"
+
+aws:
+  sso-profile: "SANDBOX-DMITRI-ADMIN"
+  s3:
+    mock: true
+    buckets:
+      domain: rental-cars
+    car:
+      domain: cars
+      resize-magnitude: 10
