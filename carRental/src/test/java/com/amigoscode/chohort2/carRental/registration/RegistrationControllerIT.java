@@ -2,10 +2,13 @@ package com.amigoscode.chohort2.carRental.registration;
 
 import com.amigoscode.chohort2.carRental.AbstractTestContainer;
 import com.amigoscode.chohort2.carRental.authority.AuthorityConstants;
+import com.amigoscode.chohort2.carRental.carProvider.CarProvider;
 import com.amigoscode.chohort2.carRental.carProvider.CarProviderRepository;
 import com.amigoscode.chohort2.carRental.carProvider.VM.CarProviderVM;
 import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUser;
 import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUserRepository;
+import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUser_;
+import com.amigoscode.chohort2.carRental.driverLicense.DriverLicense;
 import com.amigoscode.chohort2.carRental.driverLicense.DriverLicenseRepository;
 import com.amigoscode.chohort2.carRental.driverLicense.VM.DriverLicenseVM;
 import com.amigoscode.chohort2.carRental.registration.VM.CarProviderRegistrationVM;
@@ -20,7 +23,6 @@ import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
 import java.util.Optional;
-import static org.assertj.core.api.Assertions.*;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -31,6 +33,7 @@ class RegistrationControllerIT extends AbstractTestContainer {
 
     @Autowired
     private RegistrationService registrationService;
+
 
     @Autowired
     private UserRepository userRepository;
@@ -43,13 +46,6 @@ class RegistrationControllerIT extends AbstractTestContainer {
 
     @Autowired
     private CarProviderUserRepository carProviderUserRepository;
-
-
-
-
-
-    @Autowired
-    private UserRepository userRepository;
 
 
     private static final String API_URL = "api/v1/registrations/";
@@ -87,14 +83,21 @@ class RegistrationControllerIT extends AbstractTestContainer {
 
 
         // then verify the output
-        assertThat(userRepository.findByUsernameWithAuthorities(clientRegistrationVM.getUsername()).isPresent())
-                .isTrue();
+        assertThat(userRepository.findByUsernameWithAuthorities(clientRegistrationVM.getUsername())).isPresent();
+        User user = userRepository.findByUsernameWithAuthorities(clientRegistrationVM.getUsername()).get();
+
+        assertThat(user.getAuthorities())
+                .anyMatch(a -> a.getName().equals(AuthorityConstants.CLIENT));
+
+        assertThat(user.getAuthorities())
+                .noneMatch(a -> a.getName().equals(AuthorityConstants.CAR_PROVIDER))
+                .noneMatch(a -> a.getName().equals(AuthorityConstants.ADMIN));
 
 
-        assertThat(userRepository.findByUsernameWithAuthorities(clientRegistrationVM.getUsername()).isPresent())
-                .isTrue();
+        assertThat(driverLicenseRepository.findByDriverLicenseNumber(driverLicenseVM.getDriverLicenseNumber())).isPresent();
+        DriverLicense driverLicense = driverLicenseRepository.findByDriverLicenseNumber(driverLicenseVM.getDriverLicenseNumber()).get();
 
-
+        assertThat(driverLicense.getUserId()).isEqualTo(user.getId());
 
     }
 
@@ -105,8 +108,8 @@ class RegistrationControllerIT extends AbstractTestContainer {
                 .setUsername("carProvider")
                 .setFirstName("esmaeeil")
                 .setLastName("enani")
-                .setEmail("carProvider@gmail.com")
-                .setNin("12345678988")
+                .setEmail("enani@gmail.com")
+                .setNin("123456789")
                 .setPassword("123456789");
 
         CarProviderVM carProviderVM = new CarProviderVM()
@@ -144,4 +147,6 @@ class RegistrationControllerIT extends AbstractTestContainer {
 
 
     }
+
+
 }
