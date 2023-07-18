@@ -11,7 +11,9 @@ import com.amigoscode.chohort2.carRental.driverLicense.DriverLicenseRepository;
 import com.amigoscode.chohort2.carRental.driverLicense.VM.DriverLicenseVM;
 import com.amigoscode.chohort2.carRental.registration.VM.CarProviderRegistrationVM;
 import com.amigoscode.chohort2.carRental.registration.VM.ClientRegistrationVM;
+
 import com.amigoscode.chohort2.carRental.user.User;
+
 import com.amigoscode.chohort2.carRental.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
+
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -33,6 +36,7 @@ class RegistrationControllerIT extends AbstractTestContainer {
     private RegistrationService registrationService;
 
 
+
     @Autowired
     private UserRepository userRepository;
 
@@ -44,6 +48,10 @@ class RegistrationControllerIT extends AbstractTestContainer {
 
     @Autowired
     private CarProviderUserRepository carProviderUserRepository;
+
+
+    @Autowired
+    private UserRepository userRepository;
 
 
     private static final String API_URL = "api/v1/registrations/";
@@ -81,6 +89,7 @@ class RegistrationControllerIT extends AbstractTestContainer {
 
 
         // then verify the output
+
         assertThat(userRepository.findByUsernameWithAuthorities(clientRegistrationVM.getUsername())).isPresent();
         User user = userRepository.findByUsernameWithAuthorities(clientRegistrationVM.getUsername()).get();
 
@@ -96,6 +105,10 @@ class RegistrationControllerIT extends AbstractTestContainer {
         DriverLicense driverLicense = driverLicenseRepository.findByDriverLicenseNumber(driverLicenseVM.getDriverLicenseNumber()).get();
 
         assertThat(driverLicense.getUserId()).isEqualTo(user.getId());
+
+        assertThat(userRepository.findByUsernameWithAuthorities(clientRegistrationVM.getUsername()).isPresent())
+                .isTrue();
+
 
     }
 
