@@ -1,6 +1,7 @@
 package com.amigoscode.chohort2.carRental;
 
 import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -13,7 +14,7 @@ import javax.sql.DataSource;
 
 @Testcontainers
 @ActiveProfiles("test")
-//@TestPropertySource(properties = "spring.datasource.url=jdbc:tc:postgresql:latest:///")
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public abstract class AbstractTestContainer {
 
     @Container

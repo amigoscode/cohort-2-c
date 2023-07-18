@@ -24,7 +24,7 @@ public class RegistrationController {
 
         log.info("user registration info {}", clientRegistrationVM);
 
-        registrationService.clientRegistration(clientRegistrationVM);
+        registrationService.registration(clientRegistrationVM);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -34,7 +34,7 @@ public class RegistrationController {
 
         log.info("car provider user registration info {}", carProviderRegistrationVM);
 
-        registrationService.carProviderRegistration(carProviderRegistrationVM);
+        registrationService.registration(carProviderRegistrationVM);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
