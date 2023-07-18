@@ -50,7 +50,7 @@ class RegistrationControllerIT extends AbstractTestContainer {
 
 
     @Test
-    void givenClientRegistration_whenSave_thenCreateNewUser() {
+    void givenClientRegistration_whenSave_thenCreateNewClient() {
         // given precondition or setup
         ClientRegistrationVM clientRegistrationVM = (ClientRegistrationVM) new ClientRegistrationVM()
                 .setUsername("esmaeeil")
