@@ -33,6 +33,13 @@ public abstract class ImageHandler<T, ID> {
     abstract protected S3Service getS3Service();
     abstract protected String getS3DomainName();
 
+    /**
+     * Upload an image to S3.
+     * @param domainId id of object to be saved
+     * @param domain object that an image to be saved belongs to
+     * @param file object to be saved;
+     * @throws RuntimeException
+     * */
     @Transactional
     public void uploadImage(ID domainId, T domain, MultipartFile file) {
 
@@ -52,12 +59,26 @@ public abstract class ImageHandler<T, ID> {
 
     }
 
+    /**
+     * Retrieve the image directly from S3 with the original resolution. Calling this method from public endpoint causes
+     * a lot amount of egress traffic and subsequent charges. Use with caution.
+     * @param domainId id of object to be saved
+     * @param domain object that an image to be saved belongs to
+     * */
+
     public byte[] getOriginalUnresizedImage(ID domainId, T domain) {
 
         return getImage(domainId, domain);
     }
 
 
+    /**
+     * Retrieve the image directly from S3 and resize it to save the egress traffic. The method is intended to be used
+     * as a fallback if S3 offloading and/or cloud delivery network (Cloudflare, AWS Cloudformation) fails or
+     * the triggered store-postprocessing hasn't finished by the time the image is requested.
+     * @param domainId id of object to be saved
+     * @param domain object that an image to be saved belongs to
+     * */
     public byte[] getOriginalResizedImage(ID domainId, T domain) {
         try {
             return resizeImage(getImage(domainId, domain), getS3Service().getCarResizeMagnitude());
@@ -68,6 +89,12 @@ public abstract class ImageHandler<T, ID> {
         }
     }
 
+    /**
+     * Resize image in the fastest way with no regard of quality and no additional dependencies to meet needs of fallback
+     * method.
+     * @param magnitude how much the image size is to be reduced.
+     * @param originalImage array of bytes that represent an image.
+     * */
     private byte[] resizeImage(byte[] originalImage, int magnitude) throws IOException {
         BufferedImage bufferedOriginalImage = ImageIO.read(new ByteArrayInputStream(originalImage));
         int targetHeight = bufferedOriginalImage.getHeight() / magnitude;
