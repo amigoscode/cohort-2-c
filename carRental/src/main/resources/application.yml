@@ -43,9 +43,8 @@ cors:
   exposed-headers: "*"
 
 aws:
-  sso-profile: "SANDBOX-DMITRI-ADMIN"
+  sso-profile: "SANDBOX-ADMIN"
   s3:
-    mock: true
     buckets:
       domain: rental-cars
     car:

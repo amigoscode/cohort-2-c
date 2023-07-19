@@ -17,7 +17,6 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import java.io.IOException;
 
 @Service
-//@AllArgsConstructor(onConstructor_ = {@Autowired})
 public class S3Service {
 
     private final S3Client s3;

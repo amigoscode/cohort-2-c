@@ -16,9 +16,6 @@ import software.amazon.awssdk.services.s3.S3Client;
 @EnableAsync
 public class S3Config {
 
-    @Value("${aws.s3.mock}")
-    private boolean mock;
-
     @Value("${aws.sso-profile}")
     private String ssoProfile;
     @Bean
@@ -40,9 +37,7 @@ public class S3Config {
 //    }
     @Bean
     public S3Client s3Client() {
-        if (false) {
-            return new S3Fake();
-        }
+
         return S3Client.builder()
                 .credentialsProvider(getSSOProvider())
                 .credentialsProvider(InstanceProfileCredentialsProvider.builder().build())

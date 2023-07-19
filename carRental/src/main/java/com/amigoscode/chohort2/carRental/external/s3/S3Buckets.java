@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-//@AllArgsConstructor(onConstructor_ = {@Autowired})
 public class S3Buckets {
 
     @Value("${aws.s3.buckets.domain}")

@@ -12,7 +12,7 @@ import software.amazon.awssdk.utils.builder.ToCopyableBuilder;
 
 import java.util.Optional;
 import java.util.function.Supplier;
-//@SdkPublicApi
+@SdkPublicApi
 public final class CustomCredentialsProvider implements AwsCredentialsProvider, SdkAutoCloseable,
         ToCopyableBuilder<CustomCredentialsProvider.Builder, CustomCredentialsProvider> {
 

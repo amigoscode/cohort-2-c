@@ -6,13 +6,14 @@ import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUserService;
 import com.amigoscode.chohort2.carRental.constants.ErrorConstants;
 import com.amigoscode.chohort2.carRental.exception.ApiRequestException;
 import com.amigoscode.chohort2.carRental.external.s3.S3Service;
-import com.amigoscode.chohort2.carRental.image.ImageHandler;
+import com.amigoscode.chohort2.carRental.image.ImageS3Handler;
+import com.amigoscode.chohort2.carRental.image.MultiMediaS3;
 import com.amigoscode.chohort2.carRental.lookupCode.LookupCodes;
-import com.amigoscode.chohort2.carRental.external.s3.S3Buckets;
 import com.amigoscode.chohort2.carRental.user.UserService;
 import com.amigoscode.chohort2.carRental.validation.Validator;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -23,12 +24,12 @@ import java.util.UUID;
 
 @TransactionalService
 @RequiredArgsConstructor
-public class CarService extends ImageHandler<Car, Long> {
+public class CarService implements MultiMediaS3<Car, Long> {
 
     private final CarRepository carRepository;
     private final CarProviderUserService carProviderUserService;
     private final UserService userService;
-    private final S3Buckets s3Buckets;
+    private final ImageS3Handler<Car, Long> imageS3Handler;
     private final S3Service s3Service;
 
 
@@ -97,21 +98,43 @@ public class CarService extends ImageHandler<Car, Long> {
                 .map(CarMapper.INSTANCE::toDto);
     }
 
-    public void uploadImage(Long carId, MultipartFile file) {
+    @Override
+    public Car uploadImage(Long carId, MultipartFile file) {
         Car car = getCarIfBelongsToCurrentProviderOrThrow(carId);
-        uploadImage(carId, car, file);
-        carRepository.save(car);
+        String carDomainName = getS3FileDomainName();
+        String url = imageS3Handler.uploadImage(carId, carDomainName, file);
+        car.setImgUrl(url);
+        return carRepository.save(car);
     }
 
-    public byte[] getOriginalUnresizedImage(Long carId) {
+    @Override
+    public String getS3FileDomainName() {
+        return s3Service.getCarDomain();
+    }
+
+    @Override
+    public String getImageUrlOrThrow(Car car) {
+        if (StringUtils.isBlank(car.getImgUrl())) {
+            throw new ApiRequestException(ErrorConstants.IMAGE_NOT_FOUND, "no image exists");
+        }
+        return null;
+    }
+
+    @Override
+    public byte[] getOriginalImage(Long carId) {
         Car car = getCarIfBelongsToCurrentProviderOrThrow(carId);
-        return getOriginalUnresizedImage(carId, car);
+        String url = getImageUrlOrThrow(car);
+        String carDomainName = getS3FileDomainName();
+        return imageS3Handler.getOriginalImage(carId, carDomainName, url);
     }
 
 
-    public byte[] getOriginalResizedImage(Long carId) {
+    @Override
+    public byte[] getResizedImage(Long carId) {
         Car car = carRepository.findById(carId).orElseThrow(() -> new ApiRequestException(ErrorConstants.CAR_NOT_FOUND));
-        return getOriginalResizedImage(carId, car);
+        String url = getImageUrlOrThrow(car);
+        String carDomainName = getS3FileDomainName();
+        return imageS3Handler.getResizedImage(carId,carDomainName,url);
     }
 
     public Car getCarIfBelongsToCurrentProviderOrThrow(Long id) {
@@ -123,28 +146,6 @@ public class CarService extends ImageHandler<Car, Long> {
 
         return car;
     }
-
-    @Override
-    protected void setImgUrl(Car car, String imgUrl) {
-        car.setImgUrl(imgUrl);
-    }
-
-    @Override
-    protected String getImgUrl(Car car) {
-        return car.getImgUrl();
-    }
-
-    @Override
-    protected S3Buckets getBuckets() {
-        return s3Buckets;
-    }
-
-    @Override
-    protected S3Service getS3Service() {
-        return s3Service;
-    }
-    @Override
-    protected String getS3DomainName(){ return s3Service.getCarDomain(); }
 
 
 }

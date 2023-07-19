@@ -76,7 +76,7 @@ public class CarController {
     @Secured({AuthorityConstants.CAR_PROVIDER})
     public byte[] getOriginalUnresizedCarImage(
             @PathVariable("carId") Long carId) {
-        return carService.getOriginalUnresizedImage(carId);
+        return carService.getOriginalImage(carId);
     }
 
     @GetMapping(
@@ -85,7 +85,7 @@ public class CarController {
     )
     public byte[] getOriginalCarImageFallBack(
             @PathVariable("carId") Long carId) {
-        return carService.getOriginalResizedImage(carId);
+        return carService.getResizedImage(carId);
     }
 
 }
