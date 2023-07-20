@@ -98,6 +98,10 @@ public class CarService implements ImageS3Handler<Car,Long> {
                 .map(CarMapper.INSTANCE::toDto);
     }
 
+    public CarDTO uploadImageAndGetDTO(Long carId, MultipartFile file) {
+        return CarMapper.INSTANCE.toDto(uploadImage(carId,file));
+    }
+
     @Override
     public Car uploadImage(Long carId, MultipartFile file) {
         Car car = getCarIfBelongsToCurrentProviderOrThrow(carId);
@@ -155,6 +159,7 @@ public class CarService implements ImageS3Handler<Car,Long> {
 
         return car;
     }
+
 
 
 }

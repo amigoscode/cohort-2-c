@@ -12,6 +12,7 @@ import software.amazon.awssdk.utils.builder.ToCopyableBuilder;
 
 import java.util.Optional;
 import java.util.function.Supplier;
+
 @SdkPublicApi
 public final class CustomCredentialsProvider implements AwsCredentialsProvider, SdkAutoCloseable,
         ToCopyableBuilder<CustomCredentialsProvider.Builder, CustomCredentialsProvider> {
@@ -55,7 +56,7 @@ public final class CustomCredentialsProvider implements AwsCredentialsProvider, 
         boolean reuseLastProviderEnabled = builder.reuseLastProviderEnabled;
 
         return LazyAwsCredentialsProvider.create(() -> {
-            AwsCredentialsProvider[] credentialsProviders = new AwsCredentialsProvider[] {
+            AwsCredentialsProvider[] credentialsProviders = new AwsCredentialsProvider[]{
                     SystemPropertyCredentialsProvider.create(),
                     EnvironmentVariableCredentialsProvider.create(),
                     WebIdentityTokenFileCredentialsProvider.create(),

@@ -28,11 +28,10 @@ public class S3Config {
 //    @Bean
 //    public AwsCredentialsProvider awsCredentialsProvider (){
 //
-//        return DefaultCredentialsProvider
-//                .builder()
-//                .asyncCredentialUpdateEnabled(false)
-//                .reuseLastProviderEnabled(true)
+//        return CustomCredentialsProvider.builder()
 //                .profileName(ssoProfile)
+//                .reuseLastProviderEnabled(true)
+//                .asyncCredentialUpdateEnabled(false)
 //                .build();
 //    }
     @Bean

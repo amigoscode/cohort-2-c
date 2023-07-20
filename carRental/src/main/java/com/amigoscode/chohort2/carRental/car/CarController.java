@@ -63,10 +63,11 @@ public class CarController {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
     )
     @Secured({AuthorityConstants.CAR_PROVIDER})
-    public void uploadCarImage(
+    public ResponseEntity<CarDTO> uploadCarImage(
             @PathVariable("carId") Long carId,
             @RequestParam("file") MultipartFile file) {
-        carService.uploadImage(carId, file);
+        return ResponseEntity.ok(carService.uploadImageAndGetDTO(carId, file));
+
     }
 
     @GetMapping(
