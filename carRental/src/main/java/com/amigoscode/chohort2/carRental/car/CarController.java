@@ -84,7 +84,7 @@ public class CarController {
             value = "{carId}/image-fallback",
             produces = MediaType.IMAGE_JPEG_VALUE
     )
-    public byte[] getOriginalCarImageFallBack(
+    public byte[] getCarImageFallBack(
             @PathVariable("carId") Long carId) {
         return carService.getResizedImage(carId);
     }
