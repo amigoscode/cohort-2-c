@@ -27,3 +27,12 @@ logging:
       amigoscode:
         chohort2:
           carRental: debug
+
+aws:
+  sso-profile: "SANDBOX-ADMIN"
+  s3:
+    buckets:
+      domain: rental-cars
+    car:
+      domain: cars
+      resize-magnitude: 10
