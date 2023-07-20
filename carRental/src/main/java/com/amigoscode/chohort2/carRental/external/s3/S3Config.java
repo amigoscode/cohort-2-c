@@ -1,9 +1,12 @@
 package com.amigoscode.chohort2.carRental.external.s3;
 
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableAsync;
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
@@ -35,6 +38,8 @@ public class S3Config {
 //                .build();
 //    }
     @Bean
+    @Profile({"dev"})
+    @Qualifier("s3Client")
     public S3Client s3Client() {
 
         return S3Client.builder()
@@ -42,6 +47,25 @@ public class S3Config {
                 .credentialsProvider(InstanceProfileCredentialsProvider.builder().build())
                 .build();
     }
+
+    @Bean
+    @Profile("test")
+    @Qualifier("s3Client")
+    public S3Client s3ClientMock (){
+        return new S3Client(){
+
+            @Override
+            public String serviceName() {
+                return "fake";
+            }
+
+            @Override
+            public void close() {
+
+            }
+        };
+    }
+
 
 
 
