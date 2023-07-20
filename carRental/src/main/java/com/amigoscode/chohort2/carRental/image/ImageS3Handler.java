@@ -1,10 +1,5 @@
 package com.amigoscode.chohort2.carRental.image;
 
-import com.amigoscode.chohort2.carRental.external.s3.S3Buckets;
-import com.amigoscode.chohort2.carRental.external.s3.S3Service;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,26 +10,10 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-@Service
-public class ImageS3Handler<T, ID> extends MultiMediaS3Handler<T, ID> {
+public interface ImageS3Handler<T,ID> extends MultiMediaS3Handler<ID> {
 
-    private final String MEDIA_TYPE;
-
-    public ImageS3Handler(@Autowired S3Service s3Service,
-                          @Autowired S3Buckets s3Buckets,
-                          @Value(value = "images") String mediaType) {
-        super(s3Service,s3Buckets);
-        this.MEDIA_TYPE = mediaType;
-
-    }
-
-
-    @Override
-    protected int getResizeMagnitude() {
-        return s3Service.getCarResizeMagnitude();
-    }
-
-    protected byte[] resizeFile(byte[] originalImage, int magnitude) throws IOException {
+    static String MEDIA_TYPE = "images";
+    default byte[] resizeFile(byte[] originalImage, int magnitude) throws IOException {
 
         BufferedImage bufferedOriginalImage = ImageIO.read(new ByteArrayInputStream(originalImage));
         int targetHeight = bufferedOriginalImage.getHeight() / magnitude;
@@ -49,21 +28,32 @@ public class ImageS3Handler<T, ID> extends MultiMediaS3Handler<T, ID> {
     }
 
     @Transactional
-    public String uploadImage(ID domainId, String S3DomainName, MultipartFile file) {
+    default String uploadImage(ID domainId, String S3DomainName, MultipartFile file) {
         return uploadFile(domainId, S3DomainName, file);
     }
 
     @Override
-    protected String getMEDIA_TYPE() {
+    default String getMEDIA_TYPE() {
         return this.MEDIA_TYPE;
     }
 
-    public byte[] getOriginalImage(ID domainId, String S3DomainName, String fileUrl) {
+    default byte[] getOriginalImage(ID domainId, String S3DomainName, String fileUrl) {
 
         return getOriginalUnresizedFile(domainId, S3DomainName, fileUrl);
     }
 
-    public byte[] getResizedImage(ID domainId, String S3DomainName, String fileUrl) {
+    default byte[] getResizedImage(ID domainId, String S3DomainName, String fileUrl) {
         return getResizedFile(domainId, S3DomainName, fileUrl);
     }
+
+    T uploadImage(ID domainId,MultipartFile file);
+
+    byte[] getOriginalImage(ID domainId);
+    byte[] getResizedImage(ID domainId);
+
+    String getS3FileDomainName();
+
+    String getImageUrlOrThrow(T domain);
+
+
 }
