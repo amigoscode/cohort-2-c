@@ -27,7 +27,7 @@ public class S3Service {
     private String carDomain;
 
 
-    public S3Service(S3Client s3) {
+    public S3Service(@Autowired S3Client s3) {
         this.s3 = s3;
     }
 
