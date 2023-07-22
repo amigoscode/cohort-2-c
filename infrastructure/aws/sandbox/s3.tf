@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "car_images_buckets" {
-  for_each      = var.resize_bucket_prefix
+  for_each      = toset(var.resize_bucket_prefix)
   bucket        = "${var.organization_name}${each.value}/cars"
   force_destroy = true
 }
