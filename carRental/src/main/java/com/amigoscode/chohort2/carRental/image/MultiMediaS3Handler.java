@@ -4,9 +4,11 @@ import com.amigoscode.chohort2.carRental.external.s3.S3Buckets;
 import com.amigoscode.chohort2.carRental.external.s3.S3Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.core.exception.SdkException;
 
 import java.io.IOException;
-import java.util.UUID;
+import java.util.*;
+import java.util.function.BiPredicate;
 
 /**
  * @param <ID> the type of domain's id
@@ -14,16 +16,121 @@ import java.util.UUID;
  * @since 0.0.1
  */
 public interface MultiMediaS3Handler<ID> {
+    String OBJECT_DELIMITER = "/";
+    String BUCKET_HYPHEN_DELIMITER = "-";
 
+    /**
+     * Check, whether given media type name is appropriate;
+     *
+     * @see BiPredicate
+     *
+     * */
+    BiPredicate<MediaType, List<String>> isDomain = (mediaType, possibleNames) -> {
+        String name = mediaType.getName();
+        return possibleNames.contains(name);
+    };
 
-    S3Buckets getBuckets();
+    List<String> getPossibleNames();
 
     S3Service getS3Service();
 
+    int getResizeMagnitude();
 
     String getMEDIA_TYPE();
 
+    S3Buckets getS3Bucket();
+
     byte[] resizeFile(byte[] originalImage, int magnitude) throws IOException;
+
+/**
+ * S3 Object first level business domain and its MediaType prefix:
+ * e.g.: /cars/images/
+ * */
+    class S3ObjectDomain {
+        private String name;
+        private List<MediaType> mediaType;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public List<MediaType> getMediaType() {
+            return mediaType;
+        }
+
+        public void setMediaType(List<MediaType> mediaType) {
+            this.mediaType = mediaType;
+        }
+    }
+    /**
+     * Type of Multi Media Object to store in S3. It might be videos, images etc.
+     *
+     * * */
+    class MediaType {
+        private String name;
+        private int resizeMagnitude;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getResizeMagnitude() {
+            return resizeMagnitude;
+        }
+
+        public void setResizeMagnitude(int resizeMagnitude) {
+            this.resizeMagnitude = resizeMagnitude;
+        }
+    }
+
+
+    static String resolveBucketNameWithHyphens(String... args) {
+        StringJoiner joiner = new StringJoiner(BUCKET_HYPHEN_DELIMITER);
+        return resolve(joiner, args);
+    }
+
+    static String resolveObjectName(String... args) {
+        StringJoiner joiner = new StringJoiner(OBJECT_DELIMITER);
+        return resolve(joiner, args);
+    }
+
+    static String generateId() {
+        return UUID.randomUUID().toString();
+    }
+
+    default MediaType resolveMultiMediaType(List<MediaType> types){
+        return types.stream()
+                .filter(type-> isDomain.test(type, getPossibleNames()))
+                .findFirst()
+                .orElseThrow(()->{
+                    StringJoiner joiner = new StringJoiner(",");
+                    getPossibleNames().forEach(joiner::add);
+                    return new RuntimeException("no multi media types %s found".formatted(joiner.toString()));
+                });
+    }
+
+    default String getFullBucketName() {
+        return resolveBucketNameWithHyphens(
+                getS3Bucket().getOrgName(),
+                getS3Bucket().getAccount(),
+                getS3Bucket().getOriginalSuffix());
+    }
+
+    default String getFullObjectName(String S3DomainName, ID domainId, String fileUrlOrId) {
+        return MultiMediaS3Handler.resolveObjectName(
+                S3DomainName,
+                getMEDIA_TYPE(),
+                domainId.toString(),
+                fileUrlOrId);
+    }
 
     /**
      * Upload a file to S3.
@@ -37,17 +144,17 @@ public interface MultiMediaS3Handler<ID> {
     @Transactional
     default String uploadFile(ID domainId, String S3DomainName, MultipartFile file) {
 
-        String domainFileId = UUID.randomUUID().toString();
+        String domainFileId = generateId();
         try {
             getS3Service().putObject(
-                    getBuckets().getDomain(),
-                    "%s/%s/%s/%s".formatted(getMEDIA_TYPE(), S3DomainName, domainId, domainFileId),
+                    getFullBucketName(),
+                    getFullObjectName(S3DomainName, domainId, domainFileId),
                     file.getBytes()
             );
-        } catch (IOException e) {
+        } catch (IOException | SdkException e) {
 
             //TODO: change exception type
-            throw new RuntimeException("failed to upload %S %S".formatted(S3DomainName, getMEDIA_TYPE()), e);
+            throw new RuntimeException("failed to upload %S to bucket %S".formatted(S3DomainName, getFullBucketName()), e);
         }
 
         return domainFileId;
@@ -65,7 +172,7 @@ public interface MultiMediaS3Handler<ID> {
 
     default byte[] getResizedFile(ID domainId, String S3DomainName, String fileUrl) {
         try {
-            return resizeFile(getFile(domainId, S3DomainName, fileUrl), getS3Service().getCarResizeMagnitude());
+            return resizeFile(getFile(domainId, S3DomainName, fileUrl), getResizeMagnitude());
 
             //TODO: change exception handling
         } catch (IOException e) {
@@ -87,10 +194,19 @@ public interface MultiMediaS3Handler<ID> {
         return getFile(domainId, S3DomainName, fileUrl);
     }
 
-    private byte[] getFile(ID domainId, String S3DomainName, String FileUrl) {
+    //TODO: add other s3 bucket validation
+    private static String resolve(StringJoiner joiner, String... args) {
+        Arrays.stream(args).forEach(joiner::add);
+        return joiner.toString().toLowerCase();
+    }
+
+    private byte[] getFile(ID domainId, String S3DomainName, String fileUrl) {
+        try {
         return getS3Service().getObject(
-                getBuckets().getDomain(),
-                "%s/%s/%s/%s".formatted(getMEDIA_TYPE(), S3DomainName, domainId, FileUrl)
-        );
+                getFullBucketName(),
+                resolveObjectName(S3DomainName, getMEDIA_TYPE(), domainId.toString(), fileUrl)); }
+        catch (SdkException e) {
+            throw new RuntimeException("failed to download %S from bucket %S".formatted(S3DomainName, getFullBucketName()), e);
+        }
     }
 }

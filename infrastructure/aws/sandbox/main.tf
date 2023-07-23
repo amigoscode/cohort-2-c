@@ -14,7 +14,8 @@ terraform {
   # to set backend fields dynamically. Another big issue is, that TF and TG don't understand profiles pointing to SSO
   # sessions in config files, that's why duplicate in profiles sso_start_url and sso_region fields just as in session.
   # Furthermore, should you have already initialized backend before introducing sso, use -reconfigure flag with terraform init
-  # command.
+  # command. Run command down below to acquire new session token, in case the old one's expired.
+  # aws sso login --profile SANDBOX-ADMIN
   ####################################################################################################################
 
   backend "s3" {

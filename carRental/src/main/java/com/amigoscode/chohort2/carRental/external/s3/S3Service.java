@@ -1,10 +1,7 @@
 package com.amigoscode.chohort2.carRental.external.s3;
 
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -21,17 +18,11 @@ public class S3Service {
 
     private final S3Client s3;
 
-    @Value("${aws.s3.car.resize-magnitude}")
-    private int carResizeMagnitude;
-    @Value("${aws.s3.car.domain}")
-    private String carDomain;
-
 
     public S3Service(@Autowired S3Client s3) {
         this.s3 = s3;
     }
 
-    @Async
     public void putObject(String bucketName, String key, byte[] file) {
         PutObjectRequest request = PutObjectRequest.builder()
                 .bucket(bucketName)
@@ -64,19 +55,5 @@ public class S3Service {
 
     }
 
-    public int getCarResizeMagnitude() {
-        return carResizeMagnitude;
-    }
 
-    public void setCarResizeMagnitude(int carResizeMagnitude) {
-        this.carResizeMagnitude = carResizeMagnitude;
-    }
-
-    public String getCarDomain() {
-        return carDomain;
-    }
-
-    public void setCarDomain(String carDomain) {
-        this.carDomain = carDomain;
-    }
 }

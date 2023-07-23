@@ -6,6 +6,7 @@ import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUserService;
 import com.amigoscode.chohort2.carRental.exception.ApiRequestException;
 import com.amigoscode.chohort2.carRental.external.s3.S3Buckets;
 import com.amigoscode.chohort2.carRental.external.s3.S3Service;
+import com.amigoscode.chohort2.carRental.image.MultiMediaS3Handler;
 import com.amigoscode.chohort2.carRental.lookupCode.LookupCodeDTO;
 import com.amigoscode.chohort2.carRental.user.User;
 import com.amigoscode.chohort2.carRental.user.UserService;
@@ -27,7 +28,6 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.ArgumentMatchers.any;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 
 /**
@@ -52,6 +52,10 @@ class CarServiceTest{
     private S3Buckets s3Buckets;
     @Mock
     private S3Service s3Service;
+    @Mock
+    private MultiMediaS3Handler.S3ObjectDomain s3ObjectDomain;
+
+    @Mock MultiMediaS3Handler.MediaType mediaType;
 
     @InjectMocks
     private CarService underTest;

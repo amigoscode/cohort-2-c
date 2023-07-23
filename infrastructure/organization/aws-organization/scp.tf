@@ -1,3 +1,7 @@
+##########
+## SCP don't grant permissions but only sets boundaries, hence you cannot attache to it a policy document
+## that has an Effect of type Allow if the root account has FullAWSAccess.
+######
 locals {
   org_units_ids_by_name = {
     for i in module.aws_org_ous.organizational_units :
@@ -19,7 +23,7 @@ resource "aws_organizations_policy" "scp_basic_sandbox" {
   name        = "BasicSandboxSCP"
   content     = data.aws_iam_policy_document.basic_sandbox_policies_doc.json
   type        = "SERVICE_CONTROL_POLICY"
-  description = "Allow only t2.micro EC2"
+  description = "Allow only t2.micro EC2 and allow get objects from S3 from anonymous identities"
 }
 
 resource "aws_organizations_policy_attachment" "sandbox_ou" {

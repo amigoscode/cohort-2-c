@@ -9,6 +9,10 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 /**
  * Specification of {@link com.amigoscode.chohort2.carRental.image.MultiMediaS3Handler} for handling images in S3 Bucket.
@@ -20,8 +24,6 @@ import java.io.IOException;
  */
 
 public interface ImageS3Handler<T, ID> extends MultiMediaS3Handler<ID> {
-
-    String MEDIA_TYPE = "images";
 
     default byte[] resizeFile(byte[] originalImage, int magnitude) throws IOException {
 
@@ -38,22 +40,30 @@ public interface ImageS3Handler<T, ID> extends MultiMediaS3Handler<ID> {
     }
 
     @Transactional
-    default String uploadImage(ID domainId, String S3DomainName, MultipartFile file) {
-        return uploadFile(domainId, S3DomainName, file);
+    default String uploadImage(ID domainId, S3ObjectDomain s3ObjectDomain, MultipartFile file) {
+        String s3DomainName = s3ObjectDomain.getName();
+        return uploadFile(domainId, s3DomainName, file);
     }
+
 
     @Override
     default String getMEDIA_TYPE() {
-        return this.MEDIA_TYPE;
+        return getImagesDomain().getName();
     }
 
-    default byte[] getOriginalImage(ID domainId, String S3DomainName, String fileUrl) {
-
-        return getOriginalUnresizedFile(domainId, S3DomainName, fileUrl);
+    @Override
+    default int getResizeMagnitude() {
+        return getImagesDomain().getResizeMagnitude();
     }
 
-    default byte[] getResizedImage(ID domainId, String S3DomainName, String fileUrl) {
-        return getResizedFile(domainId, S3DomainName, fileUrl);
+    default byte[] getOriginalImage(ID domainId, S3ObjectDomain s3ObjectDomain, String fileUrl) {
+        String s3DomainName = s3ObjectDomain.getName();
+        return getOriginalUnresizedFile(domainId, s3DomainName, fileUrl);
+    }
+
+    default byte[] getResizedImage(ID domainId, S3ObjectDomain s3ObjectDomain, String fileUrl) {
+        String s3DomainName = s3ObjectDomain.getName();
+        return getResizedFile(domainId, s3DomainName, fileUrl);
     }
 
     /**
@@ -88,13 +98,36 @@ public interface ImageS3Handler<T, ID> extends MultiMediaS3Handler<ID> {
     /**
      * get name of the domain to be saved. E.g. cars, users etc.
      */
-    String getS3FileDomainName();
+
+    S3ObjectDomain getS3FileDomain();
+
+    default S3ObjectDomain getS3FileDomain(String domainName) {
+        return getS3Bucket()
+                .getS3domains()
+                .stream()
+                .filter(domain -> domain.getName().equals(domainName))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("domain %s doesn't exist".formatted(domainName)));
+    }
+
+    default MediaType getImagesDomain(S3ObjectDomain fileDomain) {
+        return resolveMultiMediaType(
+                fileDomain.getMediaType());
+    }
+
+    default MediaType getImagesDomain() {
+        return getImagesDomain(getS3FileDomain());
+
+    }
 
     /**
      * get url or string representation of image id (e.g. from DB);
      */
 
     String getImageUrlOrThrow(T domain);
-
+    @Override
+    default List<String> getPossibleNames(){
+        return new ArrayList<>(Arrays.asList("images", "pictures", "pics"));
+    }
 
 }

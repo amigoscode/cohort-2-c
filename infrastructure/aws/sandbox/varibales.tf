@@ -43,5 +43,10 @@ variable "account_name" {
 
 variable "resize_bucket_prefix" {
   type    = list(any)
-  default = ["", "/browser", "/mobile"]
+  default = ["original", "browser", "mobile"]
+}
+
+variable "available_domains" {
+  type    = list(string)
+  default = ["images", "videos", "sounds"]
 }
