@@ -62,6 +62,14 @@ data "aws_iam_policy_document" "basic_images_policy" {
   }
 }
 
+resource "aws_s3_bucket_ownership_controls" "buckets_ownership_controls" {
+  for_each = aws_s3_bucket.multimedia_buckets
+  bucket = each.value.id
+  rule {
+    object_ownership = "BucketOwnerEnforced"
+  }
+}
+
 locals {
   available_domains_by_arns = {
     for i in aws_s3_bucket.multimedia_buckets : i.arn => flatten([

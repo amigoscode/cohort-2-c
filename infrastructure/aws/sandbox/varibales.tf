@@ -50,3 +50,8 @@ variable "available_domains" {
   type    = list(string)
   default = ["images", "videos", "sounds"]
 }
+
+variable "s3_multimedia_origin_id_prefix" {
+  type = string
+  default = "s3SandboxOrigin"
+}
