@@ -1,6 +1,9 @@
 package com.amigoscode.chohort2.carRental.registration;
 
 import com.amigoscode.chohort2.carRental.AbstractTestContainer;
+import com.amigoscode.chohort2.carRental.AbstractTestContainerWithDB;
+import com.amigoscode.chohort2.carRental.AbstractTestContainerWithS3;
+import com.amigoscode.chohort2.carRental.AbstractTestContainerWithS3AndDB;
 import com.amigoscode.chohort2.carRental.authority.AuthorityConstants;
 import com.amigoscode.chohort2.carRental.carProvider.CarProviderRepository;
 import com.amigoscode.chohort2.carRental.carProvider.VM.CarProviderVM;
@@ -23,7 +26,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 
-class RegistrationControllerIT extends AbstractTestContainer {
+class RegistrationControllerIT extends AbstractTestContainerWithS3AndDB {
 
     @Autowired
     private WebTestClient webTestClient;

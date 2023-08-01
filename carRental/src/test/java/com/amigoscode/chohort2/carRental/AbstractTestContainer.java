@@ -1,46 +1,34 @@
 package com.amigoscode.chohort2.carRental;
 
-import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.test.context.TestPropertySource;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.lifecycle.Startable;
+import org.testcontainers.lifecycle.Startables;
 
-import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
 
 @Testcontainers
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public abstract class AbstractTestContainer {
 
-    @Container
-    protected static final PostgreSQLContainer<?> postgreSQLContainer =
-            new PostgreSQLContainer<>("postgres:latest")
-                    .withDatabaseName("unit-test")
-                    .withUsername("root")
-                    .withPassword("123");
+    public AbstractTestContainer(Map<String, Supplier<Object>> sources, List<Startable> services) {
+        propertySources = sources;
+        Startables.deepStart(services).join();
+    }
+
+    private static Map<String, Supplier<Object>> propertySources = new HashMap<>();
 
     @DynamicPropertySource
-    private static void registerDataSourceProperties(DynamicPropertyRegistry registry){
-
-        registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
-        registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
-        registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
+    private static void registerDynamicSources(@NotNull DynamicPropertyRegistry registry) {
+        propertySources.forEach(registry::add);
     }
-
-    protected static DataSource getDataSource(){
-        return DataSourceBuilder
-                .create()
-                .driverClassName(postgreSQLContainer.getDriverClassName())
-                .url(postgreSQLContainer.getJdbcUrl())
-                .username(postgreSQLContainer.getUsername())
-                .password(postgreSQLContainer.getPassword())
-                .build();
-    }
-
 
 }
