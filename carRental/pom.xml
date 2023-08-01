@@ -155,9 +155,9 @@
 
                 <configuration>
                     <classesDirectory>${project.build.outputDirectory}</classesDirectory>
-<!--                    <includes>-->
-<!--                        <include>**/*IT.java</include>-->
-<!--                    </includes>-->
+                    <includes>
+                        <include>**/*IT.java</include>
+                    </includes>
                     <systemPropertyVariables>
                         <test.server.port>${tomcat.http.port}</test.server.port>
                     </systemPropertyVariables>
