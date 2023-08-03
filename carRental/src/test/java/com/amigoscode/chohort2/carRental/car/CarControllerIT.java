@@ -12,9 +12,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import java.io.IOException;
 import java.util.Arrays;
 
-//@RunWith(SpringRunner.class)
 @ActiveProfiles("test")
-
 public class CarControllerIT extends AbstractTestContainer {
 
     @Autowired

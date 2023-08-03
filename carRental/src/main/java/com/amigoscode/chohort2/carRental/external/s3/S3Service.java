@@ -12,6 +12,7 @@ import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
+import java.util.Map;
 
 @Service
 public class S3Service {
@@ -23,6 +24,15 @@ public class S3Service {
         this.s3 = s3;
     }
 
+    public void putObject(String bucketName, String key, byte[] file, Map<String, String> metadata) {
+        PutObjectRequest request = PutObjectRequest.builder()
+                .bucket(bucketName)
+                .key(key)
+                .metadata(metadata)
+                .build();
+        s3.putObject(request, RequestBody.fromBytes(file));
+    }
+
     public void putObject(String bucketName, String key, byte[] file) {
         PutObjectRequest request = PutObjectRequest.builder()
                 .bucket(bucketName)
@@ -30,7 +40,6 @@ public class S3Service {
                 .build();
         s3.putObject(request, RequestBody.fromBytes(file));
     }
-
     public void deleteObject (String bucketName, String key) {
         DeleteObjectRequest request = DeleteObjectRequest.builder()
                 .bucket(bucketName)
