@@ -5,10 +5,15 @@ import com.amigoscode.chohort2.carRental.external.s3.S3Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.exception.SdkException;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
 import java.util.*;
 import java.util.function.BiPredicate;
+
 
 /**
  * @param <ID> the type of domain's id
@@ -18,6 +23,7 @@ import java.util.function.BiPredicate;
 public interface MultiMediaS3Handler<ID> {
     String OBJECT_DELIMITER = "/";
     String BUCKET_HYPHEN_DELIMITER = "-";
+
 
     /**
      * Check, whether given media type name is appropriate;
@@ -32,6 +38,8 @@ public interface MultiMediaS3Handler<ID> {
 
     List<String> getPossibleNames();
 
+    List<String>getPossibleMimeTypes();
+
     S3Service getS3Service();
 
     int getResizeMagnitude();
@@ -41,6 +49,22 @@ public interface MultiMediaS3Handler<ID> {
     S3Buckets getS3Bucket();
 
     byte[] resizeFile(byte[] originalImage, int magnitude) throws IOException;
+
+    interface S3Service {
+        void putObject(String bucketName, String key, byte[] file, Map<String, String> metadata);
+        void deleteObject(String bucketName, String key);
+        byte[] getObject(String bucketName, String key);
+
+    }
+
+    interface S3Buckets {
+        String getOrgName();
+
+        String getOriginalSuffix();
+        String getAccount();
+        List<S3ObjectDomain> getS3domains();
+        String getBucketFullName();
+    }
 
 /**
  * S3 Object first level business domain and its MediaType prefix:
@@ -144,12 +168,23 @@ public interface MultiMediaS3Handler<ID> {
     @Transactional
     default String uploadFile(ID domainId, String S3DomainName, MultipartFile file) {
 
+        if (file==null || file.isEmpty()) {
+            throw new IllegalStateException("File to be uploaded is empty or not found!");
+        }
+        if (getPossibleMimeTypes().contains(file.getContentType())) {
+            throw new IllegalStateException("FIle uploaded is not an image");
+        }
         String domainFileId = generateId();
+        Map<String, String> metadata = new HashMap<>();
+        metadata.put("Content-Type", file.getContentType());
+        metadata.put("Content-Length", String.valueOf(file.getSize()));
+
         try {
             getS3Service().putObject(
                     getFullBucketName(),
                     getFullObjectName(S3DomainName, domainId, domainFileId),
-                    file.getBytes()
+                    file.getBytes(),
+                    metadata
             );
         } catch (IOException | SdkException e) {
 

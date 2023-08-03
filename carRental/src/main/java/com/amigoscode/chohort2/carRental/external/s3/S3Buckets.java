@@ -14,7 +14,7 @@ import java.util.List;
 
 @Configuration
 @ConfigurationProperties(prefix = "aws.s3.buckets")
-public class S3Buckets {
+public class S3Buckets implements MultiMediaS3Handler.S3Buckets {
 
     private List<MultiMediaS3Handler.S3ObjectDomain> s3ObjectDomains;
 
@@ -66,6 +66,7 @@ public class S3Buckets {
             getAccount(),
             getOriginalSuffix());
 
+    @Override
     public String getOrgName() {
         return orgName;
     }
@@ -82,6 +83,7 @@ public class S3Buckets {
         this.originalSuffix = originalSuffix;
     }
 
+    @Override
     public String getAccount() {
         return account;
     }
@@ -90,6 +92,7 @@ public class S3Buckets {
         this.account = account;
     }
 
+    @Override
     public List<MultiMediaS3Handler.S3ObjectDomain> getS3domains() {
         return s3ObjectDomains;
     }
@@ -97,7 +100,7 @@ public class S3Buckets {
     public void setS3domains(List<MultiMediaS3Handler.S3ObjectDomain> s3ObjectDomains) {
         this.s3ObjectDomains = s3ObjectDomains;
     }
-
+    @Override
     public String getBucketFullName() {
         return bucketFullName;
     }

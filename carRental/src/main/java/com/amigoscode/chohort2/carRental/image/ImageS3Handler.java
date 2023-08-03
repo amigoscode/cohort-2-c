@@ -1,6 +1,7 @@
 package com.amigoscode.chohort2.carRental.image;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -24,6 +25,18 @@ import java.util.List;
  */
 
 public interface ImageS3Handler<T, ID> extends MultiMediaS3Handler<ID> {
+
+    @Override
+    default List<String> getPossibleNames(){
+        return new ArrayList<>(Arrays.asList("images", "pictures", "pics"));
+    }
+
+    @Override
+    default List<String> getPossibleMimeTypes(){
+        return new ArrayList<>(Arrays.asList(
+                MimeTypeUtils.IMAGE_JPEG.getType(),
+                MimeTypeUtils.IMAGE_PNG.getType()));
+    }
 
     default byte[] resizeFile(byte[] originalImage, int magnitude) throws IOException {
 
@@ -125,9 +138,6 @@ public interface ImageS3Handler<T, ID> extends MultiMediaS3Handler<ID> {
      */
 
     String getImageUrlOrThrow(T domain);
-    @Override
-    default List<String> getPossibleNames(){
-        return new ArrayList<>(Arrays.asList("images", "pictures", "pics"));
-    }
+
 
 }

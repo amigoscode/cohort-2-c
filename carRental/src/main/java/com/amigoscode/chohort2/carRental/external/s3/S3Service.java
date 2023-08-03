@@ -1,6 +1,8 @@
 package com.amigoscode.chohort2.carRental.external.s3;
 
 
+import com.amigoscode.chohort2.carRental.image.ImageS3Handler;
+import com.amigoscode.chohort2.carRental.image.MultiMediaS3Handler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.core.ResponseInputStream;
@@ -12,15 +14,25 @@ import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
+import java.util.Map;
 
 @Service
-public class S3Service {
+public class S3Service implements MultiMediaS3Handler.S3Service {
 
     private final S3Client s3;
 
 
     public S3Service(@Autowired S3Client s3) {
         this.s3 = s3;
+    }
+
+    public void putObject(String bucketName, String key, byte[] file, Map<String, String> metadata) {
+        PutObjectRequest request = PutObjectRequest.builder()
+                .bucket(bucketName)
+                .key(key)
+                .metadata(metadata)
+                .build();
+        s3.putObject(request, RequestBody.fromBytes(file));
     }
 
     public void putObject(String bucketName, String key, byte[] file) {
@@ -30,7 +42,6 @@ public class S3Service {
                 .build();
         s3.putObject(request, RequestBody.fromBytes(file));
     }
-
     public void deleteObject (String bucketName, String key) {
         DeleteObjectRequest request = DeleteObjectRequest.builder()
                 .bucket(bucketName)
