@@ -26,6 +26,7 @@ public class S3Service implements MultiMediaS3Handler.S3Service {
         this.s3 = s3;
     }
 
+    @Override
     public void putObject(String bucketName, String key, byte[] file, Map<String, String> metadata) {
         PutObjectRequest request = PutObjectRequest.builder()
                 .bucket(bucketName)
@@ -42,6 +43,7 @@ public class S3Service implements MultiMediaS3Handler.S3Service {
                 .build();
         s3.putObject(request, RequestBody.fromBytes(file));
     }
+    @Override
     public void deleteObject (String bucketName, String key) {
         DeleteObjectRequest request = DeleteObjectRequest.builder()
                 .bucket(bucketName)
@@ -49,7 +51,7 @@ public class S3Service implements MultiMediaS3Handler.S3Service {
                 .build();
         s3.deleteObject(request);
     }
-
+    @Override
     public byte[] getObject(String bucketName, String key) {
         GetObjectRequest request = GetObjectRequest.builder()
                 .bucket(bucketName)
