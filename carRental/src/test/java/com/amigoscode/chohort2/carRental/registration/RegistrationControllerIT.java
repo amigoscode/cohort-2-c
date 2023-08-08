@@ -44,8 +44,6 @@ class RegistrationControllerIT extends AbstractTestContainer {
     private CarProviderUserRepository carProviderUserRepository;
 
 
-
-
     private static final String API_URL = "api/v1/registrations/";
 
 
@@ -83,7 +81,6 @@ class RegistrationControllerIT extends AbstractTestContainer {
         // then verify the output
         assertThat(userRepository.findByUsernameWithAuthorities(clientRegistrationVM.getUsername()).isPresent())
                 .isTrue();
-
 
 
     }
