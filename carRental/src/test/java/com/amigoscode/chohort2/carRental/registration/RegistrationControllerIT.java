@@ -23,7 +23,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
-@AutoConfigureWebTestClient(timeout = "10000")
+//@AutoConfigureWebTestClient(timeout = "10000")
 class RegistrationControllerIT extends AbstractTestContainer {
 
     @Autowired
