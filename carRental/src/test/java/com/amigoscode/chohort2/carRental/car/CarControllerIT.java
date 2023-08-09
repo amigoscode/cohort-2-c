@@ -125,7 +125,7 @@ public class CarControllerIT extends BaseIT {
                 .setBookingStatusCode(null)
                 .setPriceFrom(null)
                 .setPriceTo(null);
-
+// Check-check
         var response = webTestClient
                 .post()
                 .uri(BASE_URL+API_URL+"/search")
