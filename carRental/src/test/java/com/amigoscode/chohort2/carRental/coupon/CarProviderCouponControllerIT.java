@@ -1,6 +1,7 @@
 package com.amigoscode.chohort2.carRental.coupon;
 
 import com.amigoscode.chohort2.carRental.AbstractTestContainer;
+import com.amigoscode.chohort2.carRental.auth.LoginVM;
 import com.amigoscode.chohort2.carRental.carProvider.CarProvider;
 import com.amigoscode.chohort2.carRental.carProvider.VM.CarProviderVM;
 import com.amigoscode.chohort2.carRental.carProviderCoupon.*;
@@ -9,19 +10,13 @@ import com.amigoscode.chohort2.carRental.registration.VM.CarProviderRegistration
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static reactor.core.publisher.Mono.when;
 
 
 public class CarProviderCouponControllerIT extends AbstractTestContainer {
@@ -34,7 +29,12 @@ public class CarProviderCouponControllerIT extends AbstractTestContainer {
     private CarProviderCoupon carProviderCoupon;
     @Autowired
     private WebTestClient webTestClient;
-    private static final String API_URL = "api/v1/registrations/";
+    private static final String CAR_PROVIDER_REGISTRATION_URL = "api/v1/registrations/car-providers";
+    private static final String LOGIN_URL = "api/v1/auth/login";
+
+    private static String JWT = "";
+
+
 
 
     @BeforeEach
@@ -57,10 +57,7 @@ public class CarProviderCouponControllerIT extends AbstractTestContainer {
                 .setEndDate(LocalDate.of(2023, 12, 2))
                 .setNumOfUsePerUser(1)
                 .setIsAvailable(true);
-    }
 
-    @Test
-    public void shouldCreateCarProviderCoupon()  {
         // given precondition or setup
         CarProviderRegistrationVM carProviderRegistrationVM = (CarProviderRegistrationVM) new CarProviderRegistrationVM()
                 .setUsername("carProvider")
@@ -72,19 +69,58 @@ public class CarProviderCouponControllerIT extends AbstractTestContainer {
 
         CarProviderVM carProviderVM = new CarProviderVM()
                 .setName("car provider test")
-                .setCrNumber("123456789");
+                .setCrNumber("123456798");
 
         carProviderRegistrationVM.setCarProviderVM(carProviderVM);
 
-        // when - action or the behaviour that we are going test
+
         webTestClient
                 .post()
-                .uri(API_URL + "car-providers")
+                .uri(CAR_PROVIDER_REGISTRATION_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(carProviderRegistrationVM), CarProviderRegistrationVM.class)
                 .exchange()
                 .expectStatus().isCreated();
+
+
+        LoginVM loginVM = new LoginVM(carProviderRegistrationVM.getUsername(), carProviderRegistrationVM.getPassword());
+
+        JWT = webTestClient
+                .post()
+                .uri(LOGIN_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(Mono.just(loginVM), LoginVM.class)
+                .exchange()
+                .expectBody(new ParameterizedTypeReference<String>() {
+                })
+                .returnResult()
+                .getResponseBody();
+
+
+    }
+
+    @Test
+    public void shouldCreateCarProviderCoupon() {
+
+
+        // when - action or the behaviour that we are going test
+
+//        webTestClient
+//                .post()
+//                .uri(LOGIN_URL)
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .accept(MediaType.APPLICATION_JSON)
+//                .header(HttpHeaders.AUTHORIZATION,"Bearer "+JWT)
+//                .body(Mono.just(loginVM), LoginVM.class)
+//                .exchange()
+//                .expectBody(new ParameterizedTypeReference<String>() {
+//                })
+//                .returnResult()
+//                .getResponseBody();
+
+
 
 
     }
