@@ -20,6 +20,9 @@ public class ErrorConstants {
     public static final String NOT_VALID_LICENSE = String
             .format("%s%s", BASE_ERROR_KEY, "notValidLicense");
 
+    public static final String CAR_NOT_AVAILABLE = String
+            .format("%s%s", BASE_ERROR_KEY, "carNotAvailableForRent");
+
 
 
     //-----------Not found errors key---------------
