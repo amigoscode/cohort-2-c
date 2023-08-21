@@ -9,6 +9,8 @@ import com.amigoscode.chohort2.carRental.carProviderCoupon.VM.CarProviderCouponA
 import com.amigoscode.chohort2.carRental.carProviderCoupon.VM.CarProviderCouponVM;
 import com.amigoscode.chohort2.carRental.registration.RegistrationService;
 import com.amigoscode.chohort2.carRental.registration.VM.CarProviderRegistrationVM;
+import com.github.javafaker.Faker;
+import net.minidev.json.writer.FakeMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,7 @@ public class CarProviderCouponControllerIT extends AbstractTestContainer {
     private RegistrationService registrationService;
     private CarProviderCouponVM carProviderCouponVM;
     private CarProviderCouponAvailabilityVM updatedItem;
+    protected static final Faker FAKER = new Faker();
     private CarProviderRegistrationVM carProviderRegistrationVM;
     private static final String LOGIN_URL = "api/v1/auth/login";
 
@@ -54,12 +57,13 @@ public class CarProviderCouponControllerIT extends AbstractTestContainer {
                 .setIsAvailable(false);
 
         // given precondition or setup
+
         carProviderRegistrationVM = (CarProviderRegistrationVM) new CarProviderRegistrationVM()
-                .setUsername("thata23")
+                .setUsername(FAKER.name().username())
                 .setFirstName("thays")
                 .setLastName("vieira")
-                .setEmail("thr4rr@gmail.com")
-                .setNin("9876543213")
+                .setEmail(FAKER.internet().emailAddress())
+                .setNin(FAKER.number().digits(10))
                 .setPassword("234567890");
 
         CarProviderVM carProviderVM = new CarProviderVM()
