@@ -60,15 +60,15 @@ public class CarProviderCouponControllerIT extends AbstractTestContainer {
 
         carProviderRegistrationVM = (CarProviderRegistrationVM) new CarProviderRegistrationVM()
                 .setUsername(FAKER.name().username())
-                .setFirstName("thays")
-                .setLastName("vieira")
+                .setFirstName(FAKER.name().firstName())
+                .setLastName(FAKER.name().lastName())
                 .setEmail(FAKER.internet().emailAddress())
                 .setNin(FAKER.number().digits(10))
-                .setPassword("234567890");
+                .setPassword(FAKER.number().digits(10));
 
         CarProviderVM carProviderVM = new CarProviderVM()
                 .setName(FAKER.funnyName().name())
-                .setCrNumber("898989898");
+                .setCrNumber(FAKER.number().digits(9));
 
         carProviderRegistrationVM.setCarProviderVM(carProviderVM);
         registrationService.registration(carProviderRegistrationVM);
