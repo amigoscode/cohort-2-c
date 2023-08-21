@@ -67,7 +67,7 @@ public class CarProviderCouponControllerIT extends AbstractTestContainer {
                 .setPassword("234567890");
 
         CarProviderVM carProviderVM = new CarProviderVM()
-                .setName("car provider coupon test")
+                .setName(FAKER.funnyName().name())
                 .setCrNumber("898989898");
 
         carProviderRegistrationVM.setCarProviderVM(carProviderVM);
