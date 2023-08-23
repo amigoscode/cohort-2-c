@@ -6,6 +6,7 @@ import com.amigoscode.chohort2.carRental.carProviderCoupon.VM.CarProviderCouponV
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class CarProviderCouponController {
     public ResponseEntity<CarProviderCouponDTO> createCarProviderCoupon(@RequestBody CarProviderCouponVM carProviderCouponVM){
         log.info("car provider coupon info {}", carProviderCouponVM);
         CarProviderCouponDTO couponDTO = carProviderCouponService.save(carProviderCouponVM);
-        return ResponseEntity.accepted().body(couponDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(couponDTO);
     }
 
     @PutMapping("{couponId}")

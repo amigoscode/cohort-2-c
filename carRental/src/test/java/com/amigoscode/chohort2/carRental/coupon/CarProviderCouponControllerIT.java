@@ -22,6 +22,7 @@ import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
 import java.util.Optional;
+
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -40,14 +41,14 @@ public class CarProviderCouponControllerIT extends AbstractTestContainer {
     @Autowired
     private RegistrationService registrationService;
     @Autowired
-    private  CarProviderCouponService carProviderCouponService;
+    private CarProviderCouponService carProviderCouponService;
     private CarProviderCouponVM carProviderCouponVM;
     private CarProviderCouponAvailabilityVM updatedItem;
     protected static final Faker FAKER = new Faker();
     private CarProviderRegistrationVM carProviderRegistrationVM;
     private static final String LOGIN_URL = "api/v1/auth/login";
 
-    private static final String CAR_PROVIDER_COUPON_URL = "api/v1/car-provider-coupons/";
+    private static final String CAR_PROVIDER_COUPON_URL = "api/v1/car-provider-coupons";
 
     private static String JWT;
 
@@ -55,7 +56,7 @@ public class CarProviderCouponControllerIT extends AbstractTestContainer {
     @BeforeEach
     void tearUp() {
         carProviderCouponVM = new CarProviderCouponVM()
-                .setCouponCode("thayscr1000")
+                .setCouponCode(new Faker().name().title())
                 .setStartDate(LocalDate.of(2023, 11, 3))
                 .setEndDate(LocalDate.of(2023, 12, 2))
                 .setNumOfUsePerUser(1)
@@ -103,7 +104,7 @@ public class CarProviderCouponControllerIT extends AbstractTestContainer {
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + JWT)
                 .body(Mono.just(carProviderCouponVM), CarProviderCouponVM.class)
                 .exchange()
-                .expectStatus().isAccepted()
+                .expectStatus().isCreated()
                 .expectBody(new ParameterizedTypeReference<CarProviderCouponDTO>() {
                 })
                 .returnResult()
@@ -114,11 +115,25 @@ public class CarProviderCouponControllerIT extends AbstractTestContainer {
 
     @Test
     public void shouldUpdateCarProviderCouponAvailability() {
-        CarProviderCouponDTO couponDTO = carProviderCouponService.save(carProviderCouponVM);
 
-      CarProviderCouponDTO update=  webTestClient
+        CarProviderCouponDTO couponDTO = webTestClient
+                .post()
+                .uri(CAR_PROVIDER_COUPON_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + JWT)
+                .body(Mono.just(carProviderCouponVM), CarProviderCouponVM.class)
+                .exchange()
+                .expectStatus().isCreated()
+                .expectBody(new ParameterizedTypeReference<CarProviderCouponDTO>() {
+                })
+                .returnResult()
+                .getResponseBody();
+
+
+        CarProviderCouponDTO update = webTestClient
                 .put()
-                .uri(CAR_PROVIDER_COUPON_URL  +  couponDTO.getId())
+                .uri(CAR_PROVIDER_COUPON_URL + "/" + couponDTO.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + JWT)
