@@ -46,9 +46,8 @@ public class CarProviderCouponService {
     }
 
     public CarProviderCoupon getCarProviderCouponById(Long id) {
-        CarProviderCoupon carProviderCoupon = carProviderCouponRepository.findById(id)
+        return  carProviderCouponRepository.findById(id)
                 .orElseThrow(() -> new ApiRequestException("Coupon not found"));
-        return CarProviderCouponMapper.INSTANCE.toDto(carProviderCouponRepository.save(carProviderCoupon));
     }
   
     private Long getCarProvideId() {
