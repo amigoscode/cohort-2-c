@@ -19,18 +19,18 @@ public class CarProviderCouponController {
 
     @PostMapping
     @Secured({AuthorityConstants.CAR_PROVIDER})
-    public ResponseEntity<CarProviderCouponDTO> saveCarProviderCoupon( @RequestBody CarProviderCouponVM carProviderCouponVM){
+    public ResponseEntity<CarProviderCouponDTO> createCarProviderCoupon(@RequestBody CarProviderCouponVM carProviderCouponVM){
         log.info("car provider coupon info {}", carProviderCouponVM);
         CarProviderCouponDTO couponDTO = carProviderCouponService.save(carProviderCouponVM);
         return ResponseEntity.accepted().body(couponDTO);
     }
 
-    @PatchMapping("{couponId}")
+    @PutMapping("{couponId}")
     @Secured({AuthorityConstants.CAR_PROVIDER})
     public ResponseEntity<CarProviderCouponDTO> updateCarProviderCouponAvailability(@PathVariable("couponId") Long couponId,@RequestBody CarProviderCouponAvailabilityVM carProviderCouponAvailabilityVM){
         log.info("car provider coupon info {}", carProviderCouponAvailabilityVM);
         CarProviderCouponDTO availabilityCouponDTO = carProviderCouponService.updateCouponAvailability(couponId,carProviderCouponAvailabilityVM);
-        return ResponseEntity.accepted().body(availabilityCouponDTO);
+        return ResponseEntity.ok().body(availabilityCouponDTO);
     }
 
 

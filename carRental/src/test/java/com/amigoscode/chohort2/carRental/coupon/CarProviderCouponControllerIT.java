@@ -10,10 +10,10 @@ import com.amigoscode.chohort2.carRental.carProviderCoupon.VM.CarProviderCouponV
 import com.amigoscode.chohort2.carRental.registration.RegistrationService;
 import com.amigoscode.chohort2.carRental.registration.VM.CarProviderRegistrationVM;
 import com.github.javafaker.Faker;
-import net.minidev.json.writer.FakeMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -22,8 +22,13 @@ import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
 import java.util.Optional;
+import org.mockito.*;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 
 
 public class CarProviderCouponControllerIT extends AbstractTestContainer {
@@ -34,13 +39,15 @@ public class CarProviderCouponControllerIT extends AbstractTestContainer {
     private WebTestClient webTestClient;
     @Autowired
     private RegistrationService registrationService;
+    @Autowired
+    private  CarProviderCouponService carProviderCouponService;
     private CarProviderCouponVM carProviderCouponVM;
     private CarProviderCouponAvailabilityVM updatedItem;
     protected static final Faker FAKER = new Faker();
     private CarProviderRegistrationVM carProviderRegistrationVM;
     private static final String LOGIN_URL = "api/v1/auth/login";
 
-    private static final String CAR_PROVIDER_COUPON_URL = "api/v1/car-provider-coupons";
+    private static final String CAR_PROVIDER_COUPON_URL = "api/v1/car-provider-coupons/";
 
     private static String JWT;
 
@@ -64,7 +71,7 @@ public class CarProviderCouponControllerIT extends AbstractTestContainer {
                 .setLastName(FAKER.name().lastName())
                 .setEmail(FAKER.internet().emailAddress())
                 .setNin(FAKER.number().digits(10))
-                .setPassword(FAKER.number().digits(10));
+                .setPassword(FAKER.number().digits(8));
 
         CarProviderVM carProviderVM = new CarProviderVM()
                 .setName(FAKER.funnyName().name())
@@ -83,7 +90,6 @@ public class CarProviderCouponControllerIT extends AbstractTestContainer {
                 .expectBody(String.class)
                 .returnResult()
                 .getResponseBody();
-
     }
 
     @Test
@@ -108,31 +114,22 @@ public class CarProviderCouponControllerIT extends AbstractTestContainer {
 
     @Test
     public void shouldUpdateCarProviderCouponAvailability() {
-        CarProviderCoupon carProviderCoupon = new CarProviderCoupon()
-                .setId(1L)
-                .setCarProviderId(1L)
-                .setCouponCode(carProviderCouponVM.getCouponCode())
-                .setStartDate(carProviderCouponVM.getStartDate())
-                .setEndDate(carProviderCouponVM.getEndDate())
-                .setNumOfUsePerUser(carProviderCouponVM.getNumOfUsePerUser())
-                .setIsAvailable(carProviderCouponVM.getIsAvailable());
-        CarProviderCouponMapper.INSTANCE.toDto(carProviderCouponRepository.save(carProviderCoupon));
+        CarProviderCouponDTO couponDTO = carProviderCouponService.save(carProviderCouponVM);
 
-        webTestClient
-                .patch()
-                .uri(CAR_PROVIDER_COUPON_URL + "/" + "{couponId}", carProviderCoupon.getId())
+      CarProviderCouponDTO update=  webTestClient
+                .put()
+                .uri(CAR_PROVIDER_COUPON_URL  +  couponDTO.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + JWT)
                 .body(Mono.just(updatedItem), CarProviderCouponAvailabilityVM.class)
                 .exchange()
-                .expectStatus().isAccepted()
+                .expectStatus().isOk()
                 .expectBody(new ParameterizedTypeReference<CarProviderCouponDTO>() {
                 })
                 .returnResult()
                 .getResponseBody();
-        Optional<CarProviderCoupon>opt =carProviderCouponRepository.findById(carProviderCoupon.getId());
 
-        assertThat(opt.get().getIsAvailable()).isEqualTo(updatedItem.getIsAvailable());
+        assertThat(update.getIsAvailable()).isFalse();
     }
 }
