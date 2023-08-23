@@ -32,6 +32,7 @@ public class CarProviderCouponService {
         return CarProviderCouponMapper.INSTANCE.toDto(carProviderCouponRepository.save(carProviderCoupon));
     }
 
+
     public CarProviderCouponDTO updateCouponAvailability(Long id, CarProviderCouponAvailabilityVM carProviderCouponAvailabilityVM) {
         CarProviderCoupon carProviderCoupon = getCarProviderCouponById(id);
 
@@ -44,12 +45,12 @@ public class CarProviderCouponService {
         return CarProviderCouponMapper.INSTANCE.toDto(carProviderCouponRepository.save(carProviderCoupon));
     }
 
-    private CarProviderCoupon getCarProviderCouponById(Long id) {
+    public CarProviderCoupon getCarProviderCouponById(Long id) {
         CarProviderCoupon carProviderCoupon = carProviderCouponRepository.findById(id)
                 .orElseThrow(() -> new ApiRequestException("Coupon not found"));
-        return carProviderCoupon;
+        return CarProviderCouponMapper.INSTANCE.toDto(carProviderCouponRepository.save(carProviderCoupon));
     }
-
+  
     private Long getCarProvideId() {
         User user = userService.getLoggedInUser();
         CarProviderUser carProviderUser = carProviderUserService.findCarProviderUserByUserId(user.getId());

@@ -26,6 +26,7 @@ public class CarProviderCouponController {
         return ResponseEntity.status(HttpStatus.CREATED).body(couponDTO);
     }
 
+
     @PutMapping("{couponId}")
     @Secured({AuthorityConstants.CAR_PROVIDER})
     public ResponseEntity<CarProviderCouponDTO> updateCarProviderCouponAvailability(@PathVariable("couponId") Long couponId,@RequestBody CarProviderCouponAvailabilityVM carProviderCouponAvailabilityVM){
