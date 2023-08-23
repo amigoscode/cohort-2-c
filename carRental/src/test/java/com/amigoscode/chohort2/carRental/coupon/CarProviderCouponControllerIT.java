@@ -131,8 +131,8 @@ public class CarProviderCouponControllerIT extends AbstractTestContainer {
                 })
                 .returnResult()
                 .getResponseBody();
-        Optional<CarProviderCoupon>optionalCarProviderCoupon=carProviderCouponRepository.findById(carProviderCoupon.getCarProviderId());
+        Optional<CarProviderCoupon>opt =carProviderCouponRepository.findById(carProviderCoupon.getId());
 
-        assertThat(optionalCarProviderCoupon.get().getIsAvailable()).isEqualTo(updatedItem.getIsAvailable());
+        assertThat(opt.get().getIsAvailable()).isEqualTo(updatedItem.getIsAvailable());
     }
 }
