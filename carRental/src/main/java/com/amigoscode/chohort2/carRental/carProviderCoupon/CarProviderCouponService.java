@@ -8,6 +8,7 @@ import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUserService;
 import com.amigoscode.chohort2.carRental.exception.ApiRequestException;
 import com.amigoscode.chohort2.carRental.user.User;
 import com.amigoscode.chohort2.carRental.user.UserService;
+import com.amigoscode.chohort2.carRental.validation.Validator;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
@@ -31,20 +32,24 @@ public class CarProviderCouponService {
         return CarProviderCouponMapper.INSTANCE.toDto(carProviderCouponRepository.save(carProviderCoupon));
     }
 
-    public CarProviderCouponDTO updateCouponAvailability(Long id,CarProviderCouponAvailabilityVM carProviderCouponAvailabilityVM){
-          CarProviderCoupon carProviderCoupon = getCarProviderCouponById(id);
-          if(carProviderCoupon.getCarProviderId().equals(getCarProvideId())) {
-              carProviderCoupon.setIsAvailable(carProviderCouponAvailabilityVM.getIsAvailable());
-          }
+
+    public CarProviderCouponDTO updateCouponAvailability(Long id, CarProviderCouponAvailabilityVM carProviderCouponAvailabilityVM) {
+        CarProviderCoupon carProviderCoupon = getCarProviderCouponById(id);
+
+        Validator.invalidateIfTrue(() -> !carProviderCoupon.getCarProviderId().equals(getCarProvideId()),
+                "Coupon not belong to company");
+
+
+        carProviderCoupon.setIsAvailable(carProviderCouponAvailabilityVM.getIsAvailable());
+
         return CarProviderCouponMapper.INSTANCE.toDto(carProviderCouponRepository.save(carProviderCoupon));
     }
 
-    private CarProviderCoupon getCarProviderCouponById(Long id){
-        CarProviderCoupon carProviderCoupon = carProviderCouponRepository.findById(id)
-                .orElseThrow(()->new ApiRequestException("Coupon not found"));
-        return carProviderCoupon;
+    public CarProviderCoupon getCarProviderCouponById(Long id) {
+        return  carProviderCouponRepository.findById(id)
+                .orElseThrow(() -> new ApiRequestException("Coupon not found"));
     }
-
+  
     private Long getCarProvideId() {
         User user = userService.getLoggedInUser();
         CarProviderUser carProviderUser = carProviderUserService.findCarProviderUserByUserId(user.getId());
