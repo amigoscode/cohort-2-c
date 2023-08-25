@@ -12,6 +12,13 @@ dnp:
 	docker network prune
 mcp:
 	mvn clean package
+s3-ls:
+	AWS_PROFILE=LOCALSTACK
+	aws s3 ls ${AWS_LOCAL_PREFIX}
+s3-create:
+	AWS_PROFILE=LOCALSTACK
+	aws s3
+
 untrack-iml:
 	find ./ -name $(_EXTENSION) | xargs
 	find ./ -name $(_EXTENSION) -exec git rm --cache --dry-run {} | xargs printf $(_DANGER) "" \;
@@ -22,3 +29,4 @@ SUCCESS := '\033[0;32m'
 _DANGER := "\033[31m[%s]\033[0m %s\n"
 DANGER := '\033[0;31m'
 _EXTENSION := "*.iml"
+AWS_LOCAL_PREFIX='--endpoint-url=http://127.0.0.1:57333'

@@ -39,6 +39,8 @@ public class SecurityFilterChainConfig {
                                 .permitAll()
                                 .requestMatchers("/api/v1/registrations/**")
                                 .permitAll()
+                                .requestMatchers("/api/v1/cars/search")
+                                .permitAll()
                                 .anyRequest()
                                 .authenticated()
                         )

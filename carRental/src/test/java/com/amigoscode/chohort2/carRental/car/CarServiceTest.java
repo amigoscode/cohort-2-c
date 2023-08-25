@@ -1,10 +1,12 @@
 package com.amigoscode.chohort2.carRental.car;
 
-import com.amigoscode.chohort2.carRental.AbstractTestContainer;
 import com.amigoscode.chohort2.carRental.car.VM.CarVM;
 import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUser;
 import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUserService;
 import com.amigoscode.chohort2.carRental.exception.ApiRequestException;
+import com.amigoscode.chohort2.carRental.external.s3.S3Buckets;
+import com.amigoscode.chohort2.carRental.external.s3.S3Service;
+import com.amigoscode.chohort2.carRental.image.MultiMediaS3Handler;
 import com.amigoscode.chohort2.carRental.lookupCode.LookupCodeDTO;
 import com.amigoscode.chohort2.carRental.user.User;
 import com.amigoscode.chohort2.carRental.user.UserService;
@@ -26,6 +28,8 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.ArgumentMatchers.any;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verifyNoInteractions;
+
 /**
  * This unit test doesn't extend {@link com.amigoscode.chohort2.carRental.AbstractTestContainer} because all data sources
  * are mocked;
@@ -44,9 +48,19 @@ class CarServiceTest{
     private User user;
     @Mock
     CarProviderUser carProviderUser;
+    @Mock
+    private S3Buckets s3Buckets;
+    @Mock
+    private S3Service s3Service;
+    @Mock
+    private MultiMediaS3Handler.S3ObjectDomain s3ObjectDomain;
+
+    @Mock MultiMediaS3Handler.MediaType mediaType;
 
     @InjectMocks
     private CarService underTest;
+
+    @Mock
     private CarVM passedVM;
     private CarDTO expectedResult;
 
@@ -115,6 +129,7 @@ class CarServiceTest{
 
         String resultException = assertThrows(ApiRequestException.class, ()-> underTest.addCar(passedVM)).getErrorKey();
         assertThat(resultException).isEqualTo(expectedExceptionKey);
+        verifyNoInteractions(carRepository);
     }
 
     @Test

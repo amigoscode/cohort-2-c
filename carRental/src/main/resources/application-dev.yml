@@ -41,3 +41,28 @@ cors:
   allowed-methods: "*"
   allowed-headers: "*"
   exposed-headers: "*"
+
+aws:
+  sso-profile: "SANDBOX-ADMIN"
+  s3:
+    test_access_key_id: test
+    test_secret_access_key: test
+    test_region: us-east-2
+    test_endpoint: "http://localhost:4566"
+    buckets:
+      org-name: rental-cars
+      account: sandbox
+      original-prefix: original
+      s3domains:
+        - name: cars
+          media-type:
+            - name: images
+              resize-magnitude: 10
+            - name: videos
+              resize-magnitude: 2
+        - name: brands
+          media-type:
+            - name: images
+              resize-magnitude: 5
+            - name: videos
+              resize-magnitude: 3

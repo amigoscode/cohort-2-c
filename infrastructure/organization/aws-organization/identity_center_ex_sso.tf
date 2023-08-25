@@ -133,13 +133,3 @@ output "memberships" {
       "${record.group_id}.${record.user_name}" => record
   } }
 }
-
-locals {
-  account_ids = {
-    for i in module.aws_org_ous.accounts :
-    i.name => {
-      id   = i.id
-      name = i.name
-    }
-  }
-}

@@ -32,9 +32,31 @@ services:
       - car-db-network
     restart: unless-stopped
 
+  s3-bucket:
+    container_name: s3-bucket
+    image: localstack/localstack:latest
+    ports:
+      - "4510-4559:4510-4559"
+      - "4566:4566"
+    environment:
+      - SERVICES=s3
+      - DEBUG=1
+      - DEFAULT_REGION=us-east-2
+      - LOCALSTACK_HOST=localhost
+      - AWS_ACCESS_KEY_ID=test    # credentials "test" are required for making URL pre-signing work
+      - AWS_SECRET_ACCESS_KEY=test
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - localstack:/var/lib/localstack
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - aws-network
 networks:
   car-db-network:
+    driver: bridge
+  aws-network:
     driver: bridge
 
 volumes:
   postgres_data: {}
+  localstack: {}

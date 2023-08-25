@@ -11,4 +11,9 @@ import java.util.Optional;
 public interface UserRepository extends CRJpaRepository<User,Long> {
     @Query("select u from User u join FETCH u.authorities where u.username=:username")
     Optional<User> findByUsernameWithAuthorities(@Param("username") String username);
+
+    @Query("select u from User u join FETCH u.authorities where u.id=:id")
+    Optional<User>findByIdWithAuthorites(@Param("id") Long id);
+
+
 }

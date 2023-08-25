@@ -18,7 +18,6 @@ import org.hibernate.annotations.JoinFormula;
 import org.hibernate.annotations.Where;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.UUID;
 
 @Entity

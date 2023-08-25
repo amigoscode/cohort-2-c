@@ -14,6 +14,7 @@ import com.amigoscode.chohort2.carRental.user.User;
 import com.amigoscode.chohort2.carRental.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
@@ -22,7 +23,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
-
+//@AutoConfigureWebTestClient(timeout = "10000")
 class RegistrationControllerIT extends AbstractTestContainer {
 
     @Autowired

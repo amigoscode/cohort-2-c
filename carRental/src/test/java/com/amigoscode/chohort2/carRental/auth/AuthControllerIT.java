@@ -1,12 +1,14 @@
 package com.amigoscode.chohort2.carRental.auth;
 
 import com.amigoscode.chohort2.carRental.AbstractTestContainer;
+import com.amigoscode.chohort2.carRental.carProviderCoupon.VM.CarProviderCouponAvailabilityVM;
 import com.amigoscode.chohort2.carRental.driverLicense.VM.DriverLicenseVM;
 import com.amigoscode.chohort2.carRental.registration.RegistrationService;
 import com.amigoscode.chohort2.carRental.registration.VM.ClientRegistrationVM;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
@@ -58,7 +60,6 @@ class AuthControllerIT extends AbstractTestContainer {
                 .expectBody(String.class)
                 .returnResult()
                 .getResponseBody();
-
 
 
         // then verify the output

@@ -12,9 +12,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 
 @RestController
 @RequestMapping("api/v1/cars")
@@ -44,7 +47,7 @@ public class CarController {
     @PostMapping("/search")
     public ResponseEntity<Page<CarDTO>> searchCars(@RequestBody CarSearchVM carSearchVM, @PageableDefault Pageable pageable) {
         Specification<Car> carSpecification = carSearchVM instanceof CarSearchByProviderUserVM vm1
-                ? CarSearchSpecification.carSearch(vm1):  CarSearchSpecification.carSearch(carSearchVM) ;
+                ? CarSearchSpecification.carSearch(vm1) : CarSearchSpecification.carSearch(carSearchVM);
 
         return ResponseEntity.ok(carService.getSearchCars(carSpecification, pageable));
     }
@@ -54,4 +57,36 @@ public class CarController {
     public ResponseEntity<CarDTO> updateCar(@PathVariable Long carId, @RequestBody @Valid CarVM carVM) {
         return ResponseEntity.ok(carService.update(carId, carVM));
     }
+
+    @PostMapping(
+            value = "{carId}/image",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+    )
+    @Secured({AuthorityConstants.CAR_PROVIDER})
+    public ResponseEntity<Void> uploadCarImage(
+            @PathVariable("carId") Long carId,
+            @RequestParam("file") MultipartFile file) {
+        carService.uploadImage(carId,file);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping(
+            value = "{carId}/image",
+            produces = MediaType.IMAGE_JPEG_VALUE
+    )
+    @Secured({AuthorityConstants.CAR_PROVIDER})
+    public byte[] getOriginalUnresizedCarImage(
+            @PathVariable("carId") Long carId) {
+        return carService.getOriginalImage(carId);
+    }
+
+    @GetMapping(
+            value = "{carId}/image-fallback",
+            produces = MediaType.IMAGE_JPEG_VALUE
+    )
+    public byte[] getCarImageFallBack(
+            @PathVariable("carId") Long carId) {
+        return carService.getResizedImage(carId);
+    }
+
 }
