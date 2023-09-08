@@ -15,32 +15,33 @@ import javax.sql.DataSource;
 @Testcontainers
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource(properties = "spring.datasource.url=jdbc:tc:postgresql:latest:///integration-tests-db")
 public abstract class AbstractTestContainer {
 
-    @Container
-    protected static final PostgreSQLContainer<?> postgreSQLContainer =
-            new PostgreSQLContainer<>("postgres:latest")
-                    .withDatabaseName("unit-test")
-                    .withUsername("root")
-                    .withPassword("123");
-
-    @DynamicPropertySource
-    private static void registerDataSourceProperties(DynamicPropertyRegistry registry){
-
-        registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
-        registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
-        registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
-    }
-
-    protected static DataSource getDataSource(){
-        return DataSourceBuilder
-                .create()
-                .driverClassName(postgreSQLContainer.getDriverClassName())
-                .url(postgreSQLContainer.getJdbcUrl())
-                .username(postgreSQLContainer.getUsername())
-                .password(postgreSQLContainer.getPassword())
-                .build();
-    }
+//    @Container
+//    protected static final   PostgreSQLContainer<?> postgreSQLContainer =
+//            new PostgreSQLContainer<>("postgres:latest")
+//                    .withDatabaseName("unit-test")
+//                    .withUsername("root")
+//                    .withPassword("123");
+//
+//    @DynamicPropertySource
+//    private static void registerDataSourceProperties(DynamicPropertyRegistry registry){
+//
+//        registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
+//        registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
+//        registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
+//    }
+//
+//    protected static DataSource getDataSource(){
+//        return DataSourceBuilder
+//                .create()
+//                .driverClassName(postgreSQLContainer.getDriverClassName())
+//                .url(postgreSQLContainer.getJdbcUrl())
+//                .username(postgreSQLContainer.getUsername())
+//                .password(postgreSQLContainer.getPassword())
+//                .build();
+//    }
 
 
 }
