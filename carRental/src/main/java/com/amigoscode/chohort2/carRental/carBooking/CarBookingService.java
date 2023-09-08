@@ -4,6 +4,7 @@ import com.amigoscode.chohort2.carRental.annotation.TransactionalService;
 import com.amigoscode.chohort2.carRental.car.Car;
 import com.amigoscode.chohort2.carRental.car.CarService;
 import com.amigoscode.chohort2.carRental.carBooking.vm.UserBookingVM;
+import com.amigoscode.chohort2.carRental.carProviderCoupon.CarProviderCouponService;
 import com.amigoscode.chohort2.carRental.carUser.CarUser;
 import com.amigoscode.chohort2.carRental.carUser.CarUserService;
 import com.amigoscode.chohort2.carRental.constants.ErrorConstants;
@@ -24,9 +25,11 @@ public class CarBookingService {
     private final CarBookingRepository carBookingRepository;
     private final UserService userService;
 
-    private CarUserService carUserService;
+    private final CarUserService carUserService;
 
-    private CarService carService;
+    private final CarService carService;
+
+    private final CarProviderCouponService carProviderCouponService;
 
     public CarBookingDTO createUserBooking(UserBookingVM userBookingVM) {
         User loggedInUser = userService.getLoggedInUser();
@@ -37,6 +40,7 @@ public class CarBookingService {
                 ErrorConstants.CAR_NOT_AVAILABLE);
 
         //TODO: make sure the coupon Code is valid
+
 
         CarUser carUser = carUserService.createCarUserFromCar(car);
 

@@ -28,7 +28,8 @@ public class CarProviderCouponService {
                 .setStartDate(carProviderCouponVM.getStartDate())
                 .setEndDate(carProviderCouponVM.getEndDate())
                 .setNumOfUsePerUser(carProviderCouponVM.getNumOfUsePerUser())
-                .setIsAvailable(carProviderCouponVM.getIsAvailable());
+                .setIsAvailable(carProviderCouponVM.getIsAvailable())
+                .setDiscountPercentage(carProviderCouponVM.getDiscountPercentage());
         return CarProviderCouponMapper.INSTANCE.toDto(carProviderCouponRepository.save(carProviderCoupon));
     }
 

@@ -53,4 +53,13 @@
     </changeSet>
 
 
+    <changeSet id="202309081305-1-car-provider-coupon--discountPercentage" author="esmaeeil">
+        <addColumn tableName="car_provider_coupon">
+            <column name="discount_percentage" type="float">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+
 </databaseChangeLog>

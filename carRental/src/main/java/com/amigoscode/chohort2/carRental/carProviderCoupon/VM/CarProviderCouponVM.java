@@ -1,7 +1,9 @@
 package com.amigoscode.chohort2.carRental.carProviderCoupon.VM;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -27,5 +29,11 @@ public class CarProviderCouponVM implements Serializable {
     private Integer numOfUsePerUser;
     @NotEmpty
     private Boolean isAvailable = true;
+
+    @NotNull
+    @Min(0)
+    private Float discountPercentage;
+
+
 
 }
