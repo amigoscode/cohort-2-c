@@ -33,6 +33,7 @@ public interface LookupCodes {
         String KEY = "car_booking_status";
 
         Integer available = 1;
+        Integer unavailable = 3;
         Integer inUse = 2;
     }
 

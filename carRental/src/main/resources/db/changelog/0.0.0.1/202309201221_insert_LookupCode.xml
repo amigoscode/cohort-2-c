@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="202309201221-lookupCode-car_booking-status-1" author="ThaysVieira">
+        <insert tableName="lookup_code">
+            <column name="lookup_key" value="car_booking_status"/>
+            <column name="code" value="3"/>
+            <column name="name" value="unavailable"/>
+        </insert>
+
+    </changeSet>
+
+
+
+</databaseChangeLog>
