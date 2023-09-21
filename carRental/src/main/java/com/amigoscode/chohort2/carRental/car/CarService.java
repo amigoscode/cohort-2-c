@@ -3,6 +3,7 @@ package com.amigoscode.chohort2.carRental.car;
 import com.amigoscode.chohort2.carRental.annotation.TransactionalService;
 import com.amigoscode.chohort2.carRental.car.VM.CarVM;
 import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUserService;
+import com.amigoscode.chohort2.carRental.carUser.CarUser;
 import com.amigoscode.chohort2.carRental.constants.ErrorConstants;
 import com.amigoscode.chohort2.carRental.exception.ApiRequestException;
 import com.amigoscode.chohort2.carRental.lookupCode.LookupCodes;
@@ -45,8 +46,11 @@ public class CarService {
     }
 
     public CarDTO getCarById(Long id) {
+        return CarMapper.INSTANCE.toDto(findCarById(id));
+    }
+
+    public Car findCarById(Long id) {
         return carRepository.findById(id)
-                .map(CarMapper.INSTANCE::toDto)
                 .orElseThrow(() -> new ApiRequestException(ErrorConstants.CAR_NOT_FOUND));
     }
 
@@ -63,7 +67,7 @@ public class CarService {
 
     private Car updateCar(Long carId, CarVM carVM) {
         Long providerId = getCurrentCarProviderId();
-        Car car = carRepository.findById(carId).orElseThrow(() -> new ApiRequestException(ErrorConstants.CAR_NOT_FOUND));
+        Car car = findCarById(carId);
         Validator.invalidateIfFalse(() -> car.getCarProviderId().equals(providerId),
                 ErrorConstants.CAR_PROVIDER_USER,
                 "car doesn't belong to the provider");
@@ -89,5 +93,14 @@ public class CarService {
     public Page<CarDTO> getSearchCars(Specification<Car> carSearch, Pageable pageable) {
         return carRepository.findAll(carSearch, pageable)
                 .map(CarMapper.INSTANCE::toDto);
+    }
+
+    public Car updateCarBookingStatus(Car car,Integer bookingStatus){
+        car.setBookingStatusCode(bookingStatus);
+        return carRepository.save(car);
+    }
+
+    public void save(Car car) {
+        carRepository.save(car);
     }
 }

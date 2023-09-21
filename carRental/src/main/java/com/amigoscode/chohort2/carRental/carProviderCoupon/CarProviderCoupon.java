@@ -48,5 +48,8 @@ public class CarProviderCoupon extends AbstractAuditingEntity {
     @Column (name = "is_available", nullable = false)
     private Boolean isAvailable = true;
 
+    @Column (name = "discount_percentage", nullable = false)
+    private Float discountPercentage;
+
 
 }

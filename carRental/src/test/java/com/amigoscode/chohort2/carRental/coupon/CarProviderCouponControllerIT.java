@@ -60,7 +60,8 @@ public class CarProviderCouponControllerIT extends AbstractTestContainer {
                 .setStartDate(LocalDate.of(2023, 11, 3))
                 .setEndDate(LocalDate.of(2023, 12, 2))
                 .setNumOfUsePerUser(1)
-                .setIsAvailable(true);
+                .setIsAvailable(true)
+                .setDiscountPercentage(10F);
         updatedItem = new CarProviderCouponAvailabilityVM()
                 .setIsAvailable(false);
 

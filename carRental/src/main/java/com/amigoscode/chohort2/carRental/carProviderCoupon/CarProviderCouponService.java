@@ -11,8 +11,6 @@ import com.amigoscode.chohort2.carRental.user.UserService;
 import com.amigoscode.chohort2.carRental.validation.Validator;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Optional;
-
 
 @TransactionalService
 @RequiredArgsConstructor
@@ -28,7 +26,8 @@ public class CarProviderCouponService {
                 .setStartDate(carProviderCouponVM.getStartDate())
                 .setEndDate(carProviderCouponVM.getEndDate())
                 .setNumOfUsePerUser(carProviderCouponVM.getNumOfUsePerUser())
-                .setIsAvailable(carProviderCouponVM.getIsAvailable());
+                .setIsAvailable(carProviderCouponVM.getIsAvailable())
+                .setDiscountPercentage(carProviderCouponVM.getDiscountPercentage());
         return CarProviderCouponMapper.INSTANCE.toDto(carProviderCouponRepository.save(carProviderCoupon));
     }
 
@@ -54,5 +53,11 @@ public class CarProviderCouponService {
         User user = userService.getLoggedInUser();
         CarProviderUser carProviderUser = carProviderUserService.findCarProviderUserByUserId(user.getId());
         return carProviderUser.getCarProviderId();
+    }
+
+    public CarProviderCoupon findCouponByCode(String couponCode) {
+
+    return carProviderCouponRepository.findByCouponCode(couponCode)
+            .orElseThrow(() -> new ApiRequestException("Coupon not found"));
     }
 }

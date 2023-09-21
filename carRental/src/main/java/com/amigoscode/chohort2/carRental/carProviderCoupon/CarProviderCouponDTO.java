@@ -27,4 +27,6 @@ public class CarProviderCouponDTO implements Serializable {
     private LocalDate endDate;
     private Integer numOfUsePerUser;
     private Boolean isAvailable;
+
+    private Float discountPercentage;
 }
