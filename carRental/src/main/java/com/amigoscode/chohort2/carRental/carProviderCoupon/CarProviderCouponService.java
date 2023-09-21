@@ -11,8 +11,6 @@ import com.amigoscode.chohort2.carRental.user.UserService;
 import com.amigoscode.chohort2.carRental.validation.Validator;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Optional;
-
 
 @TransactionalService
 @RequiredArgsConstructor
@@ -55,5 +53,11 @@ public class CarProviderCouponService {
         User user = userService.getLoggedInUser();
         CarProviderUser carProviderUser = carProviderUserService.findCarProviderUserByUserId(user.getId());
         return carProviderUser.getCarProviderId();
+    }
+
+    public CarProviderCoupon findCouponByCode(String couponCode) {
+
+    return carProviderCouponRepository.findByCouponCode(couponCode)
+            .orElseThrow(() -> new ApiRequestException("Coupon not found"));
     }
 }
