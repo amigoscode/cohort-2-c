@@ -1,10 +1,12 @@
 package com.amigoscode.chohort2.carRental.car;
 
 import com.amigoscode.chohort2.carRental.annotation.TransactionalService;
+import com.amigoscode.chohort2.carRental.car.VM.CarStatusCodeVM;
 import com.amigoscode.chohort2.carRental.car.VM.CarVM;
 import com.amigoscode.chohort2.carRental.carProviderUser.CarProviderUserService;
 import com.amigoscode.chohort2.carRental.constants.ErrorConstants;
 import com.amigoscode.chohort2.carRental.exception.ApiRequestException;
+import com.amigoscode.chohort2.carRental.lookupCode.LookupCodeService;
 import com.amigoscode.chohort2.carRental.lookupCode.LookupCodes;
 import com.amigoscode.chohort2.carRental.user.UserService;
 import com.amigoscode.chohort2.carRental.validation.Validator;
@@ -24,6 +26,7 @@ public class CarService {
 
     private final CarProviderUserService carProviderUserService;
     private final UserService userService;
+    private final LookupCodeService lookupCodeService;
 
 
     public CarDTO addCar(CarVM carVM) {
@@ -42,6 +45,9 @@ public class CarService {
 
     public CarDTO update(Long carId, CarVM carVM) {
         return CarMapper.INSTANCE.toDto(updateCar(carId, carVM));
+    }
+    public CarDTO updateCarBookingStatusCode(Long carProviderId, CarStatusCodeVM carStatusCodeVM) {
+        return CarMapper.INSTANCE.toDto(updateBookingStatusCode(carProviderId, carStatusCodeVM));
     }
 
     public CarDTO getCarById(Long id) {
@@ -77,6 +83,27 @@ public class CarService {
                 .setIsVisible(car.getIsVisible());
 
         return carRepository.merge(carUpToDate);
+    }
+
+    private Car updateBookingStatusCode(Long carProviderId, CarStatusCodeVM carStatusCodeVM){
+        Car car = carRepository.findById(carProviderId).orElseThrow(() -> new ApiRequestException(ErrorConstants.CAR_NOT_FOUND));
+        validator(carStatusCodeVM, car);
+        car.setBookingStatusCode(carStatusCodeVM.getBookingStatusCode());
+        return carRepository.merge(car);
+    }
+
+    private void validator(CarStatusCodeVM carStatusCodeVM, Car car) {
+        Long providerId = getCurrentCarProviderId();
+        Validator.invalidateIfFalse(() -> car.getCarProviderId().equals(providerId),
+                ErrorConstants.CAR_PROVIDER_USER,
+                "car doesn't belong to the provider");
+        final var present = lookupCodeService.findAllLookupCodes().stream().anyMatch(code -> code.getCode()
+                .equals(carStatusCodeVM.getBookingStatusCode())
+        );
+        Validator.invalidateIfFalse(() ->
+                  present,
+                ErrorConstants.NOT_FOUND_LOOK_UP_CODE,
+                "car booking status doesn't exists");
     }
 
 

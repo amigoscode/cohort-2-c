@@ -19,6 +19,8 @@ public class ErrorConstants {
 
     public static final String NOT_VALID_LICENSE = String
             .format("%s%s", BASE_ERROR_KEY, "notValidLicense");
+    public static final String NOT_FOUND_LOOK_UP_CODE = String
+            .format("%s%s", BASE_ERROR_KEY, "notFoundLookUpCode");
 
 
 
